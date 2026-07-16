@@ -436,10 +436,10 @@
               {/* Desktop Menu links */}
               <nav className="hidden md:flex items-center gap-7">
                 {[
-                  { id: "visual", name: "Heartscript Visual Engine", icon: "sparkles" },
-                  { id: "links", name: "Smart Links", icon: "link-2" },
-                  { id: "passes", name: "Creator Passes", icon: "flame" },
-                  { id: "roster", name: "Community & Roster", icon: "music" }
+                  { id: "visual", name: "HeartVision", icon: "sparkles" },
+                  { id: "links", name: "HeartLinks", icon: "link-2" },
+                  { id: "passes", name: "HeartPass", icon: "flame" },
+                  { id: "roster", name: "The Pulse", icon: "music" }
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -492,10 +492,10 @@
             <div className="md:hidden bg-neutral-950 border-b border-neutral-900 z-30 transition-all">
               <div className="px-6 py-6 space-y-4 flex flex-col">
                 {[
-                  { id: "visual", name: "Heartscript Visual Engine", icon: "sparkles" },
-                  { id: "links", name: "Smart Links", icon: "link-2" },
-                  { id: "passes", name: "Creator Passes", icon: "flame" },
-                  { id: "roster", name: "Community & Roster", icon: "music" }
+                  { id: "visual", name: "HeartVision", icon: "sparkles" },
+                  { id: "links", name: "HeartLinks", icon: "link-2" },
+                  { id: "passes", name: "HeartPass", icon: "flame" },
+                  { id: "roster", name: "The Pulse", icon: "music" }
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -575,10 +575,10 @@
               </div>
 
               <div className="flex gap-6 font-mono text-[10px] tracking-widest uppercase">
-                <button onClick={() => handleNavigateSection("visual")} className="hover:text-rose-500 transition cursor-pointer">Visuals</button>
-                <button onClick={() => handleNavigateSection("links")} className="hover:text-rose-500 transition cursor-pointer">SmartLinks</button>
-                <button onClick={() => handleNavigateSection("passes")} className="hover:text-rose-500 transition cursor-pointer">Licenses</button>
-                <button onClick={() => handleNavigateSection("roster")} className="hover:text-rose-500 transition cursor-pointer">Comments</button>
+                <button onClick={() => handleNavigateSection("visual")} className="hover:text-rose-500 transition cursor-pointer">HeartVision</button>
+                <button onClick={() => handleNavigateSection("links")} className="hover:text-rose-500 transition cursor-pointer">HeartLinks</button>
+                <button onClick={() => handleNavigateSection("passes")} className="hover:text-rose-500 transition cursor-pointer">HeartPass</button>
+                <button onClick={() => handleNavigateSection("roster")} className="hover:text-rose-500 transition cursor-pointer">The Pulse</button>
               </div>
 
             </div>
@@ -643,7 +643,7 @@
                   id="cta-visual-engine-btn"
                   className="py-4 px-6 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition shadow-xl shadow-rose-950/30 cursor-pointer"
                 >
-                  <span>Launch Heartscript Visual Engine</span>
+                  <span>Launch HeartVision</span>
                   <LucideIcon name="arrow-right" className="w-4 h-4" />
                 </button>
                 <button
@@ -652,7 +652,7 @@
                   className="py-4 px-6 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 rounded-xl text-sm font-semibold tracking-wide flex items-center justify-center gap-2 transition cursor-pointer"
                 >
                   <LucideIcon name="radio" className="w-4 h-4 text-rose-500" />
-                  <span>Create HeartLink Hub</span>
+                  <span>Create HeartLinks Hub</span>
                 </button>
               </div>
 
@@ -725,6 +725,7 @@
         "Lost in the waves of a digital night\nYour signal is fading, but burning so bright\nThrough the static and screens I hear your call\nBut the wireframe skies are starting to fall"
       );
       const [selectedTheme, setSelectedTheme] = useState("crimson-ink");
+      const [visualizationCanvas, setVisualizationCanvas] = useState("static");
       const [generating, setGenerating] = useState(false);
       const [generationSteps, setGenerationSteps] = useState("");
       
@@ -990,9 +991,176 @@
             });
 
             ctx.save();
-            ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
-            ctx.shadowBlur = 40;
-            ctx.drawImage(img, artX, artY, artSize, artSize);
+            if (visualizationCanvas === "reel") {
+              // Draw cassette outer body (rounded rect)
+              const rectWidth = 560;
+              const rectHeight = 360;
+              const rectX = width / 2 - rectWidth / 2;
+              const rectY = 520;
+              
+              ctx.fillStyle = "#171717";
+              ctx.strokeStyle = "#262626";
+              ctx.lineWidth = 12;
+              ctx.beginPath();
+              if (ctx.roundRect) {
+                ctx.roundRect(rectX, rectY, rectWidth, rectHeight, 24);
+              } else {
+                ctx.rect(rectX, rectY, rectWidth, rectHeight);
+              }
+              ctx.fill();
+              ctx.stroke();
+              
+              // Draw Sticker Label
+              const labelWidth = 500;
+              const labelHeight = 180;
+              const labelX = width / 2 - labelWidth / 2;
+              const labelY = rectY + 30;
+              
+              ctx.fillStyle = "#262626";
+              ctx.beginPath();
+              if (ctx.roundRect) {
+                ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 12);
+              } else {
+                ctx.rect(labelX, labelY, labelWidth, labelHeight);
+              }
+              ctx.fill();
+              
+              // Draw artwork inside sticker label
+              ctx.save();
+              ctx.beginPath();
+              if (ctx.roundRect) {
+                ctx.roundRect(labelX + 20, labelY + 20, 140, 140, 8);
+              } else {
+                ctx.rect(labelX + 20, labelY + 20, 140, 140);
+              }
+              ctx.clip();
+              ctx.drawImage(img, labelX + 20, labelY + 20, 140, 140);
+              ctx.restore();
+              
+              // Sticker Text details
+              ctx.fillStyle = "#ffffff";
+              ctx.textAlign = "left";
+              ctx.font = "bold 32px sans-serif";
+              ctx.fillText(title.toUpperCase().slice(0, 18), labelX + 180, labelY + 70);
+              ctx.fillStyle = "#a3a3a3";
+              ctx.font = "bold 20px monospace";
+              ctx.fillText("HEARTSCRIPT C-60", labelX + 180, labelY + 115);
+              ctx.fillText("SIDE A", labelX + 180, labelY + 145);
+              
+              // Center Window for Reels
+              const winWidth = 320;
+              const winHeight = 90;
+              const winX = width / 2 - winWidth / 2;
+              const winY = rectY + 230;
+              
+              ctx.fillStyle = "#0a0a0a";
+              ctx.strokeStyle = "#404040";
+              ctx.lineWidth = 4;
+              ctx.beginPath();
+              if (ctx.roundRect) {
+                ctx.roundRect(winX, winY, winWidth, winHeight, 8);
+              } else {
+                ctx.rect(winX, winY, winWidth, winHeight);
+              }
+              ctx.fill();
+              ctx.stroke();
+              
+              // Draw the two reels
+              const drawReelWheel = (cX, cY) => {
+                ctx.save();
+                ctx.translate(cX, cY);
+                ctx.strokeStyle = "#525252";
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.arc(0, 0, 32, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                ctx.fillStyle = "#1c1c1c";
+                ctx.beginPath();
+                ctx.arc(0, 0, 15, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.strokeStyle = "#525252";
+                ctx.lineWidth = 4;
+                for (let d = 0; d < 360; d += 60) {
+                  const rad = (d * Math.PI) / 180;
+                  ctx.beginPath();
+                  ctx.moveTo(Math.cos(rad) * 15, Math.sin(rad) * 15);
+                  ctx.lineTo(Math.cos(rad) * 32, Math.sin(rad) * 32);
+                  ctx.stroke();
+                }
+                ctx.restore();
+              };
+              
+              drawReelWheel(width / 2 - 80, winY + winHeight / 2);
+              drawReelWheel(width / 2 + 80, winY + winHeight / 2);
+            } else if (visualizationCanvas === "spin") {
+              const vSize = 540;
+              const vX = width / 2;
+              const vY = 700;
+              
+              ctx.fillStyle = "#0a0a0a";
+              ctx.beginPath();
+              ctx.arc(vX, vY, vSize / 2, 0, Math.PI * 2);
+              ctx.fill();
+              
+              ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+              ctx.lineWidth = 2;
+              for (let r = 80; r < vSize / 2; r += 25) {
+                ctx.beginPath();
+                ctx.arc(vX, vY, r, 0, Math.PI * 2);
+                ctx.stroke();
+              }
+              
+              ctx.fillStyle = "#1e1e1e";
+              ctx.beginPath();
+              ctx.arc(vX, vY, 110, 0, Math.PI * 2);
+              ctx.fill();
+              
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(vX, vY, 100, 0, Math.PI * 2);
+              ctx.clip();
+              ctx.drawImage(img, vX - 100, vY - 100, 200, 200);
+              ctx.restore();
+              
+              ctx.fillStyle = "#000000";
+              ctx.strokeStyle = "#404040";
+              ctx.lineWidth = 4;
+              ctx.beginPath();
+              ctx.arc(vX, vY, 12, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.stroke();
+            } else if (visualizationCanvas === "pulse") {
+              const artSize = 480;
+              const artX = width / 2 - artSize / 2;
+              const artY = 460;
+              
+              ctx.strokeStyle = "rgba(244, 63, 94, 0.2)";
+              ctx.lineWidth = 4;
+              ctx.beginPath();
+              ctx.arc(width / 2, artY + artSize / 2, 360, 0, Math.PI * 2);
+              ctx.stroke();
+              
+              ctx.strokeStyle = "rgba(244, 63, 94, 0.15)";
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.arc(width / 2, artY + artSize / 2, 420, 0, Math.PI * 2);
+              ctx.stroke();
+              
+              ctx.fillStyle = "rgba(244, 63, 94, 0.4)";
+              ctx.font = "bold 32px sans-serif";
+              ctx.fillText("♥", width / 2 - 300, artY + 100);
+              ctx.fillText("♥", width / 2 + 300, artY + artSize - 100);
+              
+              ctx.shadowColor = "rgba(244, 63, 94, 0.3)";
+              ctx.shadowBlur = 45;
+              ctx.drawImage(img, artX, artY, artSize, artSize);
+            } else {
+              ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
+              ctx.shadowBlur = 40;
+              ctx.drawImage(img, artX, artY, artSize, artSize);
+            }
             ctx.restore();
             artworkDrawn = true;
           } catch (err) {
@@ -1046,7 +1214,7 @@
             <div>
               <h2 className="text-2xl font-display font-bold text-white flex items-center gap-2">
                 <LucideIcon name="sparkles" className="w-5 h-5 text-rose-500 animate-pulse" />
-                <span>Heartscript Visual Engine</span>
+                <span>HeartVision</span>
               </h2>
               <p className="text-xs text-neutral-400 mt-1">
                 Customize templates, layout dynamics, and lyrics synchronization offline.
@@ -1078,6 +1246,21 @@
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Visualization Canvas Dropdown */}
+            <div className="space-y-2">
+              <label className="text-xs font-mono uppercase tracking-wider text-neutral-450">Visualization Canvas</label>
+              <select
+                value={visualizationCanvas}
+                onChange={(e) => setVisualizationCanvas(e.target.value)}
+                className="w-full bg-black/45 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition font-semibold"
+              >
+                <option value="static">Default (Static Artwork)</option>
+                <option value="reel">The Reel (Animated Cassette)</option>
+                <option value="spin">The Spin (33 RPM Vinyl)</option>
+                <option value="pulse">The Pulse (Vector Pulsing Circles)</option>
+              </select>
             </div>
 
             {/* Title and lyrics inputs */}
@@ -1306,15 +1489,99 @@
                 </div>
 
                 {/* Cover Art reaction inside 9:16 mobile frame */}
-                <div className="flex justify-center items-center flex-grow py-4 relative z-10">
-                  <div 
-                    className={`w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border transition-transform duration-500 ${
-                      playing ? "scale-105 rotate-2" : "scale-100"
-                    }`}
-                    style={{ borderColor: suggestion?.suggestedAccentColor || "#ef4444" }}
-                  >
-                    <img src={artworkUrl} alt="Cover" className="w-full h-full object-cover" />
-                  </div>
+                <div className="flex justify-center items-center flex-grow py-4 relative z-10 w-full">
+                  {visualizationCanvas === "reel" ? (
+                    <div className="relative w-48 h-32 bg-neutral-900 border-2 border-neutral-800 rounded-xl p-2 flex flex-col justify-between shadow-2xl overflow-hidden">
+                      {/* Cassette faceplate */}
+                      <div className="absolute inset-1 bg-neutral-950 border border-neutral-800/50 rounded-lg flex flex-col justify-between p-1.5 z-0">
+                        {/* Label / Sticker */}
+                        <div className="relative w-full h-14 bg-neutral-800 rounded border border-neutral-700 overflow-hidden flex items-center p-1 gap-2 z-10">
+                          <img src={artworkUrl} alt="Cassette label" className="w-12 h-12 object-cover rounded border border-neutral-600 flex-shrink-0" referrerPolicy="no-referrer" />
+                          <div className="flex-grow min-w-0 text-left">
+                            <p className="text-[10px] font-bold text-white truncate leading-tight uppercase font-mono">{title || "Untitled"}</p>
+                            <p className="text-[8px] text-neutral-400 font-mono tracking-wider mt-0.5">HEARTSCRIPT</p>
+                          </div>
+                        </div>
+                        
+                        {/* Reels Window */}
+                        <div className="relative w-28 h-8 bg-neutral-900 border border-neutral-800 mx-auto rounded flex items-center justify-around z-10 p-1">
+                          <svg className={`w-6 h-6 text-neutral-600 fill-current ${playing ? "animate-spin" : ""}`} viewBox="0 0 100 100" style={{ animationDuration: "2.5s" }}>
+                            <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="2" fill="none" />
+                            {[0, 60, 120, 180, 240, 300].map(deg => (
+                              <line key={deg} x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="6" transform={`rotate(${deg} 50 50)`} />
+                            ))}
+                            <circle cx="50" cy="50" r="10" fill="#000" />
+                          </svg>
+                          <svg className={`w-6 h-6 text-neutral-600 fill-current ${playing ? "animate-spin" : ""}`} viewBox="0 0 100 100" style={{ animationDuration: "2.5s" }}>
+                            <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="2" fill="none" />
+                            {[0, 60, 120, 180, 240, 300].map(deg => (
+                              <line key={deg} x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="6" transform={`rotate(${deg} 50 50)`} />
+                            ))}
+                            <circle cx="50" cy="50" r="10" fill="#000" />
+                          </svg>
+                        </div>
+                        
+                        {/* Bottom base */}
+                        <div className="w-16 h-2 bg-neutral-800 mx-auto rounded-t border-t border-neutral-700/50 flex items-center justify-center gap-2">
+                          <div className="w-1 h-1 bg-neutral-950 rounded-full" />
+                          <div className="w-1 h-1 bg-neutral-950 rounded-full" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : visualizationCanvas === "spin" ? (
+                    <div className="relative w-44 h-44 flex items-center justify-center">
+                      <div 
+                        className={`w-44 h-44 rounded-full bg-neutral-950 border border-neutral-900 shadow-2xl relative flex items-center justify-center overflow-hidden ${
+                          playing ? "animate-spin" : ""
+                        }`}
+                        style={{ 
+                          animationDuration: "1.81s",
+                          backgroundImage: `radial-gradient(circle, #222 1px, transparent 1px), radial-gradient(circle, #050505 40%, #151515 45%, #0a0a0a 50%, #1c1c1c 55%, #080808 60%, #1a1a1a 65%, #050505 70%, #222 75%, #0a0a0a 100%)`,
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_20%,rgba(255,255,255,0.04)_25%,transparent_30%,transparent_70%,rgba(255,255,255,0.04)_75%,transparent_80%)] pointer-events-none rounded-full" />
+                        <div className="w-20 h-20 rounded-full bg-[#111] border border-neutral-850 overflow-hidden relative flex items-center justify-center shadow-lg">
+                          <img src={artworkUrl} alt="Vinyl label" className="w-full h-full object-cover rounded-full" referrerPolicy="no-referrer" />
+                          <div className="absolute w-3.5 h-3.5 bg-neutral-950 rounded-full border border-neutral-700 flex items-center justify-center">
+                            <div className="w-1 h-1 bg-neutral-900 rounded-full" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : visualizationCanvas === "pulse" ? (
+                    <div className="relative w-44 h-44 flex items-center justify-center">
+                      {playing && (
+                        <>
+                          <div className="absolute w-56 h-56 rounded-full border border-rose-500/10 animate-ping" style={{ animationDuration: "2s" }} />
+                          <div className="absolute w-48 h-48 rounded-full border border-rose-500/20 animate-ping" style={{ animationDuration: "3s" }} />
+                          <div className="absolute w-40 h-40 rounded-full border border-rose-500/30 animate-pulse" style={{ animationDuration: "1.5s" }} />
+                          <div className="absolute -top-4 -left-4 text-rose-500/40 animate-bounce" style={{ animationDuration: "2.4s" }}>
+                            <LucideIcon name="heart" className="w-4 h-4 fill-rose-500/20" />
+                          </div>
+                          <div className="absolute -bottom-4 -right-4 text-rose-500/35 animate-bounce" style={{ animationDuration: "1.8s" }}>
+                            <LucideIcon name="heart" className="w-3 h-3 fill-rose-500/15" />
+                          </div>
+                          <div className="absolute top-2 -right-6 text-rose-500/30 animate-pulse" style={{ animationDuration: "2.8s" }}>
+                            <LucideIcon name="heart" className="w-3.5 h-3.5 fill-rose-500/10" />
+                          </div>
+                        </>
+                      )}
+                      <div className="w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 relative z-10 bg-neutral-900" style={{ borderColor: suggestion?.suggestedAccentColor || "#ef4444" }}>
+                        <img src={artworkUrl} alt="Cover" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className={`w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border transition-transform duration-500 ${
+                        playing ? "scale-105 rotate-2" : "scale-100"
+                      }`}
+                      style={{ borderColor: suggestion?.suggestedAccentColor || "#ef4444" }}
+                    >
+                      <img src={artworkUrl} alt="Cover" className="w-full h-full object-cover" />
+                    </div>
+                  )}
                 </div>
 
                 {/* Dynamic synchronized lyric segment display */}
@@ -1400,6 +1667,108 @@
       const [selectedAnalyticsLink, setSelectedAnalyticsLink] = useState(null);
       const [copiedSlug, setCopiedSlug] = useState(null);
       const [suiteRightTab, setSuiteRightTab] = useState("preview"); // "preview" or "analytics"
+
+      // Odesli integration state
+      const [pasteUrl, setPasteUrl] = useState("");
+      const [fetchingOdesli, setFetchingOdesli] = useState(false);
+      const [odesliError, setOdesliError] = useState("");
+
+      const handleOdesliFetch = async () => {
+        if (!pasteUrl.trim()) return;
+        setFetchingOdesli(true);
+        setOdesliError("");
+        try {
+          const response = await fetch(`/api/odesli?url=${encodeURIComponent(pasteUrl.trim())}`);
+          if (!response.ok) {
+            throw new Error(`API responded with status code ${response.status}. Please enter details manually below.`);
+          }
+          
+          let data;
+          try {
+            data = await response.json();
+            // 1) Clear and explicit console log when Odesli responds
+            console.log("Odesli API responds:", data);
+          } catch (jsonErr) {
+            console.error("JSON parsing error on Odesli response:", jsonErr);
+            throw new Error("Odesli API returned an invalid response structure. You can enter details manually below.");
+          }
+
+          // 2) Safety verification and fallbacks if parsing fails inside the sandbox
+          if (!data || typeof data !== "object") {
+            throw new Error("Empty or invalid response from Odesli API. Please input your details manually below.");
+          }
+
+          let mainEntity = null;
+          try {
+            if (data.entityUniqueId && data.entitiesByUniqueId) {
+              mainEntity = data.entitiesByUniqueId[data.entityUniqueId];
+            }
+            if (!mainEntity && data.entitiesByUniqueId) {
+              mainEntity = Object.values(data.entitiesByUniqueId)[0];
+            }
+          } catch (parseEntityErr) {
+            console.error("Error safely parsing unique entities from Odesli:", parseEntityErr);
+          }
+          
+          if (!mainEntity) {
+            throw new Error("Could not auto-extract song details from this link. Feel free to type them manually below.");
+          }
+
+          // 3) Layout updates properly using react hooks when a valid response comes in
+          const fetchedTitle = mainEntity.title || "";
+          const fetchedArtist = mainEntity.artistName || "";
+          
+          setTitle(fetchedTitle);
+          setArtist(fetchedArtist);
+          
+          if (mainEntity.thumbnailUrl) {
+            setImageUrl(mainEntity.thumbnailUrl);
+          }
+          
+          const newLinks = {
+            spotify: "",
+            youtube: "",
+            appleMusic: "",
+            soundcloud: ""
+          };
+
+          try {
+            if (data.linksByPlatform) {
+              newLinks.spotify = data.linksByPlatform.spotify?.url || "";
+              newLinks.youtube = data.linksByPlatform.youtube?.url || data.linksByPlatform.youtubeMusic?.url || "";
+              newLinks.appleMusic = data.linksByPlatform.appleMusic?.url || data.linksByPlatform.itunes?.url || "";
+              newLinks.soundcloud = data.linksByPlatform.soundcloud?.url || "";
+            }
+          } catch (parseLinksErr) {
+            console.error("Error parsing platform links from Odesli:", parseLinksErr);
+          }
+          
+          // Keep user's pasted URL in correct slot if Odesli results do not include it
+          const lowerUrl = pasteUrl.toLowerCase();
+          if (lowerUrl.includes("spotify.com") && !newLinks.spotify) {
+            newLinks.spotify = pasteUrl.trim();
+          } else if ((lowerUrl.includes("youtube.com") || lowerUrl.includes("youtu.be")) && !newLinks.youtube) {
+            newLinks.youtube = pasteUrl.trim();
+          } else if (lowerUrl.includes("apple.com") && !newLinks.appleMusic) {
+            newLinks.appleMusic = pasteUrl.trim();
+          } else if (lowerUrl.includes("soundcloud.com") && !newLinks.soundcloud) {
+            newLinks.soundcloud = pasteUrl.trim();
+          }
+
+          setLinks(newLinks);
+          
+          if (fetchedTitle && fetchedArtist) {
+            setDescription(`Listen to '${fetchedTitle}' by ${fetchedArtist} on your preferred streaming platform.`);
+          } else {
+            setDescription("Listen to our new digital release out now on all major streaming platforms.");
+          }
+        } catch (err) {
+          console.error("Odesli Fetch Error:", err);
+          setOdesliError(err instanceof Error ? err.message : "Failed to fetch from Odesli API. Feel free to type details manually below.");
+        } finally {
+          setFetchingOdesli(false);
+        }
+      };
 
       // Auto generator for slug from title as they type
       useEffect(() => {
@@ -1562,9 +1931,50 @@
             <div>
               <h2 className="text-2xl font-display font-bold text-white flex items-center gap-2">
                 <LucideIcon name="link-2" className="w-5 h-5 text-rose-500" />
-                <span>Smart Fan-Routing Hubs</span>
+                <span>HeartLinks</span>
               </h2>
-              <p className="text-xs text-neutral-400 mt-1">Input song credentials manually to instantly formulate action streaming buttons and iframe players.</p>
+              <p className="text-xs text-neutral-400 mt-1">Generate a streaming hub and embedded players automatically via the public Odesli API, or fill details manually.</p>
+            </div>
+
+            {/* Odesli Search/Fetch Block */}
+            <div className="bg-black/35 border border-neutral-850 p-5 rounded-2xl space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 block font-bold">🚀 Supercharge with Odesli (Songlink) API</span>
+              <p className="text-[11px] text-neutral-400 leading-relaxed">
+                Paste any streaming link (Spotify, YouTube, Apple Music, SoundCloud) below. The public Odesli engine will fetch all matching platforms, cover art, and titles in real-time.
+              </p>
+              
+              <div className="flex gap-2">
+                <div className="relative flex-grow">
+                  <LucideIcon name="link-2" className="absolute left-4 top-3.5 w-4 h-4 text-neutral-500" />
+                  <input
+                    type="text"
+                    value={pasteUrl}
+                    onChange={(e) => setPasteUrl(e.target.value)}
+                    className="w-full bg-black/45 border border-neutral-800 focus:border-rose-500 rounded-xl pl-11 pr-4 py-3 text-xs text-white focus:outline-none transition font-mono"
+                    placeholder="https://open.spotify.com/track/..."
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleOdesliFetch}
+                  disabled={fetchingOdesli || !pasteUrl.trim()}
+                  className="px-5 bg-rose-600 hover:bg-rose-500 disabled:bg-neutral-850 disabled:text-neutral-500 text-white rounded-xl text-xs font-semibold flex items-center gap-2 transition cursor-pointer"
+                >
+                  {fetchingOdesli ? (
+                    <LucideIcon name="refresh-cw" className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <LucideIcon name="sparkles" className="w-4 h-4" />
+                  )}
+                  <span>{fetchingOdesli ? "Fetching..." : "Fetch"}</span>
+                </button>
+              </div>
+
+              {odesliError && (
+                <div className="text-[10px] text-red-450 font-mono flex items-center gap-1.5 bg-red-950/20 border border-red-900/30 p-2.5 rounded-xl">
+                  <LucideIcon name="alert-triangle" className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  <span>{odesliError}</span>
+                </div>
+              )}
             </div>
 
             {/* Details layout forms */}
@@ -2174,7 +2584,7 @@
         <div className="max-w-7xl mx-auto px-6 py-8 space-y-12 relative z-10">
           
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-display font-extrabold text-white tracking-tight">Creator Licenses & Passes</h2>
+            <h2 className="text-3xl font-display font-extrabold text-white tracking-tight">HeartPass</h2>
             <p className="text-sm text-neutral-400 mt-2">Activate custom landing page styles and real-time dashboard stats tracking.</p>
           </div>
 
@@ -2507,7 +2917,7 @@
                   <textarea rows={2} value={notes} onChange={e => setNotes(e.target.value)} className="w-full bg-black/40 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white" />
                 </div>
 
-                {formSuccess && <p className="text-xs text-emerald-400">Added to local session roster! Redirecting...</p>}
+                {formSuccess && <p className="text-xs text-emerald-400">Added to The Pulse! Redirecting...</p>}
 
                 <button type="submit" className="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold rounded-xl uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer">
                   <LucideIcon name="send" className="w-4 h-4" />
@@ -2519,8 +2929,8 @@
             {/* Roster list */}
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">Roster Streamers</span>
-                <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-1.5 text-xs text-white" placeholder="Search roster..." />
+                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">The Pulse Feed</span>
+                <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-1.5 text-xs text-white" placeholder="Search the pulse..." />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
