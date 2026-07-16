@@ -133,6 +133,39 @@
       return <i data-lucide={name} className={className}></i>;
     }
 
+    // Standard platform url embed parsers
+    const getEmbedUrl = (url) => {
+      if (!url) return "";
+      const clean = url.trim();
+
+      if (clean.includes("spotify.com")) {
+        if (clean.includes("/embed")) return clean;
+        return clean.replace("open.spotify.com/", "open.spotify.com/embed/");
+      }
+      if (clean.includes("youtube.com") || clean.includes("youtu.be")) {
+        if (clean.includes("/embed")) return clean;
+        let vidId = "";
+        if (clean.includes("v=")) vidId = clean.split("v=")[1]?.split(/[&?]/)[0];
+        else if (clean.includes("youtu.be/")) vidId = clean.split("youtu.be/")[1]?.split(/[?]/)[0];
+        return vidId ? `https://www.youtube.com/embed/${vidId}` : clean;
+      }
+      if (clean.includes("soundcloud.com")) {
+        if (clean.includes("w.soundcloud.com")) return clean;
+        return `https://w.soundcloud.com/player/?url=${encodeURIComponent(clean)}&color=%23f43f5e&auto_play=false`;
+      }
+      return clean;
+    };
+
+    const getPlatformKey = (url) => {
+      if (!url) return null;
+      const lower = url.toLowerCase();
+      if (lower.includes("spotify.com")) return "spotify";
+      if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "youtube";
+      if (lower.includes("soundcloud.com")) return "soundcloud";
+      if (lower.includes("apple.com")) return "appleMusic";
+      return "generic";
+    };
+
     // ==========================================
     // INITIAL MOCK DATABASES FOR SERVERLESS PERSISTENCE
     // ==========================================
@@ -1347,15 +1380,13 @@
     // HEARTLINKS SUITE (SMART FAN ROUTING)
     // ==========================================
     function HeartLinksSuite({ heartLinks, setHeartLinks, onNavigateToSlug }) {
-      const [pasteUrl, setPasteUrl] = useState("");
-      const [scraping, setScraping] = useState(false);
       const [publishSuccess, setPublishSuccess] = useState(null);
 
       // Core custom forms
-      const [slug, setSlug] = useState("");
       const [title, setTitle] = useState("");
       const [artist, setArtist] = useState("");
-      const [imageUrl, setImageUrl] = useState("https://images.unsplash.com/photo-1470225620780-dba8ba36b745");
+      const [slug, setSlug] = useState("");
+      const [imageUrl, setImageUrl] = useState("https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600");
       const [description, setDescription] = useState("");
       const [theme, setTheme] = useState("crimson-ink");
 
@@ -1368,37 +1399,26 @@
 
       const [selectedAnalyticsLink, setSelectedAnalyticsLink] = useState(null);
       const [copiedSlug, setCopiedSlug] = useState(null);
+      const [suiteRightTab, setSuiteRightTab] = useState("preview"); // "preview" or "analytics"
+
+      // Auto generator for slug from title as they type
+      useEffect(() => {
+        if (title) {
+          const autoSlug = title.toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
+          setSlug(autoSlug);
+        } else {
+          setSlug("");
+        }
+      }, [title]);
 
       useEffect(() => {
         if (heartLinks.length > 0 && !selectedAnalyticsLink) {
           setSelectedAnalyticsLink(heartLinks[0]);
         }
       }, [heartLinks]);
-
-      // Scrape track pre-filling logic
-      const handleScrapeLink = () => {
-        if (!pasteUrl.trim()) return;
-        setScraping(true);
-        setTimeout(() => {
-          setScraping(false);
-          const mockTitle = "Midnight Echoes";
-          const mockArtist = "The Neon Cadet";
-          const mockSlug = "midnight-echoes";
-
-          setTitle(mockTitle);
-          setArtist(mockArtist);
-          setSlug(mockSlug);
-          setImageUrl("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600");
-          setDescription(`Listen to '${mockTitle}' by ${mockArtist} on all music streaming platforms.`);
-          
-          setLinks({
-            spotify: pasteUrl,
-            youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-            appleMusic: "https://music.apple.com/us/album/midnight",
-            soundcloud: "https://soundcloud.com/neoncadet/echoes"
-          });
-        }, 1200);
-      };
 
       // Publish Smart Link to Local state
       const handlePublishLink = () => {
@@ -1409,7 +1429,7 @@
           slug: cleanSlug,
           title: title.trim(),
           artist: artist.trim(),
-          imageUrl: imageUrl.trim() || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745",
+          imageUrl: imageUrl.trim() || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600",
           theme,
           description: description.trim(),
           links,
@@ -1425,12 +1445,11 @@
         setPublishSuccess(cleanSlug);
         setSelectedAnalyticsLink(newLink);
 
-        // Reset
-        setPasteUrl("");
+        // Reset inputs
         setSlug("");
         setTitle("");
         setArtist("");
-        setImageUrl("https://images.unsplash.com/photo-1470225620780-dba8ba36b745");
+        setImageUrl("https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600");
         setDescription("");
         setLinks({ spotify: "", youtube: "", appleMusic: "", soundcloud: "" });
 
@@ -1445,6 +1464,63 @@
       };
 
       const totalViewsAcrossLinks = heartLinks.reduce((sum, link) => sum + (link.views || 0), 0);
+
+      // Artwork Presets for visual variety and ease of selection
+      const artworkPresets = [
+        { name: "Lofi Room", url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600" },
+        { name: "Synth Sunset", url: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600" },
+        { name: "Vinyl Player", url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600" },
+        { name: "Neon Beats", url: "https://images.unsplash.com/photo-1542204172-e7052809a862?w=600" }
+      ];
+
+      // Detect which platform is pasted for live embedded player
+      const primaryPlatform = Object.keys(links).find(k => 
+        links[k] && ["spotify", "youtube", "soundcloud"].includes(k)
+      );
+      const primaryUrl = primaryPlatform ? links[primaryPlatform] : null;
+      const embedPlayerUrl = primaryUrl ? getEmbedUrl(primaryUrl) : "";
+
+      // Theme preview configurations
+      const themeConfigs = {
+        "crimson-ink": {
+          card: "bg-neutral-950 border border-red-950/40 backdrop-blur-md text-neutral-200",
+          text: "text-white font-serif",
+          accent: "text-red-500",
+          btn: "bg-red-950/20 border border-red-900/40 text-red-100"
+        },
+        "cyan-static": {
+          card: "bg-neutral-950/95 border border-cyan-950/60 font-mono text-cyan-400",
+          text: "text-cyan-400 font-mono tracking-tight",
+          accent: "text-cyan-400",
+          btn: "bg-cyan-950/15 border border-cyan-900/40 text-cyan-200"
+        },
+        "cream-paper": {
+          card: "bg-white border border-neutral-200 text-neutral-800 font-serif",
+          text: "text-neutral-900 font-serif font-bold",
+          accent: "text-amber-800",
+          btn: "bg-neutral-50 border border-neutral-300 text-neutral-800"
+        },
+        "dark-obsidian": {
+          card: "bg-neutral-900/40 border border-neutral-850 text-neutral-200",
+          text: "text-white font-sans font-medium",
+          accent: "text-white",
+          btn: "bg-neutral-900/60 border border-neutral-800 text-neutral-100"
+        },
+        "neon-synth": {
+          card: "bg-neutral-900/80 border border-fuchsia-950 text-fuchsia-300",
+          text: "text-fuchsia-300 font-bold",
+          accent: "text-fuchsia-400",
+          btn: "bg-fuchsia-950/20 border border-fuchsia-900/40 text-fuchsia-200"
+        },
+        "retro-gold": {
+          card: "bg-neutral-900/50 border border-amber-950/50 text-neutral-200",
+          text: "text-amber-400 font-medium",
+          accent: "text-amber-400",
+          btn: "bg-amber-950/20 border border-amber-900/45 text-amber-200"
+        }
+      };
+
+      const currentThemeStyle = themeConfigs[theme] || themeConfigs["crimson-ink"];
 
       return (
         <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-10 text-left items-start relative z-10">
@@ -1488,74 +1564,104 @@
                 <LucideIcon name="link-2" className="w-5 h-5 text-rose-500" />
                 <span>Smart Fan-Routing Hubs</span>
               </h2>
-              <p className="text-xs text-neutral-400 mt-1">Input song credentials to formulate action streaming buttons.</p>
-            </div>
-
-            {/* Input scrape block */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono uppercase tracking-wider text-neutral-400">Pasted Streaming URL</label>
-              <div className="flex gap-2">
-                <div className="relative flex-grow">
-                  <LucideIcon name="link-2" className="absolute left-4 top-3.5 w-4 h-4 text-neutral-500" />
-                  <input
-                    type="text"
-                    value={pasteUrl}
-                    onChange={(e) => setPasteUrl(e.target.value)}
-                    className="w-full bg-black/45 border border-neutral-800 focus:border-rose-500 rounded-xl pl-11 pr-4 py-3.5 text-xs text-white focus:outline-none transition"
-                    placeholder="https://open.spotify.com/track/..."
-                  />
-                </div>
-                <button
-                  onClick={handleScrapeLink}
-                  disabled={scraping || !pasteUrl.trim()}
-                  className="px-5 bg-rose-600 hover:bg-rose-500 disabled:bg-neutral-850 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
-                >
-                  {scraping ? <LucideIcon name="refresh-cw" className="w-4 h-4 animate-spin" /> : <LucideIcon name="search" className="w-4 h-4" />}
-                  <span>{scraping ? "Analysing" : "Fetch Track"}</span>
-                </button>
-              </div>
+              <p className="text-xs text-neutral-400 mt-1">Input song credentials manually to instantly formulate action streaming buttons and iframe players.</p>
             </div>
 
             {/* Details layout forms */}
-            <div className="space-y-6 pt-4 border-t border-neutral-850">
+            <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <span className="text-xs text-neutral-450 font-mono">SONG TITLE</span>
-                  <input type="text" value={title} onChange={e => setTitle(e.target.value)} className="w-full bg-black/20 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-rose-500" />
+                  <span className="text-xs text-neutral-450 font-mono uppercase">Song Title *</span>
+                  <input 
+                    type="text" 
+                    value={title} 
+                    onChange={e => setTitle(e.target.value)} 
+                    className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition" 
+                    placeholder="e.g. Cyan Static"
+                    required
+                  />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs text-neutral-450 font-mono">ARTIST NAME</span>
-                  <input type="text" value={artist} onChange={e => setArtist(e.target.value)} className="w-full bg-black/20 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-rose-500" />
+                  <span className="text-xs text-neutral-450 font-mono uppercase">Artist Name *</span>
+                  <input 
+                    type="text" 
+                    value={artist} 
+                    onChange={e => setArtist(e.target.value)} 
+                    className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition" 
+                    placeholder="e.g. VibeSeeker"
+                    required
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <span className="text-xs text-neutral-450 font-mono">CUSTOM SLUG</span>
-                  <input type="text" value={slug} onChange={e => setSlug(e.target.value)} className="w-full bg-black/20 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-rose-500" />
+                  <span className="text-xs text-neutral-450 font-mono uppercase">Custom URL Slug *</span>
+                  <input 
+                    type="text" 
+                    value={slug} 
+                    onChange={e => setSlug(e.target.value)} 
+                    className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition font-mono text-rose-400" 
+                    placeholder="e.g. cyan-static-hub"
+                    required
+                  />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs text-neutral-450 font-mono">COVER IMAGE LINK</span>
-                  <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)} className="w-full bg-black/20 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-rose-500" />
+                  <span className="text-xs text-neutral-450 font-mono uppercase">Cover Image Link URL</span>
+                  <input 
+                    type="text" 
+                    value={imageUrl} 
+                    onChange={e => setImageUrl(e.target.value)} 
+                    className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition" 
+                    placeholder="https://images.unsplash.com/..." 
+                  />
+                </div>
+              </div>
+
+              {/* Cover Artwork Presets */}
+              <div className="space-y-2">
+                <span className="text-[10px] font-mono text-neutral-450 uppercase block">Quick Presets Artwork Selection</span>
+                <div className="grid grid-cols-4 gap-3">
+                  {artworkPresets.map(preset => (
+                    <button
+                      key={preset.name}
+                      type="button"
+                      onClick={() => setImageUrl(preset.url)}
+                      className={`aspect-video rounded-xl overflow-hidden border relative group transition-all duration-300 ${
+                        imageUrl === preset.url ? "border-rose-500 ring-2 ring-rose-500/20 scale-[0.97]" : "border-neutral-800 hover:border-neutral-700"
+                      }`}
+                    >
+                      <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-[9px] font-mono font-bold text-white uppercase">{preset.name}</span>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-xs text-neutral-450 font-mono">HUB DESCRIPTION</span>
-                <textarea rows={2} value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-black/20 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-rose-500" />
+                <span className="text-xs text-neutral-450 font-mono uppercase">Hub Description</span>
+                <textarea 
+                  rows={2} 
+                  value={description} 
+                  onChange={e => setDescription(e.target.value)} 
+                  className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-4 py-3 text-xs text-white focus:outline-none transition leading-relaxed" 
+                  placeholder="Tell your fans about this masterpiece..."
+                />
               </div>
 
               {/* Theme selections */}
               <div className="space-y-2">
-                <span className="text-xs text-neutral-450 font-mono">BACKGROUND SUITE DESIGN</span>
+                <span className="text-xs text-neutral-450 font-mono uppercase">Background Suite Design Theme</span>
                 <div className="grid grid-cols-3 gap-2">
                   {["crimson-ink", "cyan-static", "cream-paper", "dark-obsidian", "neon-synth", "retro-gold"].map(th => (
                     <button
                       key={th}
                       type="button"
                       onClick={() => setTheme(th)}
-                      className={`py-2 text-xs rounded-xl border capitalize ${
-                        theme === th ? "border-rose-500 bg-rose-500/10 text-rose-400" : "border-neutral-850 text-neutral-400"
+                      className={`py-2 text-xs font-mono rounded-xl border capitalize transition-all ${
+                        theme === th ? "border-rose-500 bg-rose-500/10 text-rose-400" : "border-neutral-850 hover:bg-neutral-850 text-neutral-400"
                       }`}
                     >
                       {th.replace("-", " ")}
@@ -1565,18 +1671,26 @@
               </div>
 
               {/* Platform bindings */}
-              <div className="space-y-3.5 pt-4 border-t border-neutral-850">
-                <span className="text-xs font-mono text-neutral-400 block">Streaming platform channels</span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {["spotify", "youtube", "appleMusic", "soundcloud"].map(plat => (
-                    <div key={plat} className="space-y-1">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase">{plat}</span>
+              <div className="space-y-4 pt-4 border-t border-neutral-850">
+                <span className="text-xs font-mono text-neutral-450 uppercase block">Streaming Platform Destination Channels</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { key: "spotify", name: "Spotify Stream URL", placeholder: "https://open.spotify.com/track/..." },
+                    { key: "youtube", name: "YouTube Video URL", placeholder: "https://www.youtube.com/watch?v=..." },
+                    { key: "appleMusic", name: "Apple Music Track URL", placeholder: "https://music.apple.com/..." },
+                    { key: "soundcloud", name: "SoundCloud Song URL", placeholder: "https://soundcloud.com/..." }
+                  ].map(plat => (
+                    <div key={plat.key} className="space-y-1">
+                      <span className="text-[10px] font-mono text-neutral-450 uppercase flex items-center gap-1">
+                        <LucideIcon name={plat.key === "youtube" ? "youtube" : "music"} className="w-3 h-3 text-rose-500" />
+                        <span>{plat.name}</span>
+                      </span>
                       <input
                         type="text"
-                        value={links[plat]}
-                        onChange={e => setLinks({ ...links, [plat]: e.target.value })}
-                        className="w-full bg-black/25 border border-neutral-850 rounded-xl px-3 py-2 text-xs text-white"
-                        placeholder="https://..."
+                        value={links[plat.key]}
+                        onChange={e => setLinks({ ...links, [plat.key]: e.target.value })}
+                        className="w-full bg-black/40 border border-neutral-800 focus:border-rose-500 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none transition font-mono"
+                        placeholder={plat.placeholder}
                       />
                     </div>
                   ))}
@@ -1586,86 +1700,203 @@
               <button
                 onClick={handlePublishLink}
                 disabled={!slug.trim() || !title.trim() || !artist.trim()}
-                className="w-full py-4 bg-rose-600 hover:bg-rose-500 disabled:bg-neutral-850 text-white rounded-xl text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer transition"
+                className="w-full py-4 bg-rose-600 hover:bg-rose-500 disabled:bg-neutral-850 disabled:text-neutral-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition shadow-xl shadow-rose-950/20"
               >
-                <LucideIcon name="save" className="w-4 h-4" />
-                <span>Save Standalone Link Hub</span>
+                <LucideIcon name="save" className="w-4 h-4 animate-pulse" />
+                <span>Save & Activate Standalone Hub</span>
               </button>
             </div>
           </div>
 
-          {/* Live Analytic monitoring cards (Right 5-columns) */}
+          {/* Real-time Display and Analytics Tabs (Right 5-columns) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md flex justify-between items-center text-left">
-              <div>
-                <span className="text-[10px] font-mono text-rose-450 uppercase flex items-center gap-1"><LucideIcon name="trending-up" className="w-3 h-3" /> Traffic Summary</span>
-                <p className="text-2xl font-display font-extrabold text-white mt-1">{totalViewsAcrossLinks} visits</p>
-              </div>
-              <div className="w-12 h-12 bg-rose-950/20 border border-rose-900/40 rounded-2xl flex items-center justify-center text-rose-500">
-                <LucideIcon name="bar-chart-3" className="w-6 h-6" />
-              </div>
+            
+            {/* Tabs Selector */}
+            <div className="flex bg-neutral-950 p-1.5 rounded-2xl border border-neutral-850">
+              <button 
+                type="button"
+                onClick={() => setSuiteRightTab("preview")}
+                className={`flex-grow py-2 text-xs font-mono uppercase tracking-wider font-bold rounded-xl flex items-center justify-center gap-1.5 transition ${
+                  suiteRightTab === "preview" ? "bg-rose-600 text-white" : "text-neutral-400 hover:text-white"
+                }`}
+              >
+                <LucideIcon name="eye" className="w-3.5 h-3.5" />
+                <span>Live Preview</span>
+              </button>
+              <button 
+                type="button"
+                onClick={() => setSuiteRightTab("analytics")}
+                className={`flex-grow py-2 text-xs font-mono uppercase tracking-wider font-bold rounded-xl flex items-center justify-center gap-1.5 transition ${
+                  suiteRightTab === "analytics" ? "bg-rose-600 text-white" : "text-neutral-400 hover:text-white"
+                }`}
+              >
+                <LucideIcon name="bar-chart-3" className="w-3.5 h-3.5" />
+                <span>My Hubs</span>
+              </button>
             </div>
 
-            <div className="bg-neutral-900/40 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">Active link records</span>
-              <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
-                {heartLinks.map(link => (
-                  <button
-                    key={link.slug}
-                    onClick={() => setSelectedAnalyticsLink(link)}
-                    className={`w-full p-3.5 rounded-2xl border text-left flex items-center gap-3 transition cursor-pointer ${
-                      selectedAnalyticsLink?.slug === link.slug ? "border-rose-500 bg-rose-500/5" : "border-neutral-850 hover:bg-neutral-850"
-                    }`}
-                  >
-                    <img src={link.imageUrl} alt="artwork" className="w-9 h-9 object-cover rounded border border-neutral-800" />
-                    <div className="flex-grow min-w-0">
-                      <p className="text-xs font-bold text-white truncate">{link.title}</p>
-                      <p className="text-[10px] font-mono text-neutral-500 truncate">?hl={link.slug}</p>
+            {suiteRightTab === "preview" ? (
+              <div className="space-y-6">
+                
+                {/* Real-time Iframe Embed Player */}
+                {embedPlayerUrl ? (
+                  <div className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md text-left space-y-3">
+                    <span className="text-[10px] font-mono text-rose-400 uppercase tracking-widest flex items-center gap-1">
+                      <LucideIcon name="play" className="w-3 h-3 text-rose-500 animate-pulse" />
+                      <span>Live Instant Player Embed</span>
+                    </span>
+                    <div className="w-full bg-black/80 rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
+                      {primaryPlatform === "spotify" ? (
+                        <iframe src={embedPlayerUrl} width="100%" height="80" allow="encrypted-media" className="block border-0" />
+                      ) : primaryPlatform === "youtube" ? (
+                        <div className="relative w-full aspect-video">
+                          <iframe src={embedPlayerUrl} className="absolute inset-0 w-full h-full border-0" allowFullScreen />
+                        </div>
+                      ) : (
+                        <iframe src={embedPlayerUrl} width="100%" height="166" className="block border-0" />
+                      )}
                     </div>
-                    <div className="text-right">
-                      <span className="text-xs font-mono font-bold text-neutral-300">{link.views || 0}</span>
-                      <p className="text-[8px] font-mono text-neutral-500 uppercase">views</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {selectedAnalyticsLink && (
-              <div className="bg-neutral-900/40 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md space-y-5 text-left">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-[10px] font-mono text-neutral-550 uppercase">CONVERSIONS REPORT</span>
-                    <h4 className="text-xs font-bold text-white truncate max-w-[150px]">{selectedAnalyticsLink.title}</h4>
+                    <p className="text-[9px] font-mono text-neutral-550 leading-tight">
+                      Standardized oEmbed iframe generated instantly using your manual URL coordinates. No backend scraper required.
+                    </p>
                   </div>
-                  <button
-                    onClick={() => onNavigateToSlug(selectedAnalyticsLink.slug)}
-                    className="py-1 px-2 border border-rose-900/40 text-rose-400 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>View Hub</span>
-                    <LucideIcon name="external-link" className="w-3 h-3" />
-                  </button>
+                ) : (
+                  <div className="bg-neutral-900/40 border border-dashed border-neutral-800 p-8 rounded-3xl text-center text-neutral-500 font-mono text-xs">
+                    <LucideIcon name="volume-x" className="w-6 h-6 text-neutral-600 mx-auto mb-2" />
+                    <span>Paste a Spotify, YouTube or SoundCloud URL below to load standard player embed.</span>
+                  </div>
+                )}
+
+                {/* Simulated landing page preview */}
+                <div className="bg-neutral-900/40 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md space-y-4 text-left">
+                  <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 flex items-center gap-1">
+                    <LucideIcon name="smartphone" className="w-3.5 h-3.5" />
+                    <span>Instant Landing Page Preview</span>
+                  </span>
+
+                  {/* Mobile screen mock container */}
+                  <div className={`p-6 rounded-2xl border ${currentThemeStyle.card} flex flex-col items-center text-center transition-all duration-300`}>
+                    <img 
+                      src={imageUrl || "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600"} 
+                      alt="Cover" 
+                      className="w-24 h-24 rounded-xl object-cover shadow-lg border border-white/5 mb-4" 
+                    />
+                    <h3 className={`text-base font-bold truncate max-w-full ${currentThemeStyle.text}`}>
+                      {title || "Untitled Masterpiece"}
+                    </h3>
+                    <p className="text-[10px] uppercase tracking-wider opacity-75 mt-0.5 mb-2">
+                      {artist || "Independent Artist"}
+                    </p>
+                    {description && (
+                      <p className="text-[10px] opacity-65 font-sans leading-relaxed mb-4 max-w-xs line-clamp-3">
+                        {description}
+                      </p>
+                    )}
+
+                    <div className="w-full space-y-2 mt-2">
+                      {Object.keys(links).map(plat => {
+                        const val = links[plat];
+                        if (!val) return null;
+                        return (
+                          <div 
+                            key={plat} 
+                            className={`px-3 py-2 rounded-lg text-left flex justify-between items-center text-[9px] font-bold uppercase tracking-wider ${currentThemeStyle.btn}`}
+                          >
+                            <span>Stream on {plat.replace("appleMusic", "Apple Music")}</span>
+                            <LucideIcon name="external-link" className="w-3 h-3 opacity-50" />
+                          </div>
+                        );
+                      })}
+                      {Object.values(links).every(v => !v) && (
+                        <p className="text-[10px] font-mono text-neutral-500 italic py-2">No streaming coordinates active.</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-3">
-                  {["spotify", "youtube", "appleMusic", "soundcloud"].map(key => {
-                    const clickCount = selectedAnalyticsLink.clicks?.[key] || 0;
-                    const totalClicks = Object.values(selectedAnalyticsLink.clicks || {}).reduce((a,b) => a+b, 0) || 1;
-                    const percent = Math.round((clickCount / totalClicks) * 100);
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md flex justify-between items-center text-left">
+                  <div>
+                    <span className="text-[10px] font-mono text-rose-450 uppercase flex items-center gap-1">
+                      <LucideIcon name="trending-up" className="w-3 h-3" /> 
+                      <span>Traffic Summary</span>
+                    </span>
+                    <p className="text-2xl font-display font-extrabold text-white mt-1">{totalViewsAcrossLinks} visits</p>
+                  </div>
+                  <div className="w-12 h-12 bg-rose-950/20 border border-rose-900/40 rounded-2xl flex items-center justify-center text-rose-500">
+                    <LucideIcon name="bar-chart-3" className="w-6 h-6" />
+                  </div>
+                </div>
 
-                    return (
-                      <div key={key} className="space-y-1">
-                        <div className="flex justify-between text-[10px] font-mono">
-                          <span className="text-neutral-450 uppercase">{key} clicks</span>
-                          <span className="text-white font-bold">{clickCount} ({percent}%)</span>
+                <div className="bg-neutral-900/40 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md space-y-4 text-left">
+                  <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">Active Link Records</span>
+                  <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
+                    {heartLinks.map(link => (
+                      <button
+                        key={link.slug}
+                        type="button"
+                        onClick={() => setSelectedAnalyticsLink(link)}
+                        className={`w-full p-3.5 rounded-2xl border text-left flex items-center gap-3 transition cursor-pointer ${
+                          selectedAnalyticsLink?.slug === link.slug ? "border-rose-500 bg-rose-500/5" : "border-neutral-850 hover:bg-neutral-850"
+                        }`}
+                      >
+                        <img src={link.imageUrl} alt="artwork" className="w-9 h-9 object-cover rounded border border-neutral-800" />
+                        <div className="flex-grow min-w-0">
+                          <p className="text-xs font-bold text-white truncate">{link.title}</p>
+                          <p className="text-[10px] font-mono text-neutral-500 truncate">?hl={link.slug}</p>
                         </div>
-                        <div className="h-1 bg-black rounded-full overflow-hidden">
-                          <div className="h-full bg-rose-500 rounded-full" style={{ width: `${percent}%` }} />
+                        <div className="text-right">
+                          <span className="text-xs font-mono font-bold text-neutral-300">{link.views || 0}</span>
+                          <p className="text-[8px] font-mono text-neutral-500 uppercase">views</p>
                         </div>
+                      </button>
+                    ))}
+                    {heartLinks.length === 0 && (
+                      <p className="text-xs font-mono text-neutral-500 italic py-4 text-center">No links published yet.</p>
+                    )}
+                  </div>
+                </div>
+
+                {selectedAnalyticsLink && (
+                  <div className="bg-neutral-900/40 border border-neutral-800 p-6 rounded-3xl backdrop-blur-md space-y-5 text-left">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="text-[10px] font-mono text-neutral-450 uppercase">Conversions Report</span>
+                        <h4 className="text-xs font-bold text-white truncate max-w-[150px]">{selectedAnalyticsLink.title}</h4>
                       </div>
-                    );
-                  })}
-                </div>
+                      <button
+                        type="button"
+                        onClick={() => onNavigateToSlug(selectedAnalyticsLink.slug)}
+                        className="py-1 px-2 border border-rose-900/40 text-rose-400 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>View Hub</span>
+                        <LucideIcon name="external-link" className="w-3 h-3" />
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      {["spotify", "youtube", "appleMusic", "soundcloud"].map(key => {
+                        const clickCount = selectedAnalyticsLink.clicks?.[key] || 0;
+                        const totalClicks = Object.values(selectedAnalyticsLink.clicks || {}).reduce((a,b) => a+b, 0) || 1;
+                        const percent = Math.round((clickCount / totalClicks) * 100);
+
+                        return (
+                          <div key={key} className="space-y-1">
+                            <div className="flex justify-between text-[10px] font-mono">
+                              <span className="text-neutral-450 uppercase">{key} clicks</span>
+                              <span className="text-white font-bold">{clickCount} ({percent}%)</span>
+                            </div>
+                            <div className="h-1 bg-black rounded-full overflow-hidden">
+                              <div className="h-full bg-rose-500 rounded-full" style={{ width: `${percent}%` }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -1774,6 +2005,13 @@
 
       const currentTheme = themeConfigs[linkData.theme] || themeConfigs["crimson-ink"];
 
+      // Find primary player embed URL from links
+      const primaryPlatform = Object.keys(linkData.links).find(k => 
+        linkData.links[k] && ["spotify", "youtube", "soundcloud"].includes(k)
+      );
+      const primaryUrl = primaryPlatform ? linkData.links[primaryPlatform] : null;
+      const embedPlayerUrl = primaryUrl ? getEmbedUrl(primaryUrl) : "";
+
       return (
         <div className={`min-h-screen ${currentTheme.bg} flex flex-col justify-between py-12 px-4 transition-colors duration-500`}>
           
@@ -1804,7 +2042,22 @@
               <p className="text-xs uppercase tracking-wider opacity-75 mb-4">{linkData.artist}</p>
 
               {linkData.description && (
-                <p className="text-xs opacity-60 leading-relaxed mb-8 border-t border-white/5 pt-4 font-sans max-w-xs">{linkData.description}</p>
+                <p className="text-xs opacity-60 leading-relaxed mb-6 border-t border-white/5 pt-4 font-sans max-w-xs">{linkData.description}</p>
+              )}
+
+              {/* Standard iframe player embed right on the landing page */}
+              {embedPlayerUrl && (
+                <div className="w-full mb-6 bg-black/40 rounded-2xl overflow-hidden border border-white/5 shadow-inner">
+                  {primaryPlatform === "spotify" ? (
+                    <iframe src={embedPlayerUrl} width="100%" height="80" allow="encrypted-media" className="block border-0" />
+                  ) : primaryPlatform === "youtube" ? (
+                    <div className="relative w-full aspect-video">
+                      <iframe src={embedPlayerUrl} className="absolute inset-0 w-full h-full border-0" allowFullScreen />
+                    </div>
+                  ) : (
+                    <iframe src={embedPlayerUrl} width="100%" height="166" className="block border-0" />
+                  )}
+                </div>
               )}
 
               <div className="w-full space-y-3">
