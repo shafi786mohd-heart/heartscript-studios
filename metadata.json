@@ -1,0 +1,6 @@
+{
+  "name": "Heartscript Studios",
+  "description": "Storefront and interactive production suite for independent musicians. Automate visual marketing, generate vertical 9:16 reels, and share tracks with HeartLinks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
