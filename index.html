@@ -748,6 +748,8 @@
       const [artworkUrl, setArtworkUrl] = useState("https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600");
       const [dragActive, setDragActive] = useState(false);
       const [artworkFileError, setArtworkFileError] = useState(null);
+      const [recording, setRecording] = useState(false);
+      const [recordingProgress, setRecordingProgress] = useState(0);
 
       const [suggestion, setSuggestion] = useState(null);
 
@@ -932,7 +934,7 @@
         }
       };
 
-      // 1080x1920 HD Canvas Wallpaper generation & export
+      // 1080x1920 HD Canvas Video Recording & export (8 seconds) using MediaRecorder
       const handleDownloadAsset = async () => {
         const canvas = canvasRef.current;
         if (!canvas || !suggestion) return;
@@ -944,52 +946,151 @@
         canvas.width = width;
         canvas.height = height;
 
-        // Linear Gradient
-        const grad = ctx.createLinearGradient(0, 0, 0, height);
-        grad.addColorStop(0, suggestion.backgroundGradient[0] || "#111");
-        grad.addColorStop(1, suggestion.backgroundGradient[1] || "#000");
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, width, height);
+        setRecording(true);
+        setRecordingProgress(0);
 
-        // Tech grid lines if cyan static theme
-        if (selectedTheme === "cyan-static") {
-          ctx.strokeStyle = "rgba(6, 182, 212, 0.08)";
-          ctx.lineWidth = 2;
-          const gridSize = 80;
-          for (let x = 0; x < width; x += gridSize) {
-            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
-          }
-          for (let y = 0; y < height; y += gridSize) {
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
-          }
-        }
-
-        // Title and credits
-        ctx.textAlign = "center";
-        ctx.fillStyle = selectedTheme === "cream-paper" ? "#222" : "rgba(255, 255, 255, 0.4)";
-        ctx.font = "bold 28px sans-serif";
-        ctx.fillText("HEARTSCRIPT STUDIOS CREATORS SUITE", width / 2, 180);
-
-        ctx.fillStyle = suggestion.suggestedAccentColor;
-        ctx.font = selectedTheme === "cream-paper" ? "italic bold 64px serif" : "bold 64px sans-serif";
-        ctx.fillText(title.toUpperCase(), width / 2, 280);
-
-        // Render Artwork
-        let artworkDrawn = false;
-        const artSize = 480;
-        const artX = width / 2 - artSize / 2;
-        const artY = 460;
-
+        // Preload Image safely
+        let imgLoaded = null;
         if (artworkUrl) {
           try {
-            const img = await new Promise((resolve, reject) => {
+            imgLoaded = await new Promise((resolve) => {
               const imageObj = new Image();
               imageObj.crossOrigin = "anonymous";
               imageObj.onload = () => resolve(imageObj);
-              imageObj.onerror = () => reject(new Error("Failed image load"));
+              imageObj.onerror = () => resolve(null);
               imageObj.src = artworkUrl;
             });
+          } catch (e) {
+            console.warn("Artwork preload failed, using fallback empty styling:", e);
+          }
+        }
 
+        // Setup MediaRecorder chunk storage
+        const recordedChunks = [];
+        const fps = 30;
+        
+        let stream;
+        try {
+          stream = canvas.captureStream ? canvas.captureStream(fps) : canvas.mozCaptureStream(fps);
+        } catch (streamError) {
+          console.error("Failed to capture stream from canvas:", streamError);
+          setRecording(false);
+          alert("Recording not fully supported in this sandbox environment. Check browser permissions.");
+          return;
+        }
+
+        let mediaRecorder;
+        const mimeTypes = [
+          'video/webm;codecs=vp9,opus',
+          'video/webm;codecs=vp9',
+          'video/webm;codecs=vp8',
+          'video/webm',
+          'video/mp4'
+        ];
+
+        let selectedMimeType = '';
+        for (const mime of mimeTypes) {
+          if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(mime)) {
+            selectedMimeType = mime;
+            break;
+          }
+        }
+
+        try {
+          if (selectedMimeType) {
+            mediaRecorder = new MediaRecorder(stream, { mimeType: selectedMimeType });
+          } else {
+            mediaRecorder = new MediaRecorder(stream);
+          }
+        } catch (recError) {
+          console.error("MediaRecorder initiation failed:", recError);
+          setRecording(false);
+          alert("Your browser does not support MediaRecorder for Canvas capture.");
+          return;
+        }
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        // On Recording finished
+        mediaRecorder.onstop = () => {
+          try {
+            const blob = new Blob(recordedChunks, { type: selectedMimeType || 'video/webm' });
+            const videoUrl = URL.createObjectURL(blob);
+            const downloadLink = document.createElement("a");
+            
+            // Deduce file extension
+            const ext = selectedMimeType.includes("mp4") ? "mp4" : "webm";
+            downloadLink.download = `${title.toLowerCase().replace(/\s+/g, "-")}-reel.${ext}`;
+            downloadLink.href = videoUrl;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(videoUrl);
+          } catch (saveError) {
+            console.error("Failed to compile or download video file:", saveError);
+          } finally {
+            setRecording(false);
+            setRecordingProgress(0);
+          }
+        };
+
+        // Start Recording
+        mediaRecorder.start();
+
+        // High precision frame-by-frame loop
+        const totalDuration = 8000; // 8 seconds
+        let startTime = null;
+
+        const renderLoop = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const t = Math.min(elapsed / 1000, 8.0);
+
+          setRecordingProgress(t / 8.0);
+
+          // DRAW FRAME logic
+          ctx.clearRect(0, 0, width, height);
+
+          // Linear Gradient
+          const grad = ctx.createLinearGradient(0, 0, 0, height);
+          grad.addColorStop(0, suggestion.backgroundGradient[0] || "#111");
+          grad.addColorStop(1, suggestion.backgroundGradient[1] || "#000");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, width, height);
+
+          // Tech grid lines if cyan static theme
+          if (selectedTheme === "cyan-static") {
+            ctx.strokeStyle = "rgba(6, 182, 212, 0.08)";
+            ctx.lineWidth = 2;
+            const gridSize = 80;
+            for (let x = 0; x < width; x += gridSize) {
+              ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+            }
+            for (let y = 0; y < height; y += gridSize) {
+              ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+            }
+          }
+
+          // Title and credits
+          ctx.textAlign = "center";
+          ctx.fillStyle = selectedTheme === "cream-paper" ? "#222" : "rgba(255, 255, 255, 0.4)";
+          ctx.font = "bold 28px sans-serif";
+          ctx.fillText("HEARTSCRIPT STUDIOS CREATORS SUITE", width / 2, 180);
+
+          ctx.fillStyle = suggestion.suggestedAccentColor;
+          ctx.font = selectedTheme === "cream-paper" ? "italic bold 64px serif" : "bold 64px sans-serif";
+          ctx.fillText(title.toUpperCase(), width / 2, 280);
+
+          // Render Artwork with dynamic visuals
+          const artSize = 480;
+          const artX = width / 2 - artSize / 2;
+          const artY = 460;
+
+          if (imgLoaded) {
             ctx.save();
             if (visualizationCanvas === "reel") {
               // Draw cassette outer body (rounded rect)
@@ -1034,7 +1135,7 @@
                 ctx.rect(labelX + 20, labelY + 20, 140, 140);
               }
               ctx.clip();
-              ctx.drawImage(img, labelX + 20, labelY + 20, 140, 140);
+              ctx.drawImage(imgLoaded, labelX + 20, labelY + 20, 140, 140);
               ctx.restore();
               
               // Sticker Text details
@@ -1065,10 +1166,13 @@
               ctx.fill();
               ctx.stroke();
               
-              // Draw the two reels
+              // Draw the two spinning reels rotating as time progresses
+              // Rotate 1.5 full spins per second
+              const rotationAngle = t * Math.PI * 3;
               const drawReelWheel = (cX, cY) => {
                 ctx.save();
                 ctx.translate(cX, cY);
+                ctx.rotate(rotationAngle);
                 ctx.strokeStyle = "#525252";
                 ctx.lineWidth = 6;
                 ctx.beginPath();
@@ -1094,6 +1198,7 @@
               
               drawReelWheel(width / 2 - 80, winY + winHeight / 2);
               drawReelWheel(width / 2 + 80, winY + winHeight / 2);
+
             } else if (visualizationCanvas === "spin") {
               const vSize = 540;
               const vX = width / 2;
@@ -1117,11 +1222,16 @@
               ctx.arc(vX, vY, 110, 0, Math.PI * 2);
               ctx.fill();
               
+              // Spinning Vinyl central label
+              // 33 RPM = 33/60 rotations per second = 0.55 Hz -> angle = t * 2 * PI * 0.55
+              const spinAngle = t * Math.PI * 2 * 0.55;
               ctx.save();
+              ctx.translate(vX, vY);
+              ctx.rotate(spinAngle);
               ctx.beginPath();
-              ctx.arc(vX, vY, 100, 0, Math.PI * 2);
+              ctx.arc(0, 0, 100, 0, Math.PI * 2);
               ctx.clip();
-              ctx.drawImage(img, vX - 100, vY - 100, 200, 200);
+              ctx.drawImage(imgLoaded, -100, -100, 200, 200);
               ctx.restore();
               
               ctx.fillStyle = "#000000";
@@ -1131,69 +1241,85 @@
               ctx.arc(vX, vY, 12, 0, Math.PI * 2);
               ctx.fill();
               ctx.stroke();
+
             } else if (visualizationCanvas === "pulse") {
-              const artSize = 480;
-              const artX = width / 2 - artSize / 2;
-              const artY = 460;
+              // Real-time expanding concentric hearts/circles
+              // Pulse speed matches typical 120bpm = 2Hz
+              const pulseFactor = 1.0 + 0.08 * Math.sin(t * Math.PI * 4);
+              const baseScale1 = 360 * pulseFactor;
+              const baseScale2 = 420 * (1.0 + 0.05 * Math.cos(t * Math.PI * 4));
               
-              ctx.strokeStyle = "rgba(244, 63, 94, 0.2)";
-              ctx.lineWidth = 4;
+              ctx.strokeStyle = "rgba(244, 63, 94, 0.25)";
+              ctx.lineWidth = 5;
               ctx.beginPath();
-              ctx.arc(width / 2, artY + artSize / 2, 360, 0, Math.PI * 2);
+              ctx.arc(width / 2, artY + artSize / 2, baseScale1, 0, Math.PI * 2);
               ctx.stroke();
               
               ctx.strokeStyle = "rgba(244, 63, 94, 0.15)";
-              ctx.lineWidth = 2;
+              ctx.lineWidth = 3;
               ctx.beginPath();
-              ctx.arc(width / 2, artY + artSize / 2, 420, 0, Math.PI * 2);
+              ctx.arc(width / 2, artY + artSize / 2, baseScale2, 0, Math.PI * 2);
               ctx.stroke();
               
-              ctx.fillStyle = "rgba(244, 63, 94, 0.4)";
-              ctx.font = "bold 32px sans-serif";
-              ctx.fillText("♥", width / 2 - 300, artY + 100);
-              ctx.fillText("♥", width / 2 + 300, artY + artSize - 100);
+              // Floating hearts
+              ctx.fillStyle = "rgba(244, 63, 94, 0.55)";
+              ctx.font = "bold 36px sans-serif";
+              const heartYOffset = 30 * Math.sin(t * Math.PI * 2);
+              ctx.fillText("♥", width / 2 - 320, artY + 100 + heartYOffset);
+              ctx.fillText("♥", width / 2 + 320, artY + artSize - 100 - heartYOffset);
               
-              ctx.shadowColor = "rgba(244, 63, 94, 0.3)";
-              ctx.shadowBlur = 45;
-              ctx.drawImage(img, artX, artY, artSize, artSize);
+              ctx.shadowColor = "rgba(244, 63, 94, 0.4)";
+              ctx.shadowBlur = 50;
+              ctx.drawImage(imgLoaded, artX, artY, artSize, artSize);
+
             } else {
-              ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
-              ctx.shadowBlur = 40;
-              ctx.drawImage(img, artX, artY, artSize, artSize);
+              // Static with a subtle ambient glow pulsing
+              const glowPulse = 30 + 10 * Math.sin(t * Math.PI * 2);
+              ctx.shadowColor = suggestion.suggestedAccentColor || "rgba(0, 0, 0, 0.4)";
+              ctx.shadowBlur = glowPulse;
+              ctx.drawImage(imgLoaded, artX, artY, artSize, artSize);
             }
             ctx.restore();
-            artworkDrawn = true;
-          } catch (err) {
-            console.log(err);
+          } else {
+            // High-quality custom gradient background fallback if no image
+            ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
+            ctx.fillRect(artX, artY, artSize, artSize);
           }
-        }
 
-        // Draw Active Lyrics
-        const activeLyricObj = suggestion.lyricsTiming.find(
-          t => currentTime >= t.start && currentTime < t.end
-        );
-        const activeText = activeLyricObj ? activeLyricObj.text : "Heartscript Studios Visualizer";
-        
-        ctx.fillStyle = selectedTheme === "cream-paper" ? "#111" : "#ffffff";
-        ctx.font = `bold ${fontSize * 2}px sans-serif`;
+          // Active Lyrics corresponding to time t
+          const activeLyricObj = suggestion.lyricsTiming.find(
+            lyric => t >= lyric.start && t < lyric.end
+          );
+          const activeText = activeLyricObj ? activeLyricObj.text : "Heartscript Studios Visualizer";
+          
+          ctx.fillStyle = selectedTheme === "cream-paper" ? "#111" : "#ffffff";
+          ctx.font = `bold ${fontSize * 2}px sans-serif`;
 
-        let yPos = height / 2 + 250;
-        if (lyricAlignment === "top") yPos = height / 3 + 200;
-        if (lyricAlignment === "bottom") yPos = (height * 3) / 4 + 100;
+          let yPos = height / 2 + 250;
+          if (lyricAlignment === "top") yPos = height / 3 + 200;
+          if (lyricAlignment === "bottom") yPos = (height * 3) / 4 + 100;
 
-        ctx.fillText(activeText, width / 2, yPos);
+          ctx.fillText(activeText, width / 2, yPos);
 
-        // Watermark tag
-        ctx.fillStyle = selectedTheme === "cream-paper" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)";
-        ctx.font = "24px sans-serif";
-        ctx.fillText("STREAMING LIVE IN STORES", width / 2, height - 160);
+          // Watermark tag
+          ctx.fillStyle = selectedTheme === "cream-paper" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)";
+          ctx.font = "24px sans-serif";
+          ctx.fillText("STREAMING LIVE IN STORES", width / 2, height - 160);
 
-        // Auto download trigger
-        const dataUrl = canvas.toDataURL("image/png");
-        const downloadLink = document.createElement("a");
-        downloadLink.download = `${title.toLowerCase().replace(/\s+/g, "-")}-standalone.png`;
-        downloadLink.href = dataUrl;
-        downloadLink.click();
+          // Draw rendering progress bar overlay inside video
+          ctx.fillStyle = "rgba(244, 63, 94, 0.25)";
+          ctx.fillRect(0, height - 12, width, 12);
+          ctx.fillStyle = suggestion.suggestedAccentColor || "#f43f5e";
+          ctx.fillRect(0, height - 12, width * (t / 8.0), 12);
+
+          if (elapsed < totalDuration) {
+            requestAnimationFrame(renderLoop);
+          } else {
+            mediaRecorder.stop();
+          }
+        };
+
+        requestAnimationFrame(renderLoop);
       };
 
       const activeLyricObj = suggestion?.lyricsTiming.find(
@@ -1629,12 +1755,22 @@
 
               <button
                 onClick={handleDownloadAsset}
+                disabled={recording}
                 id="download-asset-btn"
-                className="py-3 px-5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition cursor-pointer"
-                title="Download 1080x1920 HD Asset"
+                className="py-3 px-5 bg-rose-600 hover:bg-rose-500 disabled:bg-neutral-800 disabled:text-neutral-500 text-white rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition cursor-pointer"
+                title="Download 8-second visual reel video"
               >
-                <LucideIcon name="download" className="w-4 h-4" />
-                <span>EXPORT</span>
+                {recording ? (
+                  <>
+                    <LucideIcon name="refresh-cw" className="w-4 h-4 animate-spin" />
+                    <span>RECORDING {Math.round(recordingProgress * 100)}%</span>
+                  </>
+                ) : (
+                  <>
+                    <LucideIcon name="video" className="w-4 h-4" />
+                    <span>EXPORT REEL (8S)</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -1679,92 +1815,160 @@
         setOdesliError("");
         try {
           const response = await fetch(`/api/odesli?url=${encodeURIComponent(pasteUrl.trim())}`);
-          if (!response.ok) {
-            throw new Error(`API responded with status code ${response.status}. Please enter details manually below.`);
-          }
           
           let data;
-          try {
-            data = await response.json();
-            // 1) Clear and explicit console log when Odesli responds
-            console.log("Odesli API responds:", data);
-          } catch (jsonErr) {
-            console.error("JSON parsing error on Odesli response:", jsonErr);
-            throw new Error("Odesli API returned an invalid response structure. You can enter details manually below.");
-          }
+          let fallbackSuccessful = false;
 
-          // 2) Safety verification and fallbacks if parsing fails inside the sandbox
-          if (!data || typeof data !== "object") {
-            throw new Error("Empty or invalid response from Odesli API. Please input your details manually below.");
-          }
+          if (!response.ok) {
+            console.warn(`Odesli returned status ${response.status}. Initiating secondary fallback scraper check...`);
+            
+            // Try fallback link scraper
+            const fallbackResponse = await fetch(`/api/heartlinks/scrape`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ url: pasteUrl.trim() })
+            });
 
-          let mainEntity = null;
-          try {
-            if (data.entityUniqueId && data.entitiesByUniqueId) {
-              mainEntity = data.entitiesByUniqueId[data.entityUniqueId];
+            if (fallbackResponse.ok) {
+              const scrapeData = await fallbackResponse.json();
+              console.log("Secondary fallback scraper success:", scrapeData);
+              if (scrapeData && (scrapeData.title || scrapeData.imageUrl)) {
+                setTitle(scrapeData.title || "");
+                setArtist(scrapeData.artist || "");
+                if (scrapeData.imageUrl) {
+                  setImageUrl(scrapeData.imageUrl);
+                }
+                if (scrapeData.description) {
+                  setDescription(scrapeData.description);
+                } else if (scrapeData.title) {
+                  setDescription(`Listen to '${scrapeData.title}' on your preferred streaming platform.`);
+                }
+
+                const newLinks = {
+                  spotify: scrapeData.platform === "spotify" ? pasteUrl.trim() : "",
+                  youtube: scrapeData.platform === "youtube" ? pasteUrl.trim() : "",
+                  appleMusic: scrapeData.platform === "appleMusic" ? pasteUrl.trim() : "",
+                  soundcloud: scrapeData.platform === "soundcloud" ? pasteUrl.trim() : ""
+                };
+                setLinks(newLinks);
+                fallbackSuccessful = true;
+              }
             }
-            if (!mainEntity && data.entitiesByUniqueId) {
-              mainEntity = Object.values(data.entitiesByUniqueId)[0];
+
+            if (!fallbackSuccessful) {
+              throw new Error(`Odesli lookup returned status code ${response.status}. The automatic matching service is currently unavailable for this link format.`);
             }
-          } catch (parseEntityErr) {
-            console.error("Error safely parsing unique entities from Odesli:", parseEntityErr);
-          }
-          
-          if (!mainEntity) {
-            throw new Error("Could not auto-extract song details from this link. Feel free to type them manually below.");
-          }
-
-          // 3) Layout updates properly using react hooks when a valid response comes in
-          const fetchedTitle = mainEntity.title || "";
-          const fetchedArtist = mainEntity.artistName || "";
-          
-          setTitle(fetchedTitle);
-          setArtist(fetchedArtist);
-          
-          if (mainEntity.thumbnailUrl) {
-            setImageUrl(mainEntity.thumbnailUrl);
-          }
-          
-          const newLinks = {
-            spotify: "",
-            youtube: "",
-            appleMusic: "",
-            soundcloud: ""
-          };
-
-          try {
-            if (data.linksByPlatform) {
-              newLinks.spotify = data.linksByPlatform.spotify?.url || "";
-              newLinks.youtube = data.linksByPlatform.youtube?.url || data.linksByPlatform.youtubeMusic?.url || "";
-              newLinks.appleMusic = data.linksByPlatform.appleMusic?.url || data.linksByPlatform.itunes?.url || "";
-              newLinks.soundcloud = data.linksByPlatform.soundcloud?.url || "";
-            }
-          } catch (parseLinksErr) {
-            console.error("Error parsing platform links from Odesli:", parseLinksErr);
-          }
-          
-          // Keep user's pasted URL in correct slot if Odesli results do not include it
-          const lowerUrl = pasteUrl.toLowerCase();
-          if (lowerUrl.includes("spotify.com") && !newLinks.spotify) {
-            newLinks.spotify = pasteUrl.trim();
-          } else if ((lowerUrl.includes("youtube.com") || lowerUrl.includes("youtu.be")) && !newLinks.youtube) {
-            newLinks.youtube = pasteUrl.trim();
-          } else if (lowerUrl.includes("apple.com") && !newLinks.appleMusic) {
-            newLinks.appleMusic = pasteUrl.trim();
-          } else if (lowerUrl.includes("soundcloud.com") && !newLinks.soundcloud) {
-            newLinks.soundcloud = pasteUrl.trim();
-          }
-
-          setLinks(newLinks);
-          
-          if (fetchedTitle && fetchedArtist) {
-            setDescription(`Listen to '${fetchedTitle}' by ${fetchedArtist} on your preferred streaming platform.`);
           } else {
-            setDescription("Listen to our new digital release out now on all major streaming platforms.");
+            // Success response from Odesli
+            try {
+              data = await response.json();
+              console.log("Odesli API responds:", data);
+            } catch (jsonErr) {
+              console.error("JSON parsing error on Odesli response, trying fallback scraper:", jsonErr);
+              
+              // Try fallback link scraper
+              const fallbackResponse = await fetch(`/api/heartlinks/scrape`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: pasteUrl.trim() })
+              });
+
+              if (fallbackResponse.ok) {
+                const scrapeData = await fallbackResponse.json();
+                if (scrapeData && (scrapeData.title || scrapeData.imageUrl)) {
+                  setTitle(scrapeData.title || "");
+                  setArtist(scrapeData.artist || "");
+                  if (scrapeData.imageUrl) setImageUrl(scrapeData.imageUrl);
+                  if (scrapeData.description) setDescription(scrapeData.description);
+                  const newLinks = {
+                    spotify: scrapeData.platform === "spotify" ? pasteUrl.trim() : "",
+                    youtube: scrapeData.platform === "youtube" ? pasteUrl.trim() : "",
+                    appleMusic: scrapeData.platform === "appleMusic" ? pasteUrl.trim() : "",
+                    soundcloud: scrapeData.platform === "soundcloud" ? pasteUrl.trim() : ""
+                  };
+                  setLinks(newLinks);
+                  fallbackSuccessful = true;
+                }
+              }
+
+              if (!fallbackSuccessful) {
+                throw new Error("Odesli API returned an invalid response structure. Please enter details manually.");
+              }
+            }
+
+            if (!fallbackSuccessful) {
+              if (!data || typeof data !== "object") {
+                throw new Error("Empty or invalid response from Odesli API. Please input your details manually.");
+              }
+
+              let mainEntity = null;
+              try {
+                if (data.entityUniqueId && data.entitiesByUniqueId) {
+                  mainEntity = data.entitiesByUniqueId[data.entityUniqueId];
+                }
+                if (!mainEntity && data.entitiesByUniqueId) {
+                  mainEntity = Object.values(data.entitiesByUniqueId)[0];
+                }
+              } catch (parseEntityErr) {
+                console.error("Error safely parsing unique entities from Odesli:", parseEntityErr);
+              }
+              
+              if (!mainEntity) {
+                throw new Error("Could not auto-extract song details from this link. Feel free to type them manually.");
+              }
+
+              const fetchedTitle = mainEntity.title || "";
+              const fetchedArtist = mainEntity.artistName || "";
+              
+              setTitle(fetchedTitle);
+              setArtist(fetchedArtist);
+              
+              if (mainEntity.thumbnailUrl) {
+                setImageUrl(mainEntity.thumbnailUrl);
+              }
+              
+              const newLinks = {
+                spotify: "",
+                youtube: "",
+                appleMusic: "",
+                soundcloud: ""
+              };
+
+              try {
+                if (data.linksByPlatform) {
+                  newLinks.spotify = data.linksByPlatform.spotify?.url || "";
+                  newLinks.youtube = data.linksByPlatform.youtube?.url || data.linksByPlatform.youtubeMusic?.url || "";
+                  newLinks.appleMusic = data.linksByPlatform.appleMusic?.url || data.linksByPlatform.itunes?.url || "";
+                  newLinks.soundcloud = data.linksByPlatform.soundcloud?.url || "";
+                }
+              } catch (parseLinksErr) {
+                console.error("Error parsing platform links from Odesli:", parseLinksErr);
+              }
+              
+              // Keep user's pasted URL in correct slot if Odesli results do not include it
+              const lowerUrl = pasteUrl.toLowerCase();
+              if (lowerUrl.includes("spotify.com") && !newLinks.spotify) {
+                newLinks.spotify = pasteUrl.trim();
+              } else if ((lowerUrl.includes("youtube.com") || lowerUrl.includes("youtu.be")) && !newLinks.youtube) {
+                newLinks.youtube = pasteUrl.trim();
+              } else if (lowerUrl.includes("apple.com") && !newLinks.appleMusic) {
+                newLinks.appleMusic = pasteUrl.trim();
+              } else if (lowerUrl.includes("soundcloud.com") && !newLinks.soundcloud) {
+                newLinks.soundcloud = pasteUrl.trim();
+              }
+
+              setLinks(newLinks);
+              
+              if (fetchedTitle && fetchedArtist) {
+                setDescription(`Listen to '${fetchedTitle}' by ${fetchedArtist} on your preferred streaming platform.`);
+              } else {
+                setDescription("Listen to our new digital release out now on all major streaming platforms.");
+              }
+            }
           }
         } catch (err) {
           console.error("Odesli Fetch Error:", err);
-          setOdesliError(err instanceof Error ? err.message : "Failed to fetch from Odesli API. Feel free to type details manually below.");
+          setOdesliError(err instanceof Error ? err.message : "Failed to fetch from Odesli API.");
         } finally {
           setFetchingOdesli(false);
         }
@@ -1970,9 +2174,18 @@
               </div>
 
               {odesliError && (
-                <div className="text-[10px] text-red-450 font-mono flex items-center gap-1.5 bg-red-950/20 border border-red-900/30 p-2.5 rounded-xl">
-                  <LucideIcon name="alert-triangle" className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  <span>{odesliError}</span>
+                <div className="text-[11px] text-red-400 font-sans space-y-2 bg-red-950/20 border border-red-900/30 p-4 rounded-xl">
+                  <div className="flex items-start gap-2">
+                    <LucideIcon name="alert-triangle" className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-bold">Automated Lookup Failed</p>
+                      <p className="text-neutral-450 mt-1">{odesliError}</p>
+                    </div>
+                  </div>
+                  <div className="text-[10px] bg-black/40 p-2.5 rounded-lg border border-neutral-800 text-neutral-300 font-mono space-y-1">
+                    <p className="font-bold text-rose-400 uppercase">💡 Quick Tip for Success:</p>
+                    <p>Try pasting the song's direct, clean URL from Spotify, YouTube, Apple Music, or SoundCloud. If it still fails, you can fill in the song details below manually - the forms are fully unlocked!</p>
+                  </div>
                 </div>
               )}
             </div>
