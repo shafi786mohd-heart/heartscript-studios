@@ -608,20 +608,26 @@
             loader.style.display = 'flex';
 
             try {
-                let apiUrl = "";
+                let targetUrl = "";
                 const isNumericId = /^\d+$/.test(inputVal);
 
                 if (isNumericId) {
-                    apiUrl = `https://api.song.link/v1-alpha.1/links?upc=${inputVal}`;
+                    targetUrl = `https://api.song.link/v1-alpha.1/links?upc=${inputVal}`;
                 } else {
                     const encodedUrl = encodeURIComponent(inputVal);
-                    apiUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
+                    targetUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
                 }
 
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error("Could not fetch release coordinates.");
+                // BYPASS CORS: Wrap the Odesli endpoint inside a reliable secure CORS proxy
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
-                const data = await response.json();
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("Proxy error.");
+
+                const wrapper = await response.json();
+                
+                // Parse the payload returned by the proxy
+                const data = JSON.parse(wrapper.contents);
                 
                 // Get basic metadata (Art, Title, Artist)
                 const firstEntityKey = data.entityUniqueIds[0];
