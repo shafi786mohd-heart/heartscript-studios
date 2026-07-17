@@ -618,18 +618,23 @@
                     targetUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
                 }
 
-                // BYPASS CORS: Wrap the Odesli endpoint inside a reliable secure CORS proxy
+                // SECURE CORS BYPASS PROXY
                 const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
                 const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error("Proxy error.");
+                if (!response.ok) throw new Error("CORS Proxy Network Request Failed.");
 
                 const wrapper = await response.json();
+                if (!wrapper || !wrapper.contents) throw new Error("Proxy returned an empty payload. The link pasted may be incorrect or missing letters.");
                 
-                // Parse the payload returned by the proxy
+                // Parse the response
                 const data = JSON.parse(wrapper.contents);
                 
-                // Get basic metadata (Art, Title, Artist)
+                // Check if the API returned actual track matches
+                if (!data.entityUniqueIds || data.entityUniqueIds.length === 0) {
+                    throw new Error("No track data found on streaming services for this URL. Please verify the URL in a browser first.");
+                }
+
                 const firstEntityKey = data.entityUniqueIds[0];
                 const songMeta = data.entitiesByUniqueId[firstEntityKey];
 
@@ -639,7 +644,6 @@
                     document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
                 }
 
-                // Get dynamic links securely from the secure payload
                 const links = data.linksByPlatform;
                 if (links) {
                     document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
@@ -650,7 +654,7 @@
 
                 updatePreview();
             } catch (error) {
-                alert("Auto-fetch encountered an issue. Check your UPC/URL or try using Advanced Manual Overrides.");
+                alert("Error during Auto-Fetch:\n\n" + error.message + "\n\n(Tip: Double check that the Spotify link was not cut off!)");
                 console.error(error);
             } finally {
                 loader.style.display = 'none';
