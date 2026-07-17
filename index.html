@@ -1,1648 +1,1587 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elevatech LLP | B2B Elevator Engineering Solutions & Systems Advisor</title>
-    
-    <!-- Design Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS Play CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Space Grotesk', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heartscript Studios Creator Suite — Built for the Independent Soul</title>
+  <meta name="description" content="A premium dark-themed creator suite for independent artists, featuring smart bio-links, real-time procedural synthesizers, 9:16 reel visualizers, and our official artist roster." />
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            neonCyan: '#00f2fe',
+            neonPurple: '#4facfe',
+            neonMagenta: '#d946ef',
+            neonPink: '#f43f5e',
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'glow-cyan': 'glowCyan 3s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
             },
-            colors: {
-              slate: {
-                950: '#030712',
-                900: '#0f172a',
-                850: '#1e293b',
-                800: '#334155',
-              }
+            glowCyan: {
+              '0%': { filter: 'drop-shadow(0 0 2px rgba(0, 242, 254, 0.2))' },
+              '100%': { filter: 'drop-shadow(0 0 12px rgba(0, 242, 254, 0.6))' },
             }
           }
         }
       }
-    </script>
-    
-    <style>
-      /* Smooth transitions */
-      .tab-transition {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.4s ease-out forwards;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-    </style>
-
-    <!-- Schema.org JSON-LD Structured Data for Generative AI & Search Engines -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://elevatech.engineering/#organization",
-          "name": "Elevatech LLP",
-          "url": "https://elevatech.engineering",
-          "logo": "https://elevatech.engineering/logo.png",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+1-800-555-3538",
-            "contactType": "technical sales",
-            "email": "solutions@elevatech.engineering"
-          },
-          "description": "An engineering pioneer curating and developing high-performance cabin climate, secure wireless communication, and predictive IoT integrations for premium commercial elevators."
-        },
-        {
-          "@type": "Product",
-          "@id": "https://elevatech.engineering/#dry-ac",
-          "name": "Elevatech zero-liquid condensation Dry AC",
-          "description": "Zero-drain, zero-liquid condensation elevator cabin climate control system. Eliminates the risk of water pooling and toxic moisture corrosion in vertical shafts.",
-          "brand": {
-            "@type": "Brand",
-            "name": "Elevatech"
-          },
-          "category": "Industrial Fan & Air Conditioning",
-          "offers": {
-            "@type": "AggregateOffer",
-            "priceCurrency": "USD",
-            "itemCondition": "https://schema.org/NewCondition"
-          }
-        },
-        {
-          "@type": "Product",
-          "@id": "https://elevatech.engineering/#wireless-cctv",
-          "name": "Elevatech wireless millimeter-wave CCTV links",
-          "description": "Ultra-secure high-frequency millimeter-wave wireless transceiver links for elevator surveillance. Prevents CAT6 copper cable wear and signal failure inside vertical moving shafts.",
-          "brand": {
-            "@type": "Brand",
-            "name": "Elevatech"
-          },
-          "category": "Surveillance Camera & Networking",
-          "offers": {
-            "@type": "AggregateOffer",
-            "priceCurrency": "USD",
-            "itemCondition": "https://schema.org/NewCondition"
-          }
-        }
-      ]
     }
-    </script>
-  </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-slate-950">
+  </script>
+  
+  <style type="text/tailwindcss">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+    
+    /* Premium glow utilities */
+    .glow-cyan {
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+    }
+    .glow-magenta {
+      box-shadow: 0 0 30px rgba(217, 70, 239, 0.15);
+    }
+    .glow-rose {
+      box-shadow: 0 0 30px rgba(244, 63, 94, 0.15);
+    }
+    .glow-text-cyan {
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+    }
+    .glow-text-magenta {
+      text-shadow: 0 0 10px rgba(217, 70, 239, 0.6);
+    }
+    
+    /* Grid background pattern */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    }
 
-    <!-- NAVIGATION HEADER -->
-    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-slate-100 px-6 py-4">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        
-        <!-- Brand Block -->
-        <div class="flex flex-col cursor-pointer" onclick="switchTab('home')">
-          <div class="flex items-center gap-2">
-            <span class="p-1.5 bg-sky-500 rounded-md text-slate-950 font-extrabold tracking-wider text-sm flex items-center justify-center">
-              E
-            </span>
-            <span class="font-display font-bold text-xl tracking-tight text-white">
-              ELEVATECH
-            </span>
-            <span class="text-xs text-sky-400 font-mono font-medium tracking-wide border border-sky-500/30 px-1.5 py-0.5 rounded ml-1 bg-sky-950/40">
-              LLP
-            </span>
-          </div>
-          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5 ml-0.5">
-            Enabling Technologies for Elevator
-          </span>
-        </div>
+    /* Transition effects */
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#030305] text-zinc-100 flex flex-col font-sans selection:bg-rose-500/30 selection:text-rose-300 overflow-x-hidden relative">
 
-        <!-- Navigation Links -->
-        <div class="hidden md:flex items-center gap-6">
-          <button onclick="switchTab('home')" id="nav-home" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-sky-400 font-semibold">
-            Solutions Explorer
-          </button>
-          <button onclick="switchTab('builder')" id="nav-builder" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-slate-300">
-            Cabin Configurator
-          </button>
-          <button onclick="switchTab('knowledge')" id="nav-knowledge" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-slate-300">
-            Engineering Library
-          </button>
-        </div>
+  <!-- Ambient backdrop glows -->
+  <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute top-[-10%] left-[20%] h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,rgba(0,242,254,0.06)_0%,transparent_70%)] blur-3xl"></div>
+    <div class="absolute top-[30%] right-[-10%] h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(217,70,239,0.05)_0%,transparent_70%)] blur-3xl"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,rgba(244,63,94,0.05)_0%,transparent_70%)] blur-3xl"></div>
+    <div class="absolute inset-0 bg-grid-pattern opacity-40"></div>
+  </div>
 
-        <!-- Utility CTAs -->
-        <div class="flex items-center gap-3">
-          <button onclick="openAdvisor()" class="flex items-center gap-2 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs px-3.5 py-2.5 rounded-lg font-medium tracking-wide transition-all shadow-md shadow-sky-900/10 active:scale-95">
-            <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-            <span class="hidden sm:inline">Consult AI Advisor</span>
-          </button>
-
-          <button onclick="openLeadConsole()" class="relative flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3.5 py-2.5 rounded-lg font-medium tracking-wide transition-colors border border-slate-700/60">
-            <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-            <span class="hidden sm:inline">CRM Pipeline</span>
-            <span id="leads-count-badge" class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white hidden">0</span>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- CONTENT PORTALS -->
-    <main class="flex-grow">
-      
-      <!-- TAB 1: HOME PAGE (Solutions Explorer & Hero Strategy Intro) -->
-      <div id="tab-content-home" class="tab-transition">
-        
-        <!-- HERO SEGMENT & WEB STRATEGY OVERVIEW -->
-        <div class="relative overflow-hidden bg-slate-950 text-slate-100 py-16 px-6 border-b border-slate-900">
-          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.1),transparent_50%)]"></div>
-          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(99,102,241,0.05),transparent_50%)]"></div>
-
-          <div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <!-- Left Header -->
-            <div class="lg:col-span-7 flex flex-col space-y-6">
-              <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/10 border border-sky-400/20 rounded-full text-sky-400 text-xs font-mono font-medium w-fit">
-                <span class="flex h-2 w-2 rounded-full bg-sky-400 animate-ping"></span>
-                <span>Active B2B Portal Redesign Enacted</span>
-              </div>
-
-              <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
-                Bridging the Gap in <br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-indigo-400">
-                  Elevator Safety & Comfort
-                </span>
-              </h1>
-
-              <p class="text-slate-400 text-lg font-sans font-light max-w-xl leading-relaxed">
-                All major elevator manufacturers excel at vertical transportation, but they consistently fall short on the secondary climate and media technologies that high-occupancy towers demand. 
-                <strong class="text-slate-200 font-normal">Elevatech LLP acts as your premium, brand-agnostic systems partner</strong>, delivering compliant custom-engineered solutions.
-              </p>
-
-              <div class="flex flex-wrap items-center gap-4 pt-4">
-                <button onclick="switchTab('builder')" class="flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 px-6 py-3.5 rounded-lg font-display font-bold tracking-wide transition-all shadow-lg shadow-sky-500/20 active:scale-95 text-sm">
-                  <span>Launch Spec Configurator</span>
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-                <button onclick="toggleStrategyModal(true)" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 px-6 py-3.5 rounded-lg font-sans font-semibold tracking-wide transition-colors border border-slate-800 text-sm">
-                  <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                  <span>Review Strategic Brief Audit</span>
-                </button>
-              </div>
-
-              <!-- Quick Engineering Metrics -->
-              <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-900 max-w-xl">
-                <div>
-                  <div class="text-2xl sm:text-3xl font-mono font-bold text-white">0.0 L</div>
-                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">Liquid AC Runoff</div>
-                </div>
-                <div>
-                  <div class="text-2xl sm:text-3xl font-mono font-bold text-sky-400">100%</div>
-                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">CCTV Outages Fixed</div>
-                </div>
-                <div>
-                  <div class="text-2xl sm:text-3xl font-mono font-bold text-indigo-400">&lt; 1.5ms</div>
-                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">Wireless Comm Latency</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Brief Highlight Card -->
-            <div class="lg:col-span-5 relative">
-              <div class="relative bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
-                <div class="absolute top-0 right-0 w-24 h-24 bg-sky-500/10 rounded-bl-3xl -z-10 blur-xl"></div>
-                
-                <h3 class="font-display font-semibold text-lg text-white mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
-                  <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                  <span>B2B User Experience Architecture</span>
-                </h3>
-
-                <div class="space-y-4 text-xs font-sans font-light leading-relaxed">
-                  <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                    <span class="text-[10px] font-mono font-semibold uppercase text-sky-400 tracking-wider block mb-1">Our Strategic Mandate</span>
-                    Elevate the standard digital catalog from a passive product list to an active consulting platform. We enable builders and architects to self-qualify instantly.
-                  </div>
-
-                  <div class="space-y-3">
-                    <div class="flex items-start gap-2.5">
-                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">A</span>
-                      <div>
-                        <h4 class="font-semibold text-slate-200">Solution-Based Navigation</h4>
-                        <p class="text-slate-400 text-[11px] mt-0.5">Filter directly by vertical pain-points (safety water codes, snapped CCTV lines) instead of SKU part numbers.</p>
-                      </div>
-                    </div>
-
-                    <div class="flex items-start gap-2.5">
-                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">B</span>
-                      <div>
-                        <h4 class="font-semibold text-slate-200">Integrated Spec Configurator</h4>
-                        <p class="text-slate-400 text-[11px] mt-0.5">Captures high-rise architectural parameters, calculating cooling loads and projecting yearly maintenance ROI instantly.</p>
-                      </div>
-                    </div>
-
-                    <div class="flex items-start gap-2.5">
-                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">C</span>
-                      <div>
-                        <h4 class="font-semibold text-slate-200">Semantic AI Search Optimization</h4>
-                        <p class="text-slate-400 text-[11px] mt-0.5">Rich schema graphs and knowledge clusters ensure discoverability by LLMs and conversational answer engines.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- PORTFOLIO ADAPTIVE SOLUTION EXPLORER -->
-        <section class="py-16 px-6 max-w-7xl mx-auto">
-          <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 border-b border-slate-900 pb-8 gap-6">
-            <div>
-              <span class="text-xs text-sky-400 font-mono uppercase tracking-wider block mb-2">B2B Core Competencies</span>
-              <h2 class="text-3xl font-display font-bold text-white tracking-tight">Engineering Solutions for Vertical Challenges</h2>
-              <p class="text-slate-400 mt-2 text-sm leading-relaxed max-w-xl font-light">
-                Generic climate and communication units fail under vertical velocity and physical vibration. We build compliance-vetted systems that bridge these exact gaps.
-              </p>
-            </div>
-
-            <!-- Switch Mode buttons -->
-            <div class="inline-flex p-1 bg-slate-900 border border-slate-800 rounded-xl self-start lg:self-auto">
-              <button onclick="setExplorerTab('solutions')" id="exp-tab-solutions" class="flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                <span>Browse by Technology</span>
-              </button>
-              <button onclick="setExplorerTab('industries')" id="exp-tab-industries" class="flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                <span>Browse by Industry</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- GRID VIEW CONTAINER -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- Sidebar selection -->
-            <div class="lg:col-span-4 flex flex-col space-y-3" id="explorer-sidebar">
-              <!-- Rendered Dynamically via JS -->
-            </div>
-
-            <!-- Detailed Panel Spec -->
-            <div class="lg:col-span-8 bg-slate-900/20 border border-slate-900 rounded-2xl p-6 sm:p-8 space-y-8" id="explorer-panel">
-              <!-- Rendered Dynamically via JS -->
-            </div>
-
-          </div>
-        </section>
-
-        <!-- STATIC PROMOTION INTERMEDIATE -->
-        <section class="bg-gradient-to-r from-sky-950/20 via-indigo-950/10 to-slate-950 py-16 px-6 border-t border-b border-slate-900">
-          <div class="max-w-4xl mx-auto text-center space-y-6">
-            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block">Interactive Specification Flow</span>
-            <h3 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight leading-tight">
-              Construct a Verified B2B Engineering Specification
-            </h3>
-            <p class="text-slate-400 text-sm font-light leading-relaxed max-w-xl mx-auto">
-              Our configurator maps your elevator shaft constraints (such as water codes, cellular dropouts, and structural clearances) against our product catalogs, drafting a compliance-vetted quote request in seconds.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <button onclick="switchTab('builder')" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-6 py-3 rounded-lg text-xs tracking-wider uppercase transition-colors">
-                <span>Start Free Configurator</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              </button>
-              <button onclick="switchTab('knowledge')" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-6 py-3 rounded-lg text-xs tracking-wider uppercase transition-colors">
-                <span>View Engineering Whitepapers</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- TAB 2: INTERACTIVE SOLUTION CONFIGURATOR -->
-      <div id="tab-content-builder" class="tab-transition hidden">
-        <section class="py-16 px-6 max-w-7xl mx-auto">
+  <!-- Main Content Wrapper -->
+  <div class="relative z-10 flex flex-col min-h-screen">
+    
+    <!-- HEADER LAYOUT WITH LOGO -->
+    <header class="border-b border-zinc-900/80 bg-[#030305]/70 backdrop-blur-xl sticky top-0 z-50 transition-all">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-20 items-center justify-between gap-4">
           
-          <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block mb-2">Self-Service B2B Estimator</span>
-            <h2 class="text-3xl font-display font-bold text-white tracking-tight">Interactive Elevator Solution Configurator</h2>
-            <p class="text-slate-400 text-sm mt-2 font-light">
-              Submit your vertical architectural roadblocks to generate an automated pricing estimate and custom systems engineering pre-assessment.
+          <!-- Logo & Brand Alignment -->
+          <a href="/" onclick="navigate(event, 'hub')" class="flex items-center gap-3.5 group select-none">
+            <!-- Glowing Neon Graphic Logo Container with soundwave heart -->
+            <div class="relative flex h-11 w-11 items-center justify-center rounded-xl bg-black border border-zinc-800 shadow-[0_0_15px_rgba(244,63,94,0.15)] group-hover:shadow-[0_0_25px_rgba(0,242,254,0.25)] group-hover:border-zinc-700 transition-all duration-500 overflow-hidden">
+              <svg viewBox="0 0 100 100" class="h-8 w-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f43f5e" />
+                    <stop offset="100%" stop-color="#00f2fe" />
+                  </linearGradient>
+                  <filter id="neonGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Soundwave Heart Outline -->
+                <path 
+                  d="M50 82C50 82 15 54 15 35C15 22 25 15 35 15C42 15 47 19 50 23C53 19 58 15 65 15C75 15 85 22 85 35C85 54 50 82 50 82Z" 
+                  stroke="url(#heartGrad)" 
+                  stroke-width="4.5" 
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  filter="url(#neonGlowFilter)"
+                  class="opacity-90 group-hover:opacity-100 transition-opacity"
+                />
+                
+                <!-- Vertical Soundwave Frequency Bars -->
+                <line x1="30" y1="43" x2="30" y2="57" stroke="#f43f5e" stroke-width="4" stroke-linecap="round" class="animate-pulse" />
+                <line x1="40" y1="33" x2="40" y2="67" stroke="#e0258d" stroke-width="4" stroke-linecap="round" class="animate-pulse" style="animation-delay: 0.15s" />
+                <line x1="50" y1="28" x2="50" y2="72" stroke="#a78bfa" stroke-width="4" stroke-linecap="round" class="animate-pulse" style="animation-delay: 0.3s" />
+                <line x1="60" y1="33" x2="60" y2="67" stroke="#00d2f3" stroke-width="4" stroke-linecap="round" class="animate-pulse" style="animation-delay: 0.45s" />
+                <line x1="70" y1="43" x2="70" y2="57" stroke="#00f2fe" stroke-width="4" stroke-linecap="round" class="animate-pulse" style="animation-delay: 0.6s" />
+              </svg>
+              <!-- Decorative interior overlay glow -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-rose-500/15 to-cyan-500/15 opacity-60 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            
+            <div class="flex flex-col">
+              <span class="text-base sm:text-lg font-black tracking-tight text-white font-display group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-zinc-200 group-hover:to-rose-200 group-hover:bg-clip-text transition-all duration-300">
+                Heartscript Studios
+              </span>
+              <span class="text-[10px] font-mono tracking-widest text-zinc-500 group-hover:text-zinc-400 transition-colors uppercase font-bold">
+                Creator Suite
+              </span>
+            </div>
+          </a>
+
+          <!-- Navigation Links / Button-styled pointing to absolute paths -->
+          <nav class="flex items-center gap-1.5 sm:gap-3">
+            <a href="/heartlinks/" onclick="navigate(event, 'heartlinks')" id="nav-heartlinks" class="nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-semibold rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all duration-200">
+              Heartlinks
+            </a>
+            <a href="/heartvision/" onclick="navigate(event, 'heartvision')" id="nav-heartvision" class="nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-semibold rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all duration-200">
+              Heartvision
+            </a>
+            <a href="/pulse/" onclick="navigate(event, 'pulse')" id="nav-pulse" class="nav-btn px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-semibold rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all duration-200">
+              Pulse
+            </a>
+          </nav>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN VIEW STAGE -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- ================= HUB VIEW (HOME/PORTAL) ================= -->
+      <div id="view-hub" class="view-panel space-y-20 pb-16">
+        
+        <!-- HERO SECTION -->
+        <section class="relative overflow-hidden py-12 sm:py-16 text-center">
+          <!-- Background accent glow -->
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.06)_0%,transparent_50%)]"></div>
+          
+          <div class="relative max-w-3xl mx-auto space-y-6">
+            <!-- Artist Manifesto Pill -->
+            <div class="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/80 px-4.5 py-1.5 text-xs font-medium backdrop-blur-md text-zinc-300 shadow-md">
+              <span class="flex h-2 w-2 rounded-full bg-rose-500 animate-pulse"></span>
+              Independent Artist Alliance — Release Alpha 4.2
+            </div>
+            
+            <!-- Hero Title & Sub-caption -->
+            <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl font-display leading-[1.1]">
+              Heartscript Studios <br/>
+              <span class="bg-gradient-to-r from-neonCyan via-neonMagenta to-neonPink bg-clip-text text-transparent drop-shadow-sm font-black">
+                Creator Suite
+              </span>
+            </h2>
+            
+            <p class="text-lg sm:text-xl text-zinc-300 font-medium tracking-wide italic max-w-2xl mx-auto font-display">
+              "Built by an independent artist, for the independent soul."
+            </p>
+            
+            <p class="text-zinc-500 text-sm sm:text-base max-w-xl mx-auto font-sans leading-relaxed">
+              We empower musicians and creative souls to bypass restrictive algorithms, take absolute control of distribution aesthetics, and design custom release environments. No corporate middleman, pure design.
+            </p>
+            
+            <!-- Quick CTA -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <a href="/heartvision/" onclick="navigate(event, 'heartvision')" class="relative group overflow-hidden rounded-xl px-6 py-3.5 text-sm font-bold text-black bg-white hover:bg-zinc-100 transition-all shadow-[0_4px_20px_rgba(255,255,255,0.15)] hover:shadow-[0_4px_25px_rgba(0,242,254,0.3)] duration-300">
+                <span class="relative z-10 flex items-center gap-1.5">
+                  Launch Visualizer Studio
+                  <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <div class="absolute inset-0 bg-gradient-to-r from-neonCyan/35 to-neonMagenta/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </a>
+              
+              <a href="/heartlinks/" onclick="navigate(event, 'heartlinks')" class="rounded-xl border border-zinc-800 bg-zinc-950/50 hover:bg-zinc-950 px-6 py-3.5 text-sm font-semibold text-zinc-300 hover:text-white transition-all hover:border-zinc-700">
+                Setup Smart Bio-Links
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOOL FEATURES BENTO PREVIEW -->
+        <section class="space-y-6">
+          <div class="text-center space-y-2">
+            <h3 class="text-2xl font-black text-white font-display">Sovereign Studios Core Ecosystem</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm max-w-md mx-auto">Select a card below to launch its dynamic editor panel immediately.</p>
+          </div>
+          
+          <div class="grid gap-6 md:grid-cols-3">
+            
+            <!-- Bento Card 1: HeartLinks -->
+            <div onclick="navigate(null, 'heartlinks')" class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/30 p-6 backdrop-blur-sm hover:border-rose-500/30 hover:bg-zinc-950/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-[320px] shadow-lg overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(244,63,94,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+              <div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-rose-500/50 transition-colors">
+                  <svg class="h-5 w-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-bold text-white mt-4 group-hover:text-rose-400 transition-colors font-display">HeartLinks</h4>
+                <p class="mt-2 text-xs text-zinc-400 leading-relaxed font-sans">
+                  A custom smart link generator for music releases. Craft elegant, tracker-free bio landing pages to bundle your streaming feeds, merch shops, and digital tracks without corporate fee cuts.
+                </p>
+                <!-- UI Preview Element -->
+                <div class="mt-3 flex gap-1.5 select-none">
+                  <span class="text-[9px] font-mono border border-rose-950 bg-rose-950/20 text-rose-400 px-2 py-0.5 rounded">Custom themes</span>
+                  <span class="text-[9px] font-mono border border-zinc-850 bg-zinc-900/40 text-zinc-400 px-2 py-0.5 rounded">0% trackers</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-rose-400 font-semibold flex items-center gap-1">
+                Configure Smart Links &rarr;
+              </span>
+            </div>
+
+            <!-- Bento Card 2: HeartVision -->
+            <div onclick="navigate(null, 'heartvision')" class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/30 p-6 backdrop-blur-sm hover:border-neonCyan/30 hover:bg-zinc-950/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-[320px] shadow-lg overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(0,242,254,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+              <div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-neonCyan/50 transition-colors">
+                  <svg class="h-5 w-5 text-neonCyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-bold text-white mt-4 group-hover:text-neonCyan transition-colors font-display">HeartVision</h4>
+                <p class="mt-2 text-xs text-zinc-400 leading-relaxed font-sans">
+                  Our custom 9:16 vertical canvas and reel music promoter. Generate procedural frequency wave spectrums mapped with custom gradients, engineered precisely for Spotify canvases, reels, and TikTok loop files.
+                </p>
+                <!-- UI Preview Element -->
+                <div class="mt-3 flex gap-1.5 select-none">
+                  <span class="text-[9px] font-mono border border-cyan-950 bg-cyan-950/20 text-neonCyan px-2 py-0.5 rounded">9:16 Reels Frame</span>
+                  <span class="text-[9px] font-mono border border-zinc-850 bg-zinc-900/40 text-zinc-400 px-2 py-0.5 rounded">Resonant Drone Synth</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-neonCyan font-semibold flex items-center gap-1">
+                Generate Audio Visuals &rarr;
+              </span>
+            </div>
+
+            <!-- Bento Card 3: Pulse -->
+            <div onclick="navigate(null, 'pulse')" class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/30 p-6 backdrop-blur-sm hover:border-neonMagenta/30 hover:bg-zinc-950/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-[320px] shadow-lg overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(217,70,239,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+              <div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-neonMagenta/50 transition-colors">
+                  <svg class="h-5 w-5 text-neonMagenta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <h4 class="text-lg font-bold text-white mt-4 group-hover:text-neonMagenta transition-colors font-display">Pulse</h4>
+                <p class="mt-2 text-xs text-zinc-400 leading-relaxed font-sans">
+                  Our official roster of independent artists and tracks. Stream procedural audio previews, review sonic metadata structures (BPM/Keys), explore indie releases, and submit your acoustic blueprints.
+                </p>
+                <!-- UI Preview Element -->
+                <div class="mt-3 flex gap-1.5 select-none">
+                  <span class="text-[9px] font-mono border border-fuchsia-950 bg-fuchsia-950/20 text-fuchsia-400 px-2 py-0.5 rounded">Sovereign Roster</span>
+                  <span class="text-[9px] font-mono border border-zinc-850 bg-zinc-900/40 text-zinc-400 px-2 py-0.5 rounded">Synthesized Players</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-neonMagenta font-semibold flex items-center gap-1">
+                Explore Artist Roster &rarr;
+              </span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ARTIST RESOURCES (BLOG SECTION) -->
+        <section class="space-y-8" id="artist-resources-blog">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <p class="text-xs font-mono uppercase tracking-widest text-rose-500 font-bold">Knowledge Base</p>
+              <h3 class="text-2xl font-black text-white md:text-3xl mt-1 font-display">
+                Tactics &amp; Sovereign Blueprints
+              </h3>
+              <p class="text-zinc-400 text-xs sm:text-sm mt-1 max-w-xl">
+                Research and insights designed to help independent musicians coordinate high-fidelity visual assets, streamline social funnels, and capture loyal fans.
+              </p>
+            </div>
+            <span class="font-mono text-xs text-zinc-600 border border-zinc-900 px-3 py-1.5 rounded-lg select-none">
+              3 Strategic Articles
+            </span>
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-3">
+            
+            <!-- Article Card 1 -->
+            <article class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 backdrop-blur-sm hover:border-zinc-800 hover:bg-zinc-950/50 transition-all duration-300 flex flex-col justify-between h-[300px]">
+              <div>
+                <div class="text-[10px] font-mono uppercase text-rose-400 font-bold mb-3 tracking-wider">
+                  Sovereign Distribution
+                </div>
+                <h4 class="text-base font-bold text-white group-hover:text-rose-300 transition-colors leading-snug font-display">
+                  Sovereign Funnel Blueprint
+                </h4>
+                <p class="mt-2.5 text-xs text-zinc-400 leading-relaxed font-sans">
+                  Learn how utilizing high-speed, zero-tracker landing nodes bypasses social network filters, reducing listener conversion loss by up to 35% compared to commercial aggregators.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-zinc-900/60 flex items-center justify-between">
+                <span class="text-[10px] font-mono text-zinc-500">5 min read</span>
+                <span class="text-[10px] font-mono text-rose-400 font-bold flex items-center gap-1 group-hover:text-rose-300">
+                  Read Article &rarr;
+                </span>
+              </div>
+            </article>
+
+            <!-- Article Card 2 -->
+            <article class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 backdrop-blur-sm hover:border-zinc-800 hover:bg-zinc-950/50 transition-all duration-300 flex flex-col justify-between h-[300px]">
+              <div>
+                <div class="text-[10px] font-mono uppercase text-neonCyan font-bold mb-3 tracking-wider">
+                  Visual Systems
+                </div>
+                <h4 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug font-display">
+                  The Science of 9:16 Canvas Loops
+                </h4>
+                <p class="mt-2.5 text-xs text-zinc-400 leading-relaxed font-sans">
+                  Discover how clean, procedural wave oscillators mapped to custom organic palette spectrums amplify streaming track replay loops and improve visual retention inside social engines.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-zinc-900/60 flex items-center justify-between">
+                <span class="text-[10px] font-mono text-zinc-500">4 min read</span>
+                <span class="text-[10px] font-mono text-neonCyan font-bold flex items-center gap-1 group-hover:text-cyan-300">
+                  Read Article &rarr;
+                </span>
+              </div>
+            </article>
+
+            <!-- Article Card 3 -->
+            <article class="group relative rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 backdrop-blur-sm hover:border-zinc-800 hover:bg-zinc-950/50 transition-all duration-300 flex flex-col justify-between h-[300px]">
+              <div>
+                <div class="text-[10px] font-mono uppercase text-neonMagenta font-bold mb-3 tracking-wider">
+                  Sonic Autonomy
+                </div>
+                <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition-colors leading-snug font-display">
+                  Escaping the Feed Algorithmic Loops
+                </h4>
+                <p class="mt-2.5 text-xs text-zinc-400 leading-relaxed font-sans">
+                  The commercial digital release infrastructure treats audio as momentary feed items. We discuss why showcasing structural metadata and bespoke spaces anchors artist integrity.
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-zinc-900/60 flex items-center justify-between">
+                <span class="text-[10px] font-mono text-zinc-500">6 min read</span>
+                <span class="text-[10px] font-mono text-neonMagenta font-bold flex items-center gap-1 group-hover:text-purple-300">
+                  Read Article &rarr;
+                </span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- CRITICAL INDEPENDENT MANIFESTO -->
+        <section class="rounded-3xl border border-zinc-850 bg-gradient-to-br from-zinc-950 via-zinc-950 to-zinc-900/40 p-8 md:p-12 relative overflow-hidden shadow-2xl">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(244,63,94,0.06),transparent_40%)]"></div>
+          <div class="relative z-10 grid gap-8 md:grid-cols-12 items-center">
+            
+            <div class="md:col-span-7 space-y-4">
+              <span class="text-xs font-mono font-bold uppercase tracking-widest text-neonCyan">Our Philosophy</span>
+              <h3 class="text-2xl font-black text-white md:text-4xl font-display tracking-tight">
+                Declaring Autonomy Over Your Noise
+              </h3>
+              <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">
+                Art loses its soul the moment it is squeezed into corporate metrics and algorithmic profiles. Centralized music distributors aggregate audience tracking details, hide streaming metrics, and gatekeep bio-links behind paywalls.
+              </p>
+              <p class="text-zinc-500 text-xs leading-relaxed">
+                Heartscript Studios offers high-fidelity, client-first open source modules in your browser. Totally free, stateless, and custom-designed to build visual cohesion, direct focus, and preserve sovereign sonic structures.
+              </p>
+            </div>
+            
+            <div class="md:col-span-5 border border-zinc-800/80 bg-zinc-950/80 p-6 rounded-2xl flex flex-col justify-between h-56 relative overflow-hidden shadow-inner">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,242,254,0.04),transparent_50%)]"></div>
+              <div>
+                <span class="text-[10px] font-mono text-zinc-600 font-bold uppercase tracking-widest block mb-2">Manifesto Concept Generator</span>
+                <p id="manifesto-text" class="text-xs text-zinc-300 italic font-mono leading-relaxed transition-opacity duration-300">
+                  "Let your visual waves be as irregular and beautiful as the frequency of your heart."
+                </p>
+              </div>
+              <button onclick="rollManifesto()" class="w-full mt-4 py-2 border border-zinc-850 hover:border-zinc-700 bg-zinc-900 hover:bg-zinc-850 text-[10px] font-mono font-bold tracking-widest text-zinc-300 hover:text-white rounded-xl transition-all uppercase">
+                &Xi; Regenerate Concept
+              </button>
+            </div>
+            
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ================= HEARTLINKS VIEW ================= -->
+      <div id="view-heartlinks" class="view-panel hidden space-y-8 fade-enter">
+        <div class="border-b border-zinc-900/60 pb-5">
+          <span class="text-xs font-mono uppercase tracking-widest text-rose-500 font-bold">&bull; HeartLinks Studio</span>
+          <h3 class="text-3xl font-black text-white mt-1 font-display">Sovereign Link-In-Bio Architect</h3>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1">Design a premium, zero-tracker release card to host your tracks, merch, and social links.</p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-12">
+          
+          <!-- Designer Controls -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="border border-zinc-900 bg-zinc-950/40 rounded-2xl p-6 space-y-6">
+              <h4 class="text-sm font-bold text-white uppercase font-mono tracking-widest">Release Profile Setup</h4>
+              
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-[11px] font-mono text-zinc-500 uppercase font-bold mb-1.5">Artist &amp; Track Name</label>
+                  <div class="grid grid-cols-2 gap-3">
+                    <input type="text" id="link-artist" oninput="updateLinkMock()" value="Elysian Void" class="bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-sm rounded-xl px-4 py-3 text-white focus:outline-none transition-colors" placeholder="Artist Name" />
+                    <input type="text" id="link-track" oninput="updateLinkMock()" value="Neon Solitude" class="bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-sm rounded-xl px-4 py-3 text-white focus:outline-none transition-colors" placeholder="Release Title" />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-[11px] font-mono text-zinc-500 uppercase font-bold mb-1.5">Accent Theme Preset</label>
+                  <div class="grid grid-cols-4 gap-2">
+                    <button onclick="setThemePreset('rose')" class="py-2.5 rounded-xl text-xs font-semibold bg-rose-950/40 hover:bg-rose-950/60 text-rose-300 border border-rose-800/60 hover:border-rose-500 transition-all">
+                      Rose Glow
+                    </button>
+                    <button onclick="setThemePreset('cyan')" class="py-2.5 rounded-xl text-xs font-semibold bg-cyan-950/40 hover:bg-cyan-950/60 text-cyan-300 border border-cyan-800/60 hover:border-cyan-500 transition-all">
+                      Cyan Tide
+                    </button>
+                    <button onclick="setThemePreset('magenta')" class="py-2.5 rounded-xl text-xs font-semibold bg-fuchsia-950/40 hover:bg-fuchsia-950/60 text-fuchsia-300 border border-fuchsia-800/60 hover:border-fuchsia-500 transition-all">
+                      Magenta
+                    </button>
+                    <button onclick="setThemePreset('mono')" class="py-2.5 rounded-xl text-xs font-semibold bg-zinc-900/60 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/60 hover:border-zinc-500 transition-all">
+                      Slate Mono
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <label class="block text-[11px] font-mono text-zinc-500 uppercase font-bold mb-2">Streaming Redirect Buttons</label>
+                  <div class="space-y-2.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-20 text-xs text-zinc-400 font-mono">Spotify</span>
+                      <input type="text" id="url-spotify" oninput="updateLinkMock()" value="Listen on Spotify" class="flex-grow bg-zinc-950 border border-zinc-850 text-xs rounded-xl px-3 py-2 text-white focus:outline-none focus:border-zinc-700" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="w-20 text-xs text-zinc-400 font-mono">Bandcamp</span>
+                      <input type="text" id="url-bandcamp" oninput="updateLinkMock()" value="Buy High-Fi Digital" class="flex-grow bg-zinc-950 border border-zinc-850 text-xs rounded-xl px-3 py-2 text-white focus:outline-none focus:border-zinc-700" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="w-20 text-xs text-zinc-400 font-mono">Soundcloud</span>
+                      <input type="text" id="url-soundcloud" oninput="updateLinkMock()" value="Stream on SoundCloud" class="flex-grow bg-zinc-950 border border-zinc-850 text-xs rounded-xl px-3 py-2 text-white focus:outline-none focus:border-zinc-700" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-zinc-900/80">
+                  <button onclick="generateJSONConfig()" class="w-full flex items-center justify-center gap-2 rounded-xl bg-white text-black text-xs font-bold py-3.5 shadow-lg shadow-white/10 hover:shadow-white/20 transition-all hover:bg-zinc-100">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                    </svg>
+                    Compile Bio-Link Bundle (JSON)
+                  </button>
+                  <p class="text-[10px] text-zinc-500 text-center font-mono mt-2">Zero database storage. Export your config to host serverlessly anywhere.</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Device Mockup -->
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="w-full max-w-sm rounded-[3rem] border-[10px] border-zinc-900 bg-black shadow-2xl overflow-hidden relative aspect-[9/19] flex flex-col justify-between p-6">
+              
+              <!-- Phone notch/camera -->
+              <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-5.5 rounded-full bg-zinc-900 flex items-center justify-center gap-1.5 z-20">
+                <span class="h-2 w-2 rounded-full bg-zinc-800"></span>
+                <span class="h-1.5 w-1.5 rounded-full bg-zinc-950"></span>
+              </div>
+
+              <!-- Top spacer for notch -->
+              <div class="h-6"></div>
+
+              <!-- Inside Mockup Screen -->
+              <div class="flex-grow flex flex-col justify-between py-4 text-center">
+                <div class="space-y-4">
+                  <!-- Custom Profile Image Avatar -->
+                  <div class="mx-auto w-18 h-18 rounded-full border border-zinc-850 bg-gradient-to-tr from-rose-500/25 to-cyan-500/25 flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <svg class="h-8 w-8 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
+                    </svg>
+                  </div>
+                  
+                  <div>
+                    <h5 id="mock-artist" class="text-base font-bold text-white font-display">Elysian Void</h5>
+                    <p id="mock-track" class="text-xs text-zinc-400 font-mono mt-0.5">Neon Solitude</p>
+                  </div>
+                </div>
+
+                <!-- Custom Link Buttons Stack -->
+                <div id="mock-links-container" class="space-y-3.5 my-8">
+                  <!-- Spotify Redirect -->
+                  <a href="#" class="mock-theme-link block w-full py-3.5 px-4 rounded-xl text-xs font-semibold bg-[#24081c]/60 border border-pink-500/30 text-pink-300 shadow-[0_0_15px_rgba(244,63,94,0.05)] text-center transition-all hover:scale-[1.02]">
+                    Listen on Spotify
+                  </a>
+                  <!-- Bandcamp Redirect -->
+                  <a href="#" class="mock-theme-link block w-full py-3.5 px-4 rounded-xl text-xs font-semibold bg-[#24081c]/60 border border-pink-500/30 text-pink-300 shadow-[0_0_15px_rgba(244,63,94,0.05)] text-center transition-all hover:scale-[1.02]">
+                    Buy High-Fi Digital
+                  </a>
+                  <!-- SoundCloud Redirect -->
+                  <a href="#" class="mock-theme-link block w-full py-3.5 px-4 rounded-xl text-xs font-semibold bg-[#24081c]/60 border border-pink-500/30 text-pink-300 shadow-[0_0_15px_rgba(244,63,94,0.05)] text-center transition-all hover:scale-[1.02]">
+                    Stream on SoundCloud
+                  </a>
+                </div>
+
+                <div class="space-y-2">
+                  <p class="text-[9px] font-mono text-zinc-600 uppercase tracking-widest font-bold">Secure Redirect Hub</p>
+                  <p class="text-[8px] text-zinc-600 font-sans max-w-[200px] mx-auto">No telemetry or audience tracking was engaged in loading this screen.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= HEARTVISION VIEW ================= -->
+      <div id="view-heartvision" class="view-panel hidden space-y-8 fade-enter">
+        <div class="border-b border-zinc-900/60 pb-5 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-neonCyan font-bold">&bull; HeartVision Studio</span>
+            <h3 class="text-3xl font-black text-white mt-1 font-display">9:16 Vertical Canvas Promoter</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm mt-1">Design glowing soundwave loop canvases mapped to high-fidelity synthesizers.</p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button id="synth-trigger" onclick="toggleSynth()" class="px-4 py-2 text-xs font-mono font-bold tracking-wider text-black bg-neonCyan rounded-lg hover:bg-cyan-300 transition-all flex items-center gap-1.5 uppercase glow-cyan">
+              <span class="h-1.5 w-1.5 rounded-full bg-black animate-ping"></span>
+              Trigger Wave Synth
+            </button>
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-12">
+          
+          <!-- Visualizer Stage Card (Designed exactly as a 9:16 vertical smartphone/reel outline) -->
+          <div class="md:col-span-7 flex flex-col items-center">
+            <div class="relative overflow-hidden rounded-[2.5rem] border-[8px] border-zinc-900 bg-[#030305] shadow-[0_15px_50px_rgba(0,0,0,0.8)] flex flex-col justify-between p-4 w-full max-w-[290px] aspect-[9/16] group">
+              
+              <!-- Notch -->
+              <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full bg-zinc-900 z-20"></div>
+
+              <!-- Subtle top label indicators -->
+              <div class="flex items-center justify-between text-[8px] font-mono text-zinc-600 relative z-10 select-none mt-2">
+                <span class="flex items-center gap-1">
+                  <span id="canvas-status-dot" class="h-1.5 w-1.5 rounded-full bg-zinc-800"></span>
+                  REEL FRAME MODE
+                </span>
+                <span id="hz-indicator">±85Hz OSCILLATION</span>
+              </div>
+
+              <!-- Interactive Wave Canvas -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <canvas id="viz-canvas" class="w-full h-full cursor-pointer opacity-85 group-hover:opacity-100 transition-opacity"></canvas>
+              </div>
+
+              <!-- Subtle visual elements/markers -->
+              <div class="flex items-center justify-between text-[8px] font-mono text-zinc-600 relative z-10 select-none pb-2">
+                <span>VERT: 9:16 PROMO</span>
+                <span>CYAN-PINK SPEC</span>
+                <span>4K RENDER</span>
+              </div>
+            </div>
+            
+            <p class="text-[11px] text-zinc-500 font-mono text-center mt-3">
+              *Pro Tip: Click/Drag cursor over the vertical canvas to distort and harmonic-modulate wave heights!
             </p>
           </div>
 
-          <!-- FORM CONFIGURATION ROW -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- Left inputs (7 Cols) -->
-            <div class="lg:col-span-7 bg-slate-950 border border-slate-900 p-6 sm:p-8 rounded-2xl space-y-8">
+          <!-- Color Control panel -->
+          <div class="md:col-span-5 space-y-6">
+            <div class="border border-zinc-900 bg-zinc-950/40 rounded-2xl p-6 space-y-6">
+              <h4 class="text-sm font-bold text-white uppercase font-mono tracking-widest">Aesthetic Settings</h4>
               
-              <!-- 1. Building details -->
               <div class="space-y-4">
-                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
-                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">1</span>
-                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Building Classification</h3>
+                <div>
+                  <label class="block text-[11px] font-mono text-zinc-500 uppercase font-bold mb-2">Color Palette Filter</label>
+                  <div class="space-y-2">
+                    <button onclick="setCanvasGradient('cyan-pink')" class="w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-white border border-zinc-800 flex items-center justify-between transition-colors">
+                      <span>Cyan to Rose (Default)</span>
+                      <span class="flex gap-1">
+                        <span class="h-2 w-2 rounded-full bg-neonCyan"></span>
+                        <span class="h-2 w-2 rounded-full bg-neonPink"></span>
+                      </span>
+                    </button>
+                    <button onclick="setCanvasGradient('purple-magenta')" class="w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-white border border-zinc-800 flex items-center justify-between transition-colors">
+                      <span>Magenta &amp; Violet Glow</span>
+                      <span class="flex gap-1">
+                        <span class="h-2 w-2 rounded-full bg-neonMagenta"></span>
+                        <span class="h-2 w-2 rounded-full bg-violet-500"></span>
+                      </span>
+                    </button>
+                    <button onclick="setCanvasGradient('cyan-mono')" class="w-full text-left px-4 py-3 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-white border border-zinc-800 flex items-center justify-between transition-colors">
+                      <span>Emerald to Seafoam Green</span>
+                      <span class="flex gap-1">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                        <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                      </span>
+                    </button>
+                  </div>
                 </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div>
+                  <label class="block text-[11px] font-mono text-zinc-500 uppercase font-bold mb-2">Oscillation Wave Form</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button id="wave-sine" onclick="setWaveform('sine')" class="py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-zinc-300 border border-zinc-850">
+                      Sine Waves
+                    </button>
+                    <button id="wave-pulse" onclick="setWaveform('pulse')" class="py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-zinc-300 border border-zinc-850">
+                      Pulse Bars
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-zinc-900/60">
+                  <div class="rounded-xl bg-zinc-950/80 border border-zinc-900 p-4 space-y-2">
+                    <p class="text-[10px] font-mono uppercase text-neonCyan font-bold tracking-widest flex items-center gap-1">
+                      <svg class="h-3.5 w-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Ambient Synthesizer Ready
+                    </p>
+                    <p class="text-[10px] text-zinc-500 leading-normal">
+                      Runs serverless-friendly on client browser nodes. Real-time resonant bass wave drones outputting perfect stereo harmonics.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= PULSE VIEW (OFFICIAL ROSTER) ================= -->
+      <div id="view-pulse" class="view-panel hidden space-y-8 fade-enter">
+        <div class="border-b border-zinc-900/60 pb-5">
+          <span class="text-xs font-mono uppercase tracking-widest text-neonMagenta font-bold">&bull; Pulse Roster</span>
+          <h3 class="text-3xl font-black text-white mt-1 font-display">Official Artist Roster</h3>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1">A curated directory of sovereign sound designs and tracks. Stream real-time synthesized preview chords.</p>
+        </div>
+
+        <!-- Roster Filters and Status -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-zinc-950/40 p-4 rounded-xl border border-zinc-900">
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="filterRoster('all')" id="filter-all" class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-zinc-900 text-white border border-zinc-800 transition-all uppercase">All Genres</button>
+            <button onclick="filterRoster('dreamwave')" id="filter-dreamwave" class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all uppercase">Dream Wave</button>
+            <button onclick="filterRoster('cybersynth')" id="filter-cybersynth" class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all uppercase">Cyber-Synth</button>
+            <button onclick="filterRoster('ambient')" id="filter-ambient" class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all uppercase">Ambient</button>
+            <button onclick="filterRoster('alternative')" id="filter-alternative" class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all uppercase">Alternative Indie</button>
+          </div>
+          <div class="text-[10px] font-mono text-zinc-500 uppercase flex items-center gap-1.5">
+            <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            4 sovereign artists verified
+          </div>
+        </div>
+
+        <!-- Artist Roster Grid -->
+        <div id="roster-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          
+          <!-- Artist 1 Card -->
+          <div class="roster-card group border border-zinc-900 bg-zinc-950/20 rounded-2xl p-5 hover:border-zinc-800 hover:bg-zinc-950/60 transition-all duration-300 flex flex-col justify-between h-[360px]" data-genre="dreamwave">
+            <div>
+              <!-- Custom Stylized Album Cover -->
+              <div class="relative aspect-square w-full rounded-xl bg-gradient-to-tr from-[#021f3a] via-[#100318] to-[#250308] border border-zinc-850/60 overflow-hidden flex items-center justify-center group-hover:border-zinc-700 transition-colors shadow-inner">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+                <!-- Mini visual icon -->
+                <svg class="h-10 w-10 text-rose-500/80 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-11.314l.707.707m11.314 11.314l.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
+                </svg>
+                <!-- Key & BPM tags overlay -->
+                <div class="absolute bottom-2 left-2 flex gap-1 select-none">
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">110 BPM</span>
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">G# Min</span>
+                </div>
+              </div>
+
+              <!-- Track Title & Metadata -->
+              <h4 class="text-base font-black text-white mt-4 font-display truncate tracking-tight">Static Echoes</h4>
+              <p class="text-xs font-bold text-rose-400 font-display mt-0.5">Kaelen Vance</p>
+              <p class="text-[10px] font-mono text-zinc-500 mt-2 font-medium">Released March 2026 &bull; Dream Wave</p>
+            </div>
+
+            <!-- Action metrics bar -->
+            <div class="mt-4 pt-3.5 border-t border-zinc-900/60 flex items-center justify-between">
+              <div class="flex flex-col text-[9px] font-mono text-zinc-500">
+                <span class="font-bold text-zinc-400">240.5K</span>
+                <span>Cumulative streams</span>
+              </div>
+              <button onclick="playRosterTrack('kaelen', 'Static Echoes', 'Kaelen Vance', 120, 'sine')" class="play-btn h-9 w-9 rounded-lg bg-zinc-900 hover:bg-zinc-850 hover:text-white text-rose-400 border border-zinc-800 flex items-center justify-center transition-all">
+                <svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Artist 2 Card -->
+          <div class="roster-card group border border-zinc-900 bg-zinc-950/20 rounded-2xl p-5 hover:border-zinc-800 hover:bg-zinc-950/60 transition-all duration-300 flex flex-col justify-between h-[360px]" data-genre="cybersynth">
+            <div>
+              <!-- Custom Stylized Album Cover -->
+              <div class="relative aspect-square w-full rounded-xl bg-gradient-to-tr from-[#021f15] via-[#011424] to-[#120124] border border-zinc-850/60 overflow-hidden flex items-center justify-center group-hover:border-zinc-700 transition-colors shadow-inner">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,254,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+                <!-- Mini visual icon -->
+                <svg class="h-10 w-10 text-cyan-400/80 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <!-- Key & BPM tags overlay -->
+                <div class="absolute bottom-2 left-2 flex gap-1 select-none">
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">124 BPM</span>
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">C Minor</span>
+                </div>
+              </div>
+
+              <!-- Track Title & Metadata -->
+              <h4 class="text-base font-black text-white mt-4 font-display truncate tracking-tight">Lost in Orbit</h4>
+              <p class="text-xs font-bold text-cyan-400 font-display mt-0.5">Vespera</p>
+              <p class="text-[10px] font-mono text-zinc-500 mt-2 font-medium">Released April 2026 &bull; Cyber-Synth</p>
+            </div>
+
+            <!-- Action metrics bar -->
+            <div class="mt-4 pt-3.5 border-t border-zinc-900/60 flex items-center justify-between">
+              <div class="flex flex-col text-[9px] font-mono text-zinc-500">
+                <span class="font-bold text-zinc-400">410.2K</span>
+                <span>Cumulative streams</span>
+              </div>
+              <button onclick="playRosterTrack('vespera', 'Lost in Orbit', 'Vespera', 150, 'sawtooth')" class="play-btn h-9 w-9 rounded-lg bg-zinc-900 hover:bg-zinc-850 hover:text-white text-cyan-400 border border-zinc-800 flex items-center justify-center transition-all">
+                <svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Artist 3 Card -->
+          <div class="roster-card group border border-zinc-900 bg-zinc-950/20 rounded-2xl p-5 hover:border-zinc-800 hover:bg-zinc-950/60 transition-all duration-300 flex flex-col justify-between h-[360px]" data-genre="ambient">
+            <div>
+              <!-- Custom Stylized Album Cover -->
+              <div class="relative aspect-square w-full rounded-xl bg-gradient-to-tr from-[#1a011d] via-[#100124] to-[#011b24] border border-zinc-850/60 overflow-hidden flex items-center justify-center group-hover:border-zinc-700 transition-colors shadow-inner">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+                <!-- Mini visual icon -->
+                <svg class="h-10 w-10 text-purple-400/80 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <!-- Key & BPM tags overlay -->
+                <div class="absolute bottom-2 left-2 flex gap-1 select-none">
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">80 BPM</span>
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">F Major</span>
+                </div>
+              </div>
+
+              <!-- Track Title & Metadata -->
+              <h4 class="text-base font-black text-white mt-4 font-display truncate tracking-tight">Subterranean Dream</h4>
+              <p class="text-xs font-bold text-fuchsia-400 font-display mt-0.5">Aura Mist</p>
+              <p class="text-[10px] font-mono text-zinc-500 mt-2 font-medium">Released May 2026 &bull; Ambient</p>
+            </div>
+
+            <!-- Action metrics bar -->
+            <div class="mt-4 pt-3.5 border-t border-zinc-900/60 flex items-center justify-between">
+              <div class="flex flex-col text-[9px] font-mono text-zinc-500">
+                <span class="font-bold text-zinc-400">125.8K</span>
+                <span>Cumulative streams</span>
+              </div>
+              <button onclick="playRosterTrack('aura', 'Subterranean Dream', 'Aura Mist', 80, 'triangle')" class="play-btn h-9 w-9 rounded-lg bg-zinc-900 hover:bg-zinc-850 hover:text-white text-fuchsia-400 border border-zinc-800 flex items-center justify-center transition-all">
+                <svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Artist 4 Card -->
+          <div class="roster-card group border border-zinc-900 bg-zinc-950/20 rounded-2xl p-5 hover:border-zinc-800 hover:bg-zinc-950/60 transition-all duration-300 flex flex-col justify-between h-[360px]" data-genre="alternative">
+            <div>
+              <!-- Custom Stylized Album Cover -->
+              <div class="relative aspect-square w-full rounded-xl bg-gradient-to-tr from-[#1b1b1b] via-[#0e0a12] to-[#1a1401] border border-zinc-850/60 overflow-hidden flex items-center justify-center group-hover:border-zinc-700 transition-colors shadow-inner">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+                <!-- Mini visual icon -->
+                <svg class="h-10 w-10 text-rose-400/80 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                <!-- Key & BPM tags overlay -->
+                <div class="absolute bottom-2 left-2 flex gap-1 select-none">
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">95 BPM</span>
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-zinc-300 border border-zinc-800 px-1.5 py-0.5 rounded">A Minor</span>
+                </div>
+              </div>
+
+              <!-- Track Title & Metadata -->
+              <h4 class="text-base font-black text-white mt-4 font-display truncate tracking-tight">Shattered Glass</h4>
+              <p class="text-xs font-bold text-rose-300 font-display mt-0.5">Wilder Bloom</p>
+              <p class="text-[10px] font-mono text-zinc-500 mt-2 font-medium">Released June 2026 &bull; Alternative Indie</p>
+            </div>
+
+            <!-- Action metrics bar -->
+            <div class="mt-4 pt-3.5 border-t border-zinc-900/60 flex items-center justify-between">
+              <div class="flex flex-col text-[9px] font-mono text-zinc-500">
+                <span class="font-bold text-zinc-400">180.1K</span>
+                <span>Cumulative streams</span>
+              </div>
+              <button onclick="playRosterTrack('wilder', 'Shattered Glass', 'Wilder Bloom', 105, 'sine')" class="play-btn h-9 w-9 rounded-lg bg-zinc-900 hover:bg-zinc-850 hover:text-white text-rose-400 border border-zinc-800 flex items-center justify-center transition-all">
+                <svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Roster Join/Submit Form -->
+        <section class="rounded-3xl border border-zinc-850 bg-zinc-950/40 p-8 md:p-10 relative overflow-hidden mt-12">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(217,70,239,0.04),transparent_50%)] pointer-events-none"></div>
+          
+          <div class="grid gap-10 md:grid-cols-12 items-center">
+            
+            <div class="md:col-span-6 space-y-4">
+              <span class="text-xs font-mono font-bold uppercase tracking-widest text-rose-500">Submit Your Sound</span>
+              <h3 class="text-2xl font-black text-white md:text-3xl font-display tracking-tight">
+                Submit Your Acoustic Blueprint
+              </h3>
+              <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed font-sans">
+                Are you an independent artist crafting high-fidelity sounds away from centralized algorithmic labels? Submit your track metadata and digital demo stream links. 
+              </p>
+              <p class="text-zinc-500 text-xs leading-relaxed font-sans">
+                Our verification committee reviews releases weekly, focusing purely on artistic soul, sovereign engineering, and sonic sincerity. Join the directory deck.
+              </p>
+            </div>
+            
+            <!-- Submit Form Container -->
+            <div class="md:col-span-6 border border-zinc-900 bg-black/40 p-6 rounded-2xl relative shadow-2xl">
+              <form id="submission-form" onsubmit="submitDemography(event)" class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Sector Type</label>
-                    <select id="config-sector" onchange="recalculateEstimates()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono">
-                      <option value="Commercial">Commercial Office (High-Rise)</option>
-                      <option value="Healthcare">Healthcare & Clinical Facility</option>
-                      <option value="Luxury">Luxury Residential Condo</option>
-                      <option value="Industrial">Industrial Mineshaft / Warehouse</option>
+                    <label class="block text-[10px] font-mono text-zinc-500 uppercase font-bold mb-1">Artist Name</label>
+                    <input type="text" id="sub-artist" class="w-full bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-xs rounded-lg px-3 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-colors" placeholder="e.g. Lunar Dust" required />
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-mono text-zinc-500 uppercase font-bold mb-1">Track Title</label>
+                    <input type="text" id="sub-title" class="w-full bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-xs rounded-lg px-3 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-colors" placeholder="e.g. Gravity Drift" required />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[10px] font-mono text-zinc-500 uppercase font-bold mb-1">Genre Mood</label>
+                    <select id="sub-genre" class="w-full bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-xs rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-colors">
+                      <option value="dreamwave">Dream Wave</option>
+                      <option value="cybersynth">Cyber-Synth</option>
+                      <option value="ambient">Ambient / Drone</option>
+                      <option value="alternative">Alternative Indie</option>
                     </select>
                   </div>
-
                   <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Elevator Cab count: <span id="cab-count-val" class="text-sky-400 font-bold">4</span></label>
-                    <input type="range" id="config-cabs" min="1" max="24" value="4" oninput="updateCabCountSlider(this.value)" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500 my-3">
-                    <div class="flex justify-between text-[9px] text-slate-500 font-mono">
-                      <span>1 Unit</span>
-                      <span>12 Units</span>
-                      <span>24 Units</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 2. Architectural constraints -->
-              <div class="space-y-4">
-                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
-                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">2</span>
-                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Structural Constraints & Compliance</h3>
-                </div>
-                <p class="text-xs text-slate-500 font-light">Identify shaft roadblocks raising compliance warnings or causing maintenance bottlenecks:</p>
-
-                <div class="space-y-2.5">
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="c-water" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Car-Top Condensation Discharge Ban</span>
-                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Local safety rules prohibit traditional AC condensation dripping inside high-voltage shafts.</span>
-                    </div>
-                  </label>
-
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="c-cable" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">CAT6 Traveling Cable Fatigue</span>
-                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Tension and bending cycles at high velocity snap copper camera feeds, triggering out-of-order repairs.</span>
-                    </div>
-                  </label>
-
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="c-signal" onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Faraday-Cage Cellular Drops</span>
-                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Occupants lose phone data reception inside thick steel cabins, creating safety concerns.</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <!-- 3. Integration components selection -->
-              <div class="space-y-4">
-                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
-                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">3</span>
-                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Select Engineering Upgrades</h3>
-                </div>
-
-                <div class="space-y-2.5">
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="u-ac" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Dry AC Water-Free Cabin Cooler</span>
-                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Thermal re-evaporation channels exhaust condensation cleanly; no water drains required.</span>
-                    </div>
-                  </label>
-
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="u-cctv" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Wireless CCTV Smart-Link Millimeter Bridge</span>
-                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Directional transceivers deliver interference-free 4K security feeds without physical wires.</span>
-                    </div>
-                  </label>
-
-                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
-                    <input type="checkbox" id="u-iot" onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
-                    <div>
-                      <span class="text-xs font-semibold text-slate-200 block leading-tight">G3 IoT Smart Gateway System</span>
-                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Sensory pods track acoustics and vibration curves to trigger predictive maintenance dispatches.</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <!-- 4. Contact Credentials -->
-              <div class="space-y-4">
-                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
-                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">4</span>
-                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">RFQ Contact Details</h3>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Lead Architect / Contact *</label>
-                    <input type="text" id="rfq-name" required placeholder="e.g. John Doe" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
-                  </div>
-                  <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Company Entity *</label>
-                    <input type="text" id="rfq-company" required placeholder="e.g. Apex Structures LLP" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
-                  </div>
-                  <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Corporate Email Address *</label>
-                    <input type="email" id="rfq-email" required placeholder="e.g. j.doe@apex.com" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
-                  </div>
-                  <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Business Phone</label>
-                    <input type="tel" id="rfq-phone" placeholder="e.g. +1 (555) 012-3456" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                    <label class="block text-[10px] font-mono text-zinc-500 uppercase font-bold mb-1">Sonic Key / BPM</label>
+                    <input type="text" id="sub-key" class="w-full bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-xs rounded-lg px-3 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-colors" placeholder="e.g. A# Min / 120" required />
                   </div>
                 </div>
 
                 <div>
-                  <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Specialized Engineering Notes</label>
-                  <textarea id="rfq-notes" rows="3" placeholder="Specify building height, maximum elevator speeds, or unique thermal criteria..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 resize-none"></textarea>
+                  <label class="block text-[10px] font-mono text-zinc-500 uppercase font-bold mb-1">Sovereign Stream/Demo URL</label>
+                  <input type="url" id="sub-url" class="w-full bg-zinc-950 border border-zinc-850 focus:border-rose-500 text-xs rounded-lg px-3 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-colors" placeholder="https://soundcloud.com/..." required />
                 </div>
-              </div>
 
-              <!-- Submit Action Button -->
-              <button onclick="submitRfqForm()" id="submit-rfq-btn" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-slate-950 font-bold py-3.5 px-6 rounded-lg tracking-wide shadow-md active:scale-[0.99] transition-all text-xs font-mono uppercase">
-                <span>Compile Spec & Request RFQ Assessment</span>
-              </button>
-
-              <!-- Success Alert Box -->
-              <div id="rfq-success-box" class="hidden bg-sky-950/20 border border-sky-500/20 p-5 rounded-xl space-y-3">
-                <div class="flex items-center gap-2 text-sky-400 font-semibold text-xs">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  <span>RFQ Compiled & Registered Successfully</span>
+                <button type="submit" class="w-full py-3 bg-white hover:bg-zinc-100 text-black text-xs font-mono font-bold tracking-widest rounded-xl transition-all uppercase">
+                  Transmit Auditory File
+                </button>
+              </form>
+              
+              <!-- Success screen hidden inside -->
+              <div id="sub-success" class="hidden text-center py-6 space-y-4">
+                <div class="h-12 w-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+                  <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <p class="text-[11px] text-slate-300 font-sans font-light leading-relaxed" id="rfq-success-text"></p>
-                <div class="bg-sky-500/5 p-4 border border-sky-500/10 rounded-lg" id="rfq-ai-box">
-                  <span class="text-[9px] font-mono text-sky-400 uppercase tracking-wider block font-bold mb-1">Systems AI Assessment</span>
-                  <p class="text-[11px] text-slate-300 italic font-sans" id="rfq-ai-text"></p>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Right estimates card (5 Cols) -->
-            <div class="lg:col-span-5 space-y-6">
-              <div class="bg-slate-950 border border-slate-900 p-6 rounded-2xl space-y-6">
-                <h3 class="font-display font-bold text-md text-white border-b border-slate-900 pb-3 flex items-center gap-2">
-                  <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                  <span>Dynamic Spec Sizing Estimator</span>
-                </h3>
-
-                <div class="space-y-4">
-                  <!-- Sizing -->
-                  <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-850 space-y-2">
-                    <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Physical Sizing Targets</span>
-                    <div class="flex justify-between text-xs py-0.5">
-                      <span class="text-slate-400 font-light">Target Elevators</span>
-                      <span id="est-cars" class="font-mono text-white font-medium">4 units</span>
-                    </div>
-                    <div class="flex justify-between text-xs py-0.5">
-                      <span class="text-slate-400 font-light">Total Target Cooling</span>
-                      <span id="est-btu" class="font-mono text-white font-medium">36,000 BTU</span>
-                    </div>
-                    <div class="flex justify-between text-xs py-0.5">
-                      <span class="text-slate-400 font-light">Wireless CCTV Bridges</span>
-                      <span id="est-bridges" class="font-mono text-white font-medium">4 links</span>
-                    </div>
-                  </div>
-
-                  <!-- Savings -->
-                  <div class="bg-sky-950/20 p-4 rounded-xl border border-sky-950/40 space-y-2">
-                    <span class="text-[9px] text-sky-400 font-mono uppercase tracking-widest block font-bold">Projected B2B Value Added</span>
-                    <div class="flex justify-between text-xs py-0.5">
-                      <span class="text-slate-300 font-light">Annual Cable Failures Avoided</span>
-                      <span id="est-savings" class="font-mono text-emerald-400 font-semibold">~$9,600 / yr</span>
-                    </div>
-                    <div class="flex justify-between text-xs py-0.5">
-                      <span class="text-slate-300 font-light">Comfort-related Complaints</span>
-                      <span class="font-mono text-emerald-400 font-semibold">-95% projected</span>
-                    </div>
-                  </div>
-
-                  <!-- Compliance checks -->
-                  <div class="bg-slate-900/25 p-4 rounded-xl border border-slate-900 space-y-2">
-                    <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Safety Code Pre-Check</span>
-                    <div class="space-y-1.5 text-[10px] text-slate-300 font-light">
-                      <div class="flex items-center gap-2">
-                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span>Zero car-top liquid water drainage compliant (safe code pass)</span>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span>Universal chassis mounting bracket layout</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <h4 class="text-base font-bold text-white font-display">Transmission Successful</h4>
+                <p class="text-xs text-zinc-400 max-w-[280px] mx-auto leading-relaxed">Your acoustic metadata packet is safely locked into our sovereign evaluation queue. Stand by.</p>
+                <button onclick="resetSubmission()" class="text-[10px] font-mono text-zinc-500 hover:text-white underline">Submit another track</button>
               </div>
             </div>
-
+            
           </div>
         </section>
-      </div>
 
-      <!-- TAB 3: TECHNICAL KNOWLEDGE CENTER -->
-      <div id="tab-content-knowledge" class="tab-transition hidden">
-        <section class="py-16 px-6 max-w-7xl mx-auto">
-          
-          <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block mb-2">Technical Reference Library</span>
-            <h2 class="text-3xl font-display font-bold text-white tracking-tight">Elevator Technology Resource Hub</h2>
-            <p class="text-slate-400 text-sm mt-2 font-light">
-              Structured engineering explainers and FAQs mapped to industrial safety codes and systems mechanics.
-            </p>
-          </div>
-
-          <!-- SEARCH BAR -->
-          <div class="max-w-md mx-auto mb-12 relative">
-            <input type="text" id="lib-search" oninput="filterArticles(this.value)" placeholder="Search articles or parameters..." class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
-            <svg class="absolute left-3 top-3 w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          </div>
-
-          <!-- ARTICLES GRID -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16" id="articles-target-grid">
-            <!-- Rendered via JS -->
-          </div>
-
-          <!-- FAQ ACCORDION -->
-          <div class="bg-slate-900/10 border border-slate-900 rounded-2xl p-6 sm:p-8 space-y-6 max-w-3xl mx-auto">
-            <h3 class="text-lg font-display font-bold text-white border-b border-slate-900 pb-3 flex items-center gap-2">
-              <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              <span>Code, Safety, & Compliance FAQs</span>
-            </h3>
-
-            <div class="space-y-4 divide-y divide-slate-900" id="faqs-target-list">
-              <!-- Rendered via JS -->
-            </div>
-          </div>
-
-        </section>
       </div>
 
     </main>
 
-    <!-- CORE CORPORATE B2B FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-900 px-6 py-12 text-slate-400">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        
-        <!-- Left brand -->
-        <div class="md:col-span-5 space-y-4">
-          <div class="flex items-center gap-2">
-            <span class="p-1.5 bg-sky-500 rounded text-slate-950 font-extrabold text-xs">E</span>
-            <span class="font-display font-bold text-white text-lg tracking-tight">ELEVATECH LLP</span>
-          </div>
-          <span class="text-[10px] text-slate-500 font-mono uppercase tracking-widest block">Enabling Technologies for Elevator</span>
-          <p class="text-xs text-slate-400 leading-relaxed font-light max-w-sm">
-            Elevatech LLP is a distinguished B2B systems integrator and developer of high-efficiency vertical climate, wireless networking, and predictive sensory technologies.
-          </p>
-          <div class="flex gap-4 text-[10px] font-mono text-slate-600">
-            <span>ISO 9001:2015 Cert</span>
-            <span>•</span>
-            <span>EU Elevator Code Compliant</span>
-          </div>
+    <!-- GLOBAL SOUND NOW PLAYING FOOTER BAR -->
+    <div id="now-playing-bar" class="fixed bottom-4 inset-x-4 sm:inset-x-8 max-w-2xl mx-auto rounded-2xl border border-zinc-800 bg-[#060608]/90 backdrop-blur-xl px-5 py-3.5 flex items-center justify-between gap-4 z-50 shadow-2xl transition-all duration-300 transform translate-y-32 opacity-0 select-none">
+      <div class="flex items-center gap-3 truncate">
+        <!-- Mock Disc Spinner -->
+        <div class="relative h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 overflow-hidden flex items-center justify-center">
+          <svg class="h-5 w-5 text-neonMagenta animate-spin" style="animation-duration: 3s" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.31 11.31l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m12.72-12.72l-1.41 1.41" />
+          </svg>
         </div>
-
-        <!-- Links map -->
-        <div class="md:col-span-3 space-y-3">
-          <h4 class="text-xs font-mono font-bold uppercase text-slate-400">Information Map</h4>
-          <ul class="space-y-2 text-xs font-light">
-            <li><button onclick="switchTab('home')" class="hover:text-sky-400 transition-colors">Technical Solutions Explorer</button></li>
-            <li><button onclick="switchTab('builder')" class="hover:text-sky-400 transition-colors">Interactive Spec Configurator</button></li>
-            <li><button onclick="switchTab('knowledge')" class="hover:text-sky-400 transition-colors">Engineering Reference Library</button></li>
-          </ul>
+        <div class="truncate">
+          <p id="now-playing-title" class="text-xs font-bold text-white leading-normal truncate font-display">No Track Active</p>
+          <p id="now-playing-artist" class="text-[10px] text-zinc-400 font-mono mt-0.5 truncate">Click play to drone</p>
         </div>
-
-        <!-- Contacts -->
-        <div class="md:col-span-4 space-y-3">
-          <h4 class="text-xs font-mono font-bold uppercase text-slate-400">Inquiries & HQ</h4>
-          <ul class="space-y-2.5 text-xs font-light">
-            <li>Suite 405, Engineering Complex, Tech Park Sector-12, IN.</li>
-            <li>Email: <a href="mailto:solutions@elevatech.engineering" class="text-sky-400 hover:underline font-mono">solutions@elevatech.engineering</a></li>
-            <li>Phone: <span class="font-mono text-slate-300">+1 (800) 555-ELEV</span></li>
-          </ul>
-        </div>
-
       </div>
+      <div class="flex items-center gap-3">
+        <span class="text-[9px] font-mono border border-emerald-950 bg-emerald-950/20 text-emerald-400 px-2 py-0.5 rounded tracking-widest uppercase">STREAMING PROTOTYPE</span>
+        <button onclick="stopPlayingTrack()" class="h-8 px-3 rounded-lg text-[10px] font-mono font-bold uppercase tracking-wider bg-rose-900/30 hover:bg-rose-900/50 text-rose-300 border border-rose-800/40 transition-colors">
+          Kill
+        </button>
+      </div>
+    </div>
 
-      <!-- Underbar -->
-      <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-600 font-mono gap-4">
-        <div>© 2026 Elevatech LLP. All engineering rights reserved.</div>
-        <div class="flex gap-4">
-          <span class="hover:text-slate-400 cursor-pointer">Security Protocols</span>
-          <span>•</span>
-          <span class="hover:text-slate-400 cursor-pointer">Technical Warranty</span>
+    <!-- FOOTER NAVIGATIONAL RAIL -->
+    <footer class="border-t border-zinc-900 bg-black/60 backdrop-blur-md text-zinc-400 text-xs py-10 mt-16 relative z-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-2">
+              <svg viewBox="0 0 100 100" class="h-4.5 w-4.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 82C50 82 15 54 15 35C15 22 25 15 35 15C42 15 47 19 50 23C53 19 58 15 65 15C75 15 85 22 85 35C85 54 50 82 50 82Z" stroke="#f43f5e" stroke-width="6" stroke-linejoin="round" />
+              </svg>
+              <span class="font-semibold text-white tracking-wide font-display">Heartscript Studios Creator Suite</span>
+            </div>
+            <p class="text-[11px] text-zinc-500 max-w-sm">
+              An offline-friendly browser local workshop designed for independent musical creators to build custom canvases, smart profiles, and coordinate release metrics securely.
+            </p>
+          </div>
+
+          <div class="flex flex-col md:items-end gap-2 text-xs">
+            <div class="flex flex-wrap items-center gap-3 text-zinc-500">
+              <span class="flex items-center gap-1 font-mono text-[10px] text-zinc-600 font-bold uppercase select-none">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Release Alpha V4.2
+              </span>
+              <span class="text-zinc-800">|</span>
+              <a href="/" onclick="navigate(event, 'hub')" class="hover:text-white transition-colors">Master Hub</a>
+            </div>
+            
+            <p class="text-[10px] text-zinc-600 font-mono mt-2 md:mt-0 select-none">
+              &copy; 2026 Heartscript Studios. All rights strictly liberated.
+            </p>
+          </div>
+
         </div>
       </div>
     </footer>
 
-    <!-- MODAL 1: STRATEGIC WEB BRIEF AUDIT -->
-    <div id="strategy-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden animate-fade-in">
-      <div class="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-10 text-slate-300">
-        <button onclick="toggleStrategyModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white font-mono text-xs px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-950/40 hover:bg-slate-950 transition-all">
-          ✕ Close
-        </button>
+  </div>
 
-        <div class="space-y-8">
-          <div class="border-b border-slate-800 pb-4">
-            <span class="text-xs text-sky-400 font-mono uppercase tracking-wider">Web Strategy & UI/UX Audit</span>
-            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white mt-1">The 3 Biggest Flaws of Elevatech's Current Catalog Approach</h2>
-            <p class="text-[10px] text-slate-400 font-mono mt-1">Prepared by Senior B2B Web Strategist</p>
-          </div>
+  <!-- INTERACTIVE VANILLA JAVASCRIPT ENGINE -->
+  <script>
+    // State Manager
+    const state = {
+      activeTab: 'hub',
+      canvasGradient: 'cyan-pink',
+      waveform: 'sine',
+      synthActive: false,
+      audioCtx: null,
+      oscillator: null,
+      gainNode: null,
+      currentTrackPlaying: null
+    };
 
-          <!-- Sitemap IA Section -->
-          <div class="bg-slate-950/60 border border-slate-800/80 p-5 rounded-xl space-y-4">
-            <h3 class="text-xs font-mono font-bold uppercase text-sky-400 tracking-wider flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-              <span>Redesigned B2B Website Information Architecture (Sitemap)</span>
-            </h3>
-            <p class="text-xs text-slate-400 font-light font-sans">
-              AI search engines rank organizations based on semantic entities and clear hierarchical sitemaps. Below is our optimized B2B sitemap mapping:
-            </p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono pt-2">
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
-                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">1. /solutions [Core]</span>
-                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
-                  <li>/passenger-comfort (Dry AC)</li>
-                  <li>/shaft-comms (Wireless Link)</li>
-                  <li>/iot-monitoring (Gateway G3)</li>
-                  <li>/access-infotainment</li>
-                </ul>
-              </div>
-
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
-                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">2. /industries [Sectors]</span>
-                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
-                  <li>/commercial-office-towers</li>
-                  <li>/healthcare-facilities</li>
-                  <li>/luxury-residential</li>
-                </ul>
-              </div>
-
-              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
-                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">3. /knowledge [Library]</span>
-                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
-                  <li>/tech-articles (HEPA, CAT6)</li>
-                  <li>/whitepapers-downloads</li>
-                  <li>/compliance-faqs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Flaw 1 -->
-          <div class="space-y-2">
-            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">1</span>
-              <span>Feature-Spewing SKU Cataloging vs. Solution-Based Context</span>
-            </h3>
-            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
-                <p class="text-xs leading-relaxed text-slate-400">Presenting items purely as SKU numbers (e.g., "Dry AC Model V2") forces busy architects to calculate compatibility themselves. Standard elevators have zero-drain rules; they buy compliance, not BTUs.</p>
-              </div>
-              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
-                <p class="text-xs leading-relaxed text-slate-300">Organizing the layout around specific architectural bottlenecks (e.g. "Safe overhead water-free cooling"). We map compliance criteria directly inside tabbed technology groups.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Flaw 2 -->
-          <div class="space-y-2">
-            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">2</span>
-              <span>High-Friction Static Downloads vs. Interactive Configurator Flows</span>
-            </h3>
-            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
-                <p class="text-xs leading-relaxed text-slate-400">Relying on static PDF downloads and blank "Contact Us" forms. Elevator consultants are busy and expect instantaneous technical confirmation of shaft constraints.</p>
-              </div>
-              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
-                <p class="text-xs leading-relaxed text-slate-300">An interactive self-service spec configurator. Users specify elevator counts and mechanical constraints to obtain instant sizing results and calculated B2B value outputs.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Flaw 3 -->
-          <div class="space-y-2">
-            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
-              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">3</span>
-              <span>Zero Search / Answer Engine Optimization (AEO/GEO) Readiness</span>
-            </h3>
-            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
-                <p class="text-xs leading-relaxed text-slate-400">Online lists contain sparse, thin keywords. They fail to rank for complex systems queries and are invisible to conversational systems (ChatGPT, Gemini) that aggregate providers based on authority schemas.</p>
-              </div>
-              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
-                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
-                <p class="text-xs leading-relaxed text-slate-300">Structured Schema.org entity metadata injected directly in-header, supported by a semantic Engineering Library (detailed HEPA air re-evaporation and CCTV physics articles) establishing technical authority.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-slate-800 text-center">
-            <button onclick="toggleStrategyModal(false); switchTab('builder')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-2.5 rounded-lg text-xs transition-all uppercase">
-              Launch Configurator Now
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MODAL 2: CRM ADMIN LEADS VIEWER -->
-    <div id="leads-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm hidden animate-fade-in">
-      <div class="relative w-full max-w-5xl h-[85vh] overflow-hidden bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col">
-        
-        <!-- Header -->
-        <div class="p-5 border-b border-slate-800 bg-slate-950 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="p-2 bg-sky-500/10 border border-sky-400/20 rounded-xl text-sky-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-            </div>
-            <div>
-              <h3 class="text-sm font-display font-bold text-white uppercase tracking-wide">B2B CRM Pipeline & Lead Desk</h3>
-              <p class="text-[9px] text-slate-500 font-mono tracking-wider mt-0.5">Secure B2B Inquiries persisted in container scope</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="syncLeadsFromBackend()" class="p-2 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-slate-300">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19"></path></svg>
-            </button>
-            <button onclick="toggleLeadsModal(false)" class="text-slate-400 hover:text-white font-mono text-xs px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-900">
-              ✕ Close
-            </button>
-          </div>
-        </div>
-
-        <!-- Analytics stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800 bg-slate-950/60 border-b border-slate-800 text-center py-4">
-          <div class="p-1">
-            <div id="stat-total" class="text-lg font-mono font-bold text-white">0</div>
-            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Pipeline Leads</div>
-          </div>
-          <div class="p-1">
-            <div id="stat-priority" class="text-lg font-mono font-bold text-sky-400">0</div>
-            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">High-Priority Deals</div>
-          </div>
-          <div class="p-1">
-            <div id="stat-units" class="text-lg font-mono font-bold text-indigo-400">0 cars</div>
-            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Elevators Under Review</div>
-          </div>
-          <div class="p-1">
-            <div id="stat-savings" class="text-lg font-mono font-bold text-emerald-400">$0</div>
-            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Projected Annual Savings</div>
-          </div>
-        </div>
-
-        <!-- CRM Feed -->
-        <div class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-950/20" id="crm-leads-feed">
-          <!-- Rendered via JS -->
-        </div>
-
-      </div>
-    </div>
-
-    <!-- MODAL 3: SYSTEMS AI ADVISOR CHAT CONSOLE -->
-    <div id="advisor-modal" class="fixed inset-0 z-50 flex items-center justify-end p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm hidden animate-fade-in">
-      <div class="absolute inset-0 -z-10" onclick="toggleAdvisorModal(false)"></div>
+    // Routing Navigation with smooth page transitioning and path handling
+    function navigate(event, tabId) {
+      if (event) {
+        event.preventDefault();
+      }
       
-      <div class="w-full sm:max-w-xl h-full sm:h-[90vh] bg-slate-900 sm:border border-slate-800 sm:rounded-2xl flex flex-col shadow-2xl relative">
+      // Update browser URL virtual state mapping to simulate folders
+      if (history.pushState) {
+        const path = tabId === 'hub' ? '/' : `/${tabId}/`;
+        history.pushState({ tab: tabId }, '', path);
+      }
+      
+      switchTab(tabId);
+    }
+
+    // Tab switcher
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+
+      // Update Header active states
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-zinc-900/80', 'text-white', 'border-zinc-800');
+        btn.classList.add('text-zinc-400', 'border-transparent');
+      });
+
+      const activeBtn = document.getElementById(`nav-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-zinc-900/80', 'text-white', 'border-zinc-800');
+        activeBtn.classList.remove('text-zinc-400', 'border-transparent');
+      }
+
+      // Toggle Page Panels
+      document.querySelectorAll('.view-panel').forEach(panel => {
+        panel.classList.add('hidden');
+        panel.classList.remove('fade-enter-active');
+      });
+
+      const activePanel = document.getElementById(`view-${tabId}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+        // Trigger reflow for transition animation
+        void activePanel.offsetWidth;
+        activePanel.classList.add('fade-enter-active');
+      }
+
+      // Stop Synthesizer if navigating away from Heartvision
+      if (tabId !== 'heartvision' && state.synthActive) {
+        toggleSynth();
+      }
+
+      // Re-trigger Canvas setup if loaded Heartvision
+      if (tabId === 'heartvision') {
+        initCanvas();
+      }
+
+      // Scroll smoothly back to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle initial route loading and browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.tab) {
+        switchTab(e.state.tab);
+      } else {
+        // Fallback to parsed path on first load
+        detectPathAndLoad();
+      }
+    });
+
+    function detectPathAndLoad() {
+      const path = window.location.pathname;
+      if (path.includes('heartlinks')) {
+        switchTab('heartlinks');
+      } else if (path.includes('heartvision')) {
+        switchTab('heartvision');
+      } else if (path.includes('pulse')) {
+        switchTab('pulse');
+      } else {
+        switchTab('hub');
+      }
+    }
+
+    // Run initialization mapping on load
+    document.addEventListener('DOMContentLoaded', () => {
+      detectPathAndLoad();
+      rollManifesto();
+      updateLinkMock();
+    });
+
+
+    // --- 1. Manifesto Generator Concepts ---
+    const manifestoQuotes = [
+      `"Let your visual waves be as irregular and beautiful as the frequency of your heart."`,
+      `"True sound is sovereign; it demands distribution without digital surveillance trackers."`,
+      `"We do not feed the algorithms. We feed the listening human ears."`,
+      `"Indie art is born in dark-room solitude, refined under neon spotlights, and set free globally."`,
+      `"Every waveform is an acoustic signature of an independent heart screaming."`
+    ];
+
+    function rollManifesto() {
+      const element = document.getElementById('manifesto-text');
+      if (element) {
+        element.style.opacity = '0';
+        setTimeout(() => {
+          const rand = manifestoQuotes[Math.floor(Math.random() * manifestoQuotes.length)];
+          element.textContent = rand;
+          element.style.opacity = '1';
+        }, 300);
+      }
+    }
+
+
+    // --- 2. HeartLinks Dynamic Builder ---
+    function updateLinkMock() {
+      const artist = document.getElementById('link-artist').value || 'Artist Name';
+      const track = document.getElementById('link-track').value || 'Release Name';
+      const spotText = document.getElementById('url-spotify').value || 'Listen on Spotify';
+      const bandText = document.getElementById('url-bandcamp').value || 'Buy High-Fi Digital';
+      const soundText = document.getElementById('url-soundcloud').value || 'Stream on SoundCloud';
+
+      document.getElementById('mock-artist').textContent = artist;
+      document.getElementById('mock-track').textContent = track;
+
+      const links = document.querySelectorAll('.mock-theme-link');
+      if (links.length >= 3) {
+        links[0].textContent = spotText;
+        links[1].textContent = bandText;
+        links[2].textContent = soundText;
+      }
+    }
+
+    function setThemePreset(preset) {
+      const links = document.querySelectorAll('.mock-theme-link');
+      
+      links.forEach(link => {
+        // Reset old presets
+        link.className = 'mock-theme-link block w-full py-3.5 px-4 rounded-xl text-xs font-semibold text-center transition-all hover:scale-[1.02] ';
         
-        <!-- Header -->
-        <div class="p-5 border-b border-slate-800 bg-slate-950 rounded-t-none sm:rounded-t-2xl flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="p-2 bg-sky-500/10 border border-sky-400/20 rounded-xl text-sky-400 shrink-0">
-              <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        if (preset === 'rose') {
+          link.classList.add('bg-[#24081c]/60', 'border', 'border-pink-500/30', 'text-pink-300', 'shadow-[0_0_15px_rgba(244,63,94,0.05)]');
+        } else if (preset === 'cyan') {
+          link.classList.add('bg-[#081e24]/60', 'border', 'border-cyan-500/30', 'text-cyan-300', 'shadow-[0_0_15px_rgba(0,242,254,0.05)]');
+        } else if (preset === 'magenta') {
+          link.classList.add('bg-[#210824]/60', 'border', 'border-fuchsia-500/30', 'text-fuchsia-300', 'shadow-[0_0_15px_rgba(217,70,239,0.05)]');
+        } else if (preset === 'mono') {
+          link.classList.add('bg-[#141416]/90', 'border', 'border-zinc-700/50', 'text-zinc-200');
+        }
+      });
+    }
+
+    function generateJSONConfig() {
+      const config = {
+        artist: document.getElementById('link-artist').value,
+        release: document.getElementById('link-track').value,
+        links: [
+          { platform: 'Spotify', label: document.getElementById('url-spotify').value },
+          { platform: 'Bandcamp', label: document.getElementById('url-bandcamp').value },
+          { platform: 'SoundCloud', label: document.getElementById('url-soundcloud').value }
+        ]
+      };
+      alert("Successfully Compiled HeartLinks Configuration Bundle!\n\n" + JSON.stringify(config, null, 2));
+    }
+
+
+    // --- 3. HeartVision Procedural Audio Visualizer Canvas ---
+    let canvas, ctx, animationFrameId;
+    let waveOffset = 0;
+    let mouseX = 0, mouseY = 0;
+    let canvasDisturbed = false;
+
+    function initCanvas() {
+      canvas = document.getElementById('viz-canvas');
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+      
+      // Resize to fit bounds
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Track mouse/touch interactive coordinates
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        canvasDisturbed = true;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        canvasDisturbed = false;
+      });
+
+      // Launch render loop
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      draw();
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    function setCanvasGradient(palette) {
+      state.canvasGradient = palette;
+    }
+
+    function setWaveform(type) {
+      state.waveform = type;
+      
+      document.getElementById('wave-sine').className = "py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-zinc-300 border border-zinc-850";
+      document.getElementById('wave-pulse').className = "py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-850 text-zinc-300 border border-zinc-850";
+      
+      const activeBtn = document.getElementById(`wave-${type}`);
+      if (activeBtn) {
+        activeBtn.className = "py-2.5 rounded-xl text-xs font-semibold bg-zinc-800 text-white border border-zinc-700 shadow-md";
+      }
+    }
+
+    // Visualizer Render Graph Loop
+    function draw() {
+      if (state.activeTab !== 'heartvision' || !canvas) return;
+
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+      ctx.clearRect(0, 0, w, h);
+
+      // Gradient selection
+      let strokeGrad = ctx.createLinearGradient(0, 0, w, 0);
+      if (state.canvasGradient === 'cyan-pink') {
+        strokeGrad.addColorStop(0, '#00f2fe');
+        strokeGrad.addColorStop(0.5, '#d946ef');
+        strokeGrad.addColorStop(1, '#f43f5e');
+      } else if (state.canvasGradient === 'purple-magenta') {
+        strokeGrad.addColorStop(0, '#8b5cf6');
+        strokeGrad.addColorStop(0.5, '#d946ef');
+        strokeGrad.addColorStop(1, '#a78bfa');
+      } else {
+        strokeGrad.addColorStop(0, '#34d399');
+        strokeGrad.addColorStop(0.5, '#22d3ee');
+        strokeGrad.addColorStop(1, '#60a5fa');
+      }
+
+      ctx.strokeStyle = strokeGrad;
+      ctx.lineWidth = 3.5;
+      ctx.lineCap = 'round';
+      ctx.shadowBlur = 12;
+      
+      if (state.canvasGradient === 'cyan-pink') {
+        ctx.shadowColor = 'rgba(0, 242, 254, 0.4)';
+      } else if (state.canvasGradient === 'purple-magenta') {
+        ctx.shadowColor = 'rgba(217, 70, 239, 0.4)';
+      } else {
+        ctx.shadowColor = 'rgba(52, 211, 153, 0.4)';
+      }
+
+      const amplitude = state.synthActive ? 90 : 45;
+      const frequency = state.synthActive ? 0.04 : 0.02;
+
+      if (state.waveform === 'sine') {
+        // Multi-line composite sine waves for glowing dimensional depth
+        for (let waveIndex = 0; waveIndex < 3; waveIndex++) {
+          ctx.beginPath();
+          ctx.globalAlpha = waveIndex === 0 ? 1 : (waveIndex === 1 ? 0.5 : 0.25);
+          ctx.lineWidth = waveIndex === 0 ? 3.5 : (waveIndex === 1 ? 2 : 1);
+          
+          const speedFactor = 1 + waveIndex * 0.4;
+          const ampFactor = 1 - waveIndex * 0.25;
+
+          for (let x = 0; x < w; x++) {
+            let y = h / 2;
+            
+            // Core sinusoidal math
+            let sineVal = Math.sin(x * (frequency / speedFactor) + waveOffset * speedFactor);
+            let offsetAmp = amplitude * ampFactor;
+
+            // Apply interactive disturbance if mouse hovered
+            if (canvasDisturbed) {
+              const dx = x - mouseX;
+              const dist = Math.sqrt(dx * dx);
+              if (dist < 100) {
+                const hoverScale = (100 - dist) / 100;
+                sineVal += Math.sin(x * 0.25) * hoverScale * 1.5;
+                offsetAmp *= (1 + hoverScale);
+              }
+            }
+
+            y += sineVal * offsetAmp;
+
+            if (x === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+          ctx.stroke();
+        }
+      } else {
+        // Procedural Pulse Bars/Bins Layout
+        const numBars = 30;
+        const barWidth = w / numBars;
+        ctx.globalAlpha = 0.95;
+
+        for (let i = 0; i < numBars; i++) {
+          const barX = i * barWidth + (barWidth / 4);
+          let barHeight = Math.abs(Math.sin(i * 0.15 + waveOffset)) * amplitude * 1.8;
+          
+          // Noise/disturbance modification
+          if (canvasDisturbed) {
+            const dx = barX - mouseX;
+            if (Math.abs(dx) < 80) {
+              const scale = (80 - Math.abs(dx)) / 80;
+              barHeight *= (1 + scale * 1.2);
+            }
+          }
+
+          if (barHeight < 15) barHeight = 15; // floor ceiling
+          
+          ctx.fillStyle = strokeGrad;
+          ctx.beginPath();
+          ctx.roundRect(barX, (h / 2) - (barHeight / 2), barWidth / 1.8, barHeight, 4);
+          ctx.fill();
+        }
+      }
+
+      waveOffset += 0.035;
+      animationFrameId = requestAnimationFrame(draw);
+    }
+
+
+    // --- 4. Web Audio API Procedural Wave Synthesizer Engine ---
+    function toggleSynth() {
+      const btn = document.getElementById('synth-trigger');
+      const dot = document.getElementById('canvas-status-dot');
+
+      if (!state.synthActive) {
+        triggerGlobalDrone(120, 'sine');
+        
+        // UI Updates
+        btn.innerHTML = `
+          <span class="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping"></span>
+          Stop Wave Synth
+        `;
+        btn.classList.replace('bg-neonCyan', 'bg-rose-600');
+        btn.classList.replace('text-black', 'text-white');
+        btn.classList.replace('glow-cyan', 'glow-magenta');
+        if (dot) {
+          dot.classList.replace('bg-zinc-800', 'bg-neonCyan');
+          dot.classList.add('animate-pulse');
+        }
+      } else {
+        killGlobalDrone();
+        
+        // UI Updates
+        btn.innerHTML = `
+          <span class="h-1.5 w-1.5 rounded-full bg-black animate-ping"></span>
+          Trigger Wave Synth
+        `;
+        btn.classList.replace('bg-rose-600', 'bg-neonCyan');
+        btn.classList.replace('text-white', 'text-black');
+        btn.classList.replace('glow-magenta', 'glow-cyan');
+        if (dot) {
+          dot.classList.replace('bg-neonCyan', 'bg-zinc-800');
+          dot.classList.remove('animate-pulse');
+        }
+      }
+    }
+
+    function triggerGlobalDrone(frequencyVal, type = 'sine') {
+      try {
+        if (state.audioCtx) {
+          killGlobalDrone();
+        }
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        state.audioCtx = new AudioContext();
+        
+        state.oscillator = state.audioCtx.createOscillator();
+        state.gainNode = state.audioCtx.createGain();
+
+        state.oscillator.type = type;
+        state.oscillator.frequency.setValueAtTime(frequencyVal, state.audioCtx.currentTime); 
+        
+        state.gainNode.gain.setValueAtTime(0.001, state.audioCtx.currentTime);
+        state.gainNode.gain.exponentialRampToValueAtTime(0.15, state.audioCtx.currentTime + 0.6); 
+
+        // Apply mouse pitch modulation only if we're on the Heartvision visualizer canvas
+        if (state.activeTab === 'heartvision' && canvas) {
+          canvas.addEventListener('mousemove', modulatePitch);
+        }
+
+        state.oscillator.connect(state.gainNode);
+        state.gainNode.connect(state.audioCtx.destination);
+        
+        state.oscillator.start();
+        state.synthActive = true;
+      } catch (e) {
+        console.error("Audio system restriction within sandboxed frame", e);
+      }
+    }
+
+    function killGlobalDrone() {
+      if (state.oscillator) {
+        try {
+          state.gainNode.gain.exponentialRampToValueAtTime(0.001, state.audioCtx.currentTime + 0.2);
+          const osc = state.oscillator;
+          const ctxRef = state.audioCtx;
+          setTimeout(() => {
+            try {
+              osc.stop();
+              osc.disconnect();
+            } catch(e){}
+          }, 200);
+        } catch(err) {
+          console.warn(err);
+        }
+      }
+      if (canvas) {
+        canvas.removeEventListener('mousemove', modulatePitch);
+      }
+      state.oscillator = null;
+      state.audioCtx = null;
+      state.synthActive = false;
+    }
+
+    function modulatePitch(e) {
+      if (!state.synthActive || !state.oscillator || !state.audioCtx) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const relativeX = (e.clientX - rect.left) / rect.width;
+      
+      // Map x coordinate to 60Hz - 220Hz range for beautiful ambient drone harmonies
+      const targetHz = Math.floor(60 + (relativeX * 160));
+      state.oscillator.frequency.setValueAtTime(targetHz, state.audioCtx.currentTime);
+      
+      document.getElementById('hz-indicator').textContent = `${targetHz}Hz MODULATION`;
+    }
+
+
+    // --- 5. Pulse Roster Filters & Submission Form ---
+    function filterRoster(genreKey) {
+      // Toggle button highlights
+      const filters = ['all', 'dreamwave', 'cybersynth', 'ambient', 'alternative'];
+      filters.forEach(f => {
+        const btn = document.getElementById(`filter-${f}`);
+        if (btn) {
+          if (f === genreKey) {
+            btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-zinc-900 text-white border border-zinc-800 transition-all uppercase";
+          } else {
+            btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/50 border border-transparent transition-all uppercase";
+          }
+        }
+      });
+
+      // Filter cards
+      document.querySelectorAll('.roster-card').forEach(card => {
+        if (genreKey === 'all' || card.getAttribute('data-genre') === genreKey) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Interactive synthesized playing roster track
+    function playRosterTrack(trackKey, trackTitle, artistName, baseFreq, waveShape) {
+      // Stop any existing track playing
+      stopPlayingTrack();
+
+      // Trigger Web Audio API synthesized drone chord mapping to the track key/mood!
+      triggerGlobalDrone(baseFreq, waveShape);
+
+      // Store state
+      state.currentTrackPlaying = trackKey;
+
+      // Update Now Playing UI bar
+      const bar = document.getElementById('now-playing-bar');
+      document.getElementById('now-playing-title').textContent = trackTitle;
+      document.getElementById('now-playing-artist').textContent = artistName + " — Synthesizing " + waveShape.toUpperCase() + " drone @ " + baseFreq + "Hz";
+      
+      bar.classList.remove('translate-y-32', 'opacity-0');
+      bar.classList.add('translate-y-0', 'opacity-100');
+
+      // Update Play Button icons on roster cards
+      document.querySelectorAll('.play-btn').forEach(btn => {
+        btn.innerHTML = `<svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+      });
+
+      // Find trigger and turn to Stop square
+      event.currentTarget.innerHTML = `<svg class="h-4.5 w-4.5 fill-current text-white" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+    }
+
+    function stopPlayingTrack() {
+      killGlobalDrone();
+      state.currentTrackPlaying = null;
+
+      // Hide Now Playing bar
+      const bar = document.getElementById('now-playing-bar');
+      bar.classList.add('translate-y-32', 'opacity-0');
+      bar.classList.remove('translate-y-0', 'opacity-100');
+
+      // Reset card play buttons
+      document.querySelectorAll('.play-btn').forEach(btn => {
+        btn.innerHTML = `<svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+      });
+    }
+
+    function submitDemography(e) {
+      e.preventDefault();
+      
+      const artist = document.getElementById('sub-artist').value;
+      const title = document.getElementById('sub-title').value;
+      const genre = document.getElementById('sub-genre').value;
+      const keyBpm = document.getElementById('sub-key').value;
+      
+      // Realistically append to our local client roster mock dynamically so the page responds physically!
+      const grid = document.getElementById('roster-grid');
+      const newCard = document.createElement('div');
+      newCard.className = "roster-card group border border-dashed border-emerald-500/40 bg-emerald-950/5 rounded-2xl p-5 hover:border-emerald-500 hover:bg-zinc-950/60 transition-all duration-300 flex flex-col justify-between h-[360px]";
+      newCard.setAttribute('data-genre', genre);
+      
+      // Select appropriate icon
+      let genreIconColor = 'text-emerald-400';
+      
+      newCard.innerHTML = `
+        <div>
+          <!-- Custom Stylized Album Cover -->
+          <div class="relative aspect-square w-full rounded-xl bg-gradient-to-tr from-[#01140e] via-zinc-950 to-[#0c1a15] border border-emerald-950/60 overflow-hidden flex items-center justify-center shadow-inner">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(52,211,153,0.15)_0%,transparent_60%)] pointer-events-none"></div>
+            <svg class="h-10 w-10 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="absolute bottom-2 left-2 flex gap-1 select-none">
+              <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-emerald-300 border border-emerald-900 px-1.5 py-0.5 rounded">${keyBpm.includes('/') ? keyBpm.split('/')[1].trim() + ' BPM' : '120 BPM'}</span>
+              <span class="text-[8px] font-mono font-bold uppercase tracking-wider bg-black/80 text-emerald-300 border border-emerald-900 px-1.5 py-0.5 rounded">${keyBpm.includes('/') ? keyBpm.split('/')[0].trim() : 'A Minor'}</span>
             </div>
-            <div>
-              <h3 class="text-sm font-display font-bold text-white">Elevatech Systems AI Advisor</h3>
-              <div class="flex items-center gap-1.5 mt-0.5">
-                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest">Consultant Active</span>
-              </div>
-            </div>
+            <div class="absolute top-2 right-2 text-[8px] font-mono text-emerald-400 uppercase bg-black/80 border border-emerald-900 px-1.5 py-0.5 rounded">NEW TRANS</div>
           </div>
-          <button onclick="toggleAdvisorModal(false)" class="text-slate-400 hover:text-white font-mono text-xs px-2 py-1 rounded-lg border border-slate-800 bg-slate-900">
-            ✕ Close
+
+          <!-- Track Title & Metadata -->
+          <h4 class="text-base font-black text-white mt-4 font-display truncate tracking-tight">${title}</h4>
+          <p class="text-xs font-bold text-emerald-400 font-display mt-0.5">${artist}</p>
+          <p class="text-[10px] font-mono text-zinc-500 mt-2 font-medium">Transmitted Now &bull; Curated Submission</p>
+        </div>
+
+        <!-- Action metrics bar -->
+        <div class="mt-4 pt-3.5 border-t border-zinc-900/60 flex items-center justify-between">
+          <div class="flex flex-col text-[9px] font-mono text-zinc-500">
+            <span class="font-bold text-zinc-400">0.0K</span>
+            <span>Streams registered</span>
+          </div>
+          <button onclick="playRosterTrack('custom', '${title}', '${artist}', 135, 'triangle')" class="play-btn h-9 w-9 rounded-lg bg-zinc-900 hover:bg-zinc-850 hover:text-white text-emerald-400 border border-zinc-800 flex items-center justify-center transition-all">
+            <svg class="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
           </button>
         </div>
-
-        <!-- Chat Feed -->
-        <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4" id="chat-feed-box">
-          <!-- Initial message -->
-          <div class="flex gap-3 max-w-[85%]">
-            <div class="p-2 h-8 w-8 rounded-full border bg-sky-500/10 border-sky-500/20 text-sky-400 shrink-0 flex items-center justify-center">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            </div>
-            <div class="bg-slate-950 border border-slate-850 text-slate-300 rounded-2xl rounded-tl-none px-4 py-3 text-xs leading-relaxed font-sans font-light">
-              Hello! I am Elevatech's B2B Systems Advisor. I consult on our zero-drain Dry AC technology, directional mm-wave Wireless CCTV, and predictive G3 IoT gateways. Ask me any engineering or safety compliance questions.
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick prompts -->
-        <div class="px-5 py-3 border-t border-slate-800 bg-slate-950/20 space-y-2">
-          <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Suggested B2B Queries</span>
-          <div class="grid grid-cols-1 gap-1.5" id="suggested-queries-box">
-            <button onclick="submitChatPrompt('Explain how the Dry AC handles condensation without drains.')" class="flex items-center justify-between text-left text-[10px] text-slate-300 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 px-3 py-1.5 rounded-lg group transition-colors hover:text-sky-400">
-              <span>Explain how the Dry AC handles condensation without drains.</span>
-              <svg class="w-3.5 h-3.5 text-slate-600 group-hover:text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-            <button onclick="submitChatPrompt('Why do traditional CCTV cables snap and how does wireless fix it?')" class="flex items-center justify-between text-left text-[10px] text-slate-300 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 px-3 py-1.5 rounded-lg group transition-colors hover:text-sky-400">
-              <span>Why do traditional CCTV cables snap and how does wireless fix it?</span>
-              <svg class="w-3.5 h-3.5 text-slate-600 group-hover:text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Input -->
-        <div class="p-4 border-t border-slate-800 bg-slate-950">
-          <div class="flex gap-2">
-            <input type="text" id="chat-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" placeholder="Ask about safety codes, compliance, or Dry AC spec..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
-            <button onclick="sendChatMessage()" class="p-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded-lg shrink-0 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-          </div>
-          <div class="mt-2 text-center text-[9px] text-slate-500 font-mono">
-            Safety compliance vetted parameters. No core elevator wiring modified.
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- MAIN DATA ENGINE & INTERACTIVITY (VANILLA JS) -->
-    <script>
-      // 1. STATIC ENGINEERING DATA
-      const SOLUTIONS_DATA = [
-        {
-          id: "passenger-comfort",
-          name: "Passenger Comfort & Dry AC",
-          problem: "Standard AC systems collect massive amounts of condensation water. Discharging water onto high-voltage, high-speed elevator shafts violates critical building safety and electrical codes.",
-          challenge: "Engineers must supply premium cooling within highly confined overhead tolerances, without creating water accumulation.",
-          fix: "Elevatech's zero-liquid condensation Dry AC. Uses thermodynamic atomization to re-evaporate 100% of condensation back into the warm exhaust airstream dynamically.",
-          benefits: [
-            "Zero Runoff: Absolute elimination of drain hoses or collection tanks.",
-            "Double Purification: Inbuilt medical-grade HEPA and UV-C sanitizers.",
-            "Vibration Controls: Dual floating isolation mounts reduce structure hum."
-          ],
-          sku: "ELE-AC-V2",
-          specs: {
-            "Cooling Output": "9,000 to 12,000 BTU models",
-            "Water Runoff": "0.0 L / hour (Atomized Thermal Evaporator)",
-            "Chassis Clearance": "Requires only 380 mm car-top space",
-            "Power Draw": "220V, 50/60Hz, 850W active"
-          },
-          image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
-          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>`
-        },
-        {
-          id: "shaft-comms",
-          name: "Wireless CCTV & Communications",
-          problem: "Copper traveling CAT6 cables subjected to repeated mechanical high-speed bending suffer fatigue and snap regularly, rendering in-cab security feeds offline.",
-          challenge: "Establish high-speed security streams inside a heavily shielded concrete and metal Faraday-cage lift shaft at velocities over 8 m/s.",
-          fix: "Elevatech Wireless Millimeter-wave Bridge. Directional microwave transceivers create an ultra-reliable, license-free, cable-free gigabit data network.",
-          benefits: [
-            "Zero Cable Fatigue: Replaces physical fiber or copper strands.",
-            "Micro-latency: Under 1.5ms latency supports clean real-time 4K security feeds.",
-            "Interference Shield: Directional beamforming prevents steel rope multi-path reflection issues."
-          ],
-          sku: "ELE-CCTV-LINK",
-          specs: {
-            "Maximum Reach": "Up to 450 meters (1,500 feet) hoistway height",
-            "Bandwidth Stream": "1.2 Gbps bidirectional",
-            "Frequencies": "5.8 GHz & 60 GHz auto-failover bands",
-            "Speed Rated": "Vetted up to 12 m/s mechanical velocity"
-          },
-          image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80",
-          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>`
-        },
-        {
-          id: "iot-monitoring",
-          name: "G3 IoT Fleet Smart Monitoring",
-          problem: "Building operators remain blind to mechanical degradation, acting reactively only after major breakdowns or occupant trapping occurrences.",
-          challenge: "Read elevator system performance safely and transmit metrics to cloud boards without interfering with proprietary, safety-critical controller logic.",
-          fix: "Non-intrusive sensory pods. Opto-isolated dry gates and vibration acceleration pods relay continuous mechanical telemetry to cloud dashboards.",
-          benefits: [
-            "Predictive Insights: Identifies door friction and guide alignment anomalies early.",
-            "Real-time Dashboard: Tracks exact cab coordinate paths and velocity metrics.",
-            "Auto-Dispatch: Auto-triggers technical alerts directly to maintenance desks."
-          ],
-          sku: "ELE-IOT-G3",
-          specs: {
-            "Edge Processor": "Quad-core ARM Edge AI Processor",
-            "Sensory Inclusions": "3-Axis Accel, Gyro, Acoustic & Thermal sensor arrays",
-            "Integrations": "BACnet IP, Modbus RTU, opto-isolated dry gates",
-            "Encryption Level": "TLS 1.3 cryptographic secure hardware"
-          },
-          image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
-          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>`
-        }
-      ];
-
-      const INDUSTRIES_DATA = [
-        {
-          id: "commercial-towers",
-          name: "Commercial Office Towers",
-          problem: "relentless high-speed peak travel, strict safety water discharge rules, high tenant comfort complaints.",
-          fix: "zero-drain Dry AC installations coupled with Wireless CCTV links to prevent expensive wire breakdowns.",
-          challenges: [
-            "Continuous traveling wire friction causing security feeds to cut out.",
-            "Standard AC water dripping is completely forbidden by municipal building inspectors.",
-            "Stagnant air inside high-occupancy towers during morning/evening commute spikes."
-          ],
-          solutions: [
-            "Dry AC Model V2 with zero water discharge.",
-            "Wireless CCTV Smart-Link to eliminate traveling line snaps.",
-            "Predictive G3 IoT gateways for cloud maintenance oversight."
-          ],
-          case: "Grand Horizon Tower, NY: Replaced standard ACs with Dry ACs and added wireless millimeter links across 50 stories. Resulted in 100% elimination of traveling data cable failures and reduced comfort complaints by 94% instantly."
-        },
-        {
-          id: "healthcare",
-          name: "Hospitals & Medical Centers",
-          problem: "sterile environment concerns, high cabin occupancy, zero-downtime emergency requirements.",
-          fix: "medical-grade air purification filtration loops integrated inside our Dry AC models.",
-          challenges: [
-            "Pathogen and particulate accumulation inside elevator transit shafts.",
-            "Critical elevator down-time directly affecting clinical operations.",
-            "Unrestricted access control risks to ICU and sterile theater floors."
-          ],
-          solutions: [
-            "UV-C and medical HEPA modules integrated inside our Dry AC climate units.",
-            "Predictive edge IoT alerts to prevent emergency lift breakdowns.",
-            "Smart in-cab biometric facial readers for secure staff transitions."
-          ],
-          case: "Metro Expansion Center: Fitted 12 patient cabins with UV-C Dry AC and G3 IoT sensors. Maintained a 99.99% emergency uptime rate over a 2-year study, with pristine air filtration metrics."
-        }
-      ];
-
-      const TECH_ARTICLES_DATA = [
-        {
-          id: "ac-evap",
-          title: "Thermal Condensate Re-evaporation: Engineering Safe Lift HVACs",
-          category: "Engineering",
-          summary: "A technical breakdown of why standard water discharge systems are critical safety hazards inside high-voltage elevator shafts.",
-          author: "Prashant Shah, Chief Systems Engineer",
-          tags: ["hvac", "safety", "mechanics"]
-        },
-        {
-          id: "cctv-wifi",
-          title: "Cable Fatigue Physics: Millimeter wave bridges in high velocity shafts",
-          category: "Safety",
-          summary: "Analyzing the flex tension that snaps CAT6 lines, and why 60GHz beamforming transceivers provide uninterrupted security feeds.",
-          author: "Elena Rostov, Comms Specialist",
-          tags: ["wireless", "cctv", "networking"]
-        },
-        {
-          id: "iot-vibe",
-          title: "Edge Vibration Analytics: Diagnosing rail misalignments before fail",
-          category: "IoT",
-          summary: "How edge-computed Fast Fourier Transform (FFT) algorithms identify micro-bearing failures in elevator guide shoes.",
-          author: "Dr. Aris Thorne, Systems Architect",
-          tags: ["iot", "predictive", "telemetry"]
-        }
-      ];
-
-      const FAQS_DATA = [
-        {
-          id: "faq-1",
-          question: "Why can't building operators install a regular residential AC on top of an elevator cabin?",
-          answer: "Residential or portable AC units accumulate water condensation. Elevators run alongside high-voltage cable grids and traction ropes. Dripping water inside a hoistway violates standard national fire and safety codes. Elevatech's Dry AC re-evaporates condensation into atomized hot air, keeping high-voltage areas completely dry."
-        },
-        {
-          id: "faq-2",
-          question: "Does the wireless CCTV system suffer from signal interference in tight metal shafts?",
-          answer: "No. Our millimeter-wave transceivers operate on highly directional, high-frequency beam bands (5.8GHz and 60GHz) that bypass steel rope multipath reflections. This guarantees stable, low-latency (<1.5ms) feeds in all moving states."
-        },
-        {
-          id: "faq-3",
-          question: "Can these upgrades fit on any brand of elevator, such as Kone, Schindler, or Otis?",
-          answer: "Yes, our solutions are brand-agnostic. They are designed to fit on any universal car-chassis, utilizing standard mounting rails and universal power inputs."
-        }
-      ];
-
-      // 2. RUNTIME APP STATE
-      let currentExplorerTab = 'solutions'; // 'solutions' or 'industries'
-      let activeSolutionId = 'passenger-comfort';
-      let activeIndustryId = 'commercial-towers';
-      let chatHistory = [];
-      let crmLeads = [];
-
-      // Initialize on load
-      window.onload = function() {
-        renderExplorerSidebar();
-        renderExplorerPanel();
-        renderArticles();
-        renderFaqs();
-        syncLeadsFromBackend();
-        recalculateEstimates();
-      };
-
-      // Navigation routing
-      function switchTab(tabId) {
-        document.getElementById('tab-content-home').classList.add('hidden');
-        document.getElementById('tab-content-builder').classList.add('hidden');
-        document.getElementById('tab-content-knowledge').classList.add('hidden');
-
-        document.getElementById(`tab-content-${tabId}`).classList.remove('hidden');
-
-        // Update nav styling
-        ['home', 'builder', 'knowledge'].forEach(t => {
-          const btn = document.getElementById(`nav-${t}`);
-          if (btn) {
-            btn.className = "text-sm font-medium tracking-wide hover:text-sky-400 transition-colors " + 
-                            (t === tabId ? "text-sky-400 font-semibold" : "text-slate-300");
-          }
-        });
-
-        // Scroll back to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // 3. EXPLORER tab switcher
-      function setExplorerTab(tab) {
-        currentExplorerTab = tab;
-        
-        // Buttons
-        const solBtn = document.getElementById('exp-tab-solutions');
-        const indBtn = document.getElementById('exp-tab-industries');
-        
-        if (tab === 'solutions') {
-          solBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10";
-          indBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200";
-        } else {
-          indBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10";
-          solBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200";
-        }
-
-        renderExplorerSidebar();
-        renderExplorerPanel();
-      }
-
-      function renderExplorerSidebar() {
-        const sidebar = document.getElementById('explorer-sidebar');
-        sidebar.innerHTML = '';
-
-        if (currentExplorerTab === 'solutions') {
-          SOLUTIONS_DATA.forEach(sol => {
-            const isActive = sol.id === activeSolutionId;
-            const btn = document.createElement('button');
-            btn.onclick = () => { activeSolutionId = sol.id; renderExplorerSidebar(); renderExplorerPanel(); };
-            btn.className = `flex items-start gap-4 p-4 rounded-xl border text-left transition-all cursor-pointer ${
-              isActive ? "bg-slate-900/60 border-sky-500/40 shadow-lg shadow-sky-500/5" : "bg-transparent border-slate-900 hover:bg-slate-900/20 hover:border-slate-800"
-            }`;
-            btn.innerHTML = `
-              <div class="p-2 rounded-lg shrink-0 ${isActive ? 'bg-sky-500/10 text-sky-400' : 'bg-slate-900 text-slate-400'}">
-                ${sol.icon}
-              </div>
-              <div>
-                <h4 class="text-sm font-semibold leading-tight ${isActive ? 'text-white' : 'text-slate-300'}">${sol.name}</h4>
-                <p class="text-[11px] text-slate-500 mt-1 line-clamp-1">${sol.problem}</p>
-              </div>
-            `;
-            sidebar.appendChild(btn);
-          });
-        } else {
-          INDUSTRIES_DATA.forEach(ind => {
-            const isActive = ind.id === activeIndustryId;
-            const btn = document.createElement('button');
-            btn.onclick = () => { activeIndustryId = ind.id; renderExplorerSidebar(); renderExplorerPanel(); };
-            btn.className = `flex items-start gap-4 p-4 rounded-xl border text-left transition-all cursor-pointer w-full ${
-              isActive ? "bg-slate-900/60 border-sky-500/40 shadow-lg shadow-sky-500/5" : "bg-transparent border-slate-900 hover:bg-slate-900/20 hover:border-slate-800"
-            }`;
-            btn.innerHTML = `
-              <div class="p-2 rounded-lg shrink-0 ${isActive ? 'bg-sky-500/10 text-sky-400' : 'bg-slate-900 text-slate-400'}">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-              </div>
-              <div class="self-center">
-                <h4 class="text-sm font-semibold leading-tight ${isActive ? 'text-white' : 'text-slate-300'}">${ind.name}</h4>
-              </div>
-            `;
-            sidebar.appendChild(btn);
-          });
-        }
-      }
-
-      function renderExplorerPanel() {
-        const panel = document.getElementById('explorer-panel');
-        panel.innerHTML = '';
-
-        if (currentExplorerTab === 'solutions') {
-          const sol = SOLUTIONS_DATA.find(s => s.id === activeSolutionId) || SOLUTIONS_DATA[0];
-          panel.innerHTML = `
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-              <div class="md:col-span-8 space-y-4">
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] text-sky-400 font-mono uppercase tracking-wider">Solution Blueprint</span>
-                  <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                  <span class="text-[10px] text-slate-300 font-mono">${sol.name}</span>
-                </div>
-                <h3 class="text-2xl font-display font-bold text-white tracking-tight">${sol.name}</h3>
-                <p class="text-xs text-slate-400 leading-relaxed border-l-2 border-sky-500/20 pl-3">
-                  <strong class="text-sky-400 font-normal">Core Roadblock:</strong> ${sol.problem}
-                </p>
-              </div>
-              <div class="md:col-span-4 rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
-                <img src="${sol.image}" alt="${sol.name}" class="w-full h-32 object-cover opacity-80" referrerpolicy="no-referrer">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-900">
-              <div class="bg-slate-950/40 border border-slate-900 p-5 rounded-xl">
-                <span class="text-[9px] text-rose-400 font-mono uppercase tracking-wider block mb-1">Engineering Challenge</span>
-                <p class="text-xs text-slate-300 font-sans font-light leading-relaxed">${sol.challenge}</p>
-              </div>
-              <div class="bg-sky-500/5 border border-sky-500/10 p-5 rounded-xl">
-                <span class="text-[9px] text-sky-400 font-mono uppercase tracking-wider block mb-1">Elevatech Engineered Fix</span>
-                <p class="text-xs text-slate-300 font-sans font-light leading-relaxed">${sol.fix}</p>
-              </div>
-            </div>
-
-            <div class="space-y-3 pt-4">
-              <span class="text-[10px] font-mono font-semibold uppercase text-slate-500 tracking-widest block">Verifiable Operational Benefits</span>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                ${sol.benefits.map(b => `
-                  <div class="flex items-start gap-2 p-3 bg-slate-900/30 rounded-lg border border-slate-900/50">
-                    <svg class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    <span class="text-xs font-light text-slate-300">${b}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-
-            <div class="pt-6 border-t border-slate-900 space-y-4">
-              <span class="text-[10px] font-mono font-semibold uppercase text-sky-500 tracking-widest block">Product Specifications Datasheet</span>
-              <div class="bg-slate-950 border border-slate-900 rounded-xl p-5 space-y-4">
-                <div class="flex justify-between items-center gap-2">
-                  <h4 class="text-sm font-bold text-white">${sol.name} - Model Core</h4>
-                  <span class="text-[9px] font-mono text-slate-500 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">SKU: ${sol.sku}</span>
-                </div>
-                <div class="bg-slate-900/40 rounded-lg overflow-hidden border border-slate-800/50 divide-y divide-slate-900">
-                  ${Object.entries(sol.specs).map(([lbl, val]) => `
-                    <div class="grid grid-cols-2 px-4 py-2 text-[11px]">
-                      <span class="font-mono text-slate-500">${lbl}</span>
-                      <span class="font-mono text-slate-300 font-medium text-right">${val}</span>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          const ind = INDUSTRIES_DATA.find(i => i.id === activeIndustryId) || INDUSTRIES_DATA[0];
-          panel.innerHTML = `
-            <div class="border-b border-slate-900 pb-4">
-              <span class="text-[10px] text-sky-400 font-mono uppercase tracking-wider">Target Vertical Profile</span>
-              <h3 class="text-2xl font-display font-bold text-white tracking-tight mt-1">${ind.name}</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="bg-rose-950/10 border border-rose-900/20 p-5 rounded-xl space-y-3">
-                <span class="text-[10px] text-rose-400 font-mono uppercase tracking-wider block font-bold border-b border-rose-900/25 pb-1.5">Sector Challenges</span>
-                <ul class="space-y-2.5">
-                  ${ind.challenges.map(c => `
-                    <li class="flex items-start gap-2 text-xs text-slate-300 font-sans font-light leading-relaxed">
-                      <svg class="w-4 h-4 text-rose-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                      <span>${c}</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-
-              <div class="bg-emerald-950/10 border border-emerald-900/20 p-5 rounded-xl space-y-3">
-                <span class="text-[10px] text-emerald-400 font-mono uppercase tracking-wider block font-bold border-b border-emerald-900/25 pb-1.5">Recommended Solution Set</span>
-                <ul class="space-y-2.5">
-                  ${ind.solutions.map(s => `
-                    <li class="flex items-start gap-2 text-xs text-slate-300 font-sans font-light leading-relaxed">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                      <span>${s}</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 border border-slate-900 rounded-xl p-6 space-y-3">
-              <span class="text-[9px] text-sky-400 font-mono uppercase tracking-wider block font-bold">B2B Case Study Proof of Concept</span>
-              <p class="text-xs text-slate-300 leading-relaxed font-sans font-light">${ind.case}</p>
-            </div>
-          `;
-        }
-      }
-
-      // 4. KNOWLEDGE BASE RENDERERS
-      function renderArticles(filter = "") {
-        const grid = document.getElementById('articles-target-grid');
-        grid.innerHTML = '';
-
-        const filtered = TECH_ARTICLES_DATA.filter(art => 
-          art.title.toLowerCase().includes(filter.toLowerCase()) || 
-          art.summary.toLowerCase().includes(filter.toLowerCase())
-        );
-
-        if (filtered.length === 0) {
-          grid.innerHTML = `<div class="col-span-3 text-center py-8 text-xs text-slate-500 font-mono">No reference articles match your search parameters.</div>`;
-          return;
-        }
-
-        filtered.forEach(art => {
-          const block = document.createElement('article');
-          block.className = "bg-slate-900/35 border border-slate-900 hover:border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4 transition-all";
-          block.innerHTML = `
-            <div class="space-y-2.5">
-              <div class="flex justify-between items-center text-[9px] font-mono">
-                <span class="text-sky-400 bg-sky-950/40 border border-sky-900/30 px-2 py-0.5 rounded">${art.category}</span>
-                <span class="text-slate-500">6 min read</span>
-              </div>
-              <h3 class="text-xs font-sans font-bold text-white leading-tight hover:text-sky-400 cursor-pointer">${art.title}</h3>
-              <p class="text-xs text-slate-400 leading-relaxed font-sans font-light">${art.summary}</p>
-            </div>
-            <div class="pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono">
-              Authored by: <span class="text-slate-300">${art.author}</span>
-              <div class="flex gap-1.5 mt-2">
-                ${art.tags.map(t => `<span class="text-[9px] text-slate-600">#${t}</span>`).join('')}
-              </div>
-            </div>
-          `;
-          grid.appendChild(block);
-        });
-      }
-
-      function renderFaqs() {
-        const list = document.getElementById('faqs-target-list');
-        list.innerHTML = '';
-
-        FAQS_DATA.forEach((faq, idx) => {
-          const div = document.createElement('div');
-          div.className = "py-4 first:pt-0 last:pb-0";
-          div.innerHTML = `
-            <button onclick="toggleFaqAccordion('${faq.id}')" class="w-full flex justify-between items-center text-left text-xs font-bold text-slate-200 hover:text-white py-1.5">
-              <span class="flex items-center gap-2.5">
-                <span class="text-sky-400 font-mono">?</span>
-                <span>${faq.question}</span>
-              </span>
-              <span id="faq-chevron-${faq.id}" class="text-slate-500 text-xs font-mono">+</span>
-            </button>
-            <div id="faq-answer-${faq.id}" class="hidden pl-5 pt-2 text-[11px] text-slate-400 leading-relaxed font-light">
-              ${faq.answer}
-            </div>
-          `;
-          list.appendChild(div);
-        });
-      }
-
-      function toggleFaqAccordion(id) {
-        const ans = document.getElementById(`faq-answer-${id}`);
-        const chev = document.getElementById(`faq-chevron-${id}`);
-        if (ans.classList.contains('hidden')) {
-          ans.classList.remove('hidden');
-          chev.innerText = "-";
-        } else {
-          ans.classList.add('hidden');
-          chev.innerText = "+";
-        }
-      }
-
-      function filterArticles(val) {
-        renderArticles(val);
-      }
-
-      // 5. INTERACTIVE SPEC CONFIGURATOR SIZING & SUBMISSIONS
-      function updateCabCountSlider(val) {
-        document.getElementById('cab-count-val').innerText = val;
-        recalculateEstimates();
-      }
-
-      function recalculateEstimates() {
-        const cabs = parseInt(document.getElementById('config-cabs').value) || 1;
-        const btu = cabs * 9000;
-        const savings = cabs * 2400;
-
-        document.getElementById('est-cars').innerText = `${cabs} units`;
-        document.getElementById('est-btu').innerText = `${btu.toLocaleString()} BTU`;
-        
-        const wirelessChecked = document.getElementById('u-cctv').checked;
-        document.getElementById('est-bridges').innerText = wirelessChecked ? `${cabs} links` : "0 links";
-        
-        const cableConstraints = document.getElementById('c-cable').checked;
-        document.getElementById('est-savings').innerText = cableConstraints ? `~$${savings.toLocaleString()} / yr` : "$0 / yr";
-      }
-
-      async function submitRfqForm() {
-        const name = document.getElementById('rfq-name').value.trim();
-        const company = document.getElementById('rfq-company').value.trim();
-        const email = document.getElementById('rfq-email').value.trim();
-        const phone = document.getElementById('rfq-phone').value.trim();
-        const notes = document.getElementById('rfq-notes').value.trim();
-
-        if (!name || !company || !email) {
-          alert("Contact Name, Company, and Business Email are required to compile an RFQ.");
-          return;
-        }
-
-        const sector = document.getElementById('config-sector').value;
-        const cabs = parseInt(document.getElementById('config-cabs').value) || 1;
-
-        // Constraints array
-        const shaftConstraints = [];
-        if (document.getElementById('c-water').checked) shaftConstraints.push("Water Discharge Ban");
-        if (document.getElementById('c-cable').checked) shaftConstraints.push("CAT6 Breakages");
-        if (document.getElementById('c-signal').checked) shaftConstraints.push("Faraday-Cage Cellular Drops");
-
-        // Solutions array
-        const selectedSolutions = [];
-        if (document.getElementById('u-ac').checked) selectedSolutions.push("Dry AC Water-Free Cabin Cooler");
-        if (document.getElementById('u-cctv').checked) selectedSolutions.push("Wireless CCTV Smart-Link");
-        if (document.getElementById('u-iot').checked) selectedSolutions.push("G3 IoT Smart Gateway System");
-
-        // Disable button while processing
-        const btn = document.getElementById('submit-rfq-btn');
-        btn.disabled = true;
-        btn.innerText = "Analyzing Engineering Constraints...";
-
-        try {
-          const response = await fetch("/api/leads", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              clientName: name,
-              companyName: company,
-              email: email,
-              phone: phone,
-              buildingType: sector,
-              elevatorCount: cabs,
-              shaftConstraints,
-              selectedSolutions,
-              additionalNotes: notes
-            })
-          });
-
-          const data = await response.json();
-          if (data.success) {
-            document.getElementById('rfq-success-box').classList.remove('hidden');
-            document.getElementById('rfq-success-text').innerHTML = `Lead reference <strong>${data.lead.id}</strong> compiled safely. Sizing metrics forwarded to B2B Estimating Desk.`;
-            
-            if (data.lead.aiAssessment) {
-              document.getElementById('rfq-ai-box').classList.remove('hidden');
-              document.getElementById('rfq-ai-text').innerText = `"${data.lead.aiAssessment}"`;
-            } else {
-              document.getElementById('rfq-ai-box').classList.add('hidden');
-            }
-
-            // Clear inputs
-            document.getElementById('rfq-name').value = '';
-            document.getElementById('rfq-company').value = '';
-            document.getElementById('rfq-email').value = '';
-            document.getElementById('rfq-phone').value = '';
-            document.getElementById('rfq-notes').value = '';
-
-            // Update CRM numbers immediately
-            syncLeadsFromBackend();
-          } else {
-            alert(data.error || "Failed to submit B2B lead spec.");
-          }
-        } catch (err) {
-          console.error(err);
-          alert("Error communicating with B2B lead API.");
-        } finally {
-          btn.disabled = false;
-          btn.innerText = "Compile Spec & Request RFQ Assessment";
-        }
-      }
-
-      // 6. CRM ADMIN LEADS PANEL ACTIONS
-      async function syncLeadsFromBackend() {
-        try {
-          const response = await fetch("/api/leads");
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.leads) {
-              crmLeads = data.leads;
-              updateLeadsDisplay();
-            }
-          }
-        } catch (err) {
-          console.error("CRM Sync failure:", err);
-        }
-      }
-
-      function updateLeadsDisplay() {
-        const feed = document.getElementById('crm-leads-feed');
-        feed.innerHTML = '';
-
-        // Badge
-        const badge = document.getElementById('leads-count-badge');
-        if (crmLeads.length > 0) {
-          badge.innerText = crmLeads.length;
-          badge.classList.remove('hidden');
-        } else {
-          badge.classList.add('hidden');
-        }
-
-        // Stats calculators
-        const total = crmLeads.length;
-        const priority = crmLeads.filter(l => l.buildingType.includes("Commercial") || l.shaftConstraints.length >= 2).length;
-        const units = crmLeads.reduce((acc, l) => acc + (parseInt(l.elevatorCount) || 1), 0);
-        const savings = crmLeads.reduce((acc, l) => {
-          let s = 0;
-          if (l.shaftConstraints.includes("CAT6 Breakages")) {
-            s += (parseInt(l.elevatorCount) || 1) * 2400;
-          }
-          return acc + s;
-        }, 0);
-
-        document.getElementById('stat-total').innerText = total;
-        document.getElementById('stat-priority').innerText = priority;
-        document.getElementById('stat-units').innerText = `${units} cars`;
-        document.getElementById('stat-savings').innerText = `$${savings.toLocaleString()}`;
-
-        if (total === 0) {
-          feed.innerHTML = `<div class="text-center py-12 text-slate-500 font-mono text-xs">No corporate leads recorded in this session. Create a spec above.</div>`;
-          return;
-        }
-
-        crmLeads.forEach(lead => {
-          const card = document.createElement('div');
-          card.className = "bg-slate-900 border border-slate-850 p-5 rounded-xl space-y-4 shadow-md";
-          card.innerHTML = `
-            <div class="flex flex-col sm:flex-row justify-between items-start gap-2 border-b border-slate-800 pb-3">
-              <div>
-                <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                  <span>${lead.clientName}</span>
-                  <span class="text-slate-500">/</span>
-                  <span class="text-sky-400 text-xs font-mono font-semibold">${lead.companyName}</span>
-                </h4>
-                <div class="flex flex-wrap gap-4 text-[9px] text-slate-500 font-mono mt-1.5">
-                  <span>Timestamp: ${new Date(lead.timestamp).toLocaleTimeString()}</span>
-                  <span>Category: ${lead.buildingType} (${lead.elevatorCount} active)</span>
-                </div>
-              </div>
-              <span class="text-[9px] text-slate-500 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">Lead Ref: ${lead.id}</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans font-light">
-              <div>
-                ${lead.shaftConstraints.length > 0 ? `
-                  <div class="mb-2">
-                    <span class="text-[8px] font-mono text-rose-400 uppercase tracking-widest font-bold block mb-1">Constraints</span>
-                    <div class="flex flex-wrap gap-1">
-                      ${lead.shaftConstraints.map(c => `<span class="bg-rose-950/20 border border-rose-900/30 text-rose-300 px-2 py-0.5 rounded text-[9px] font-mono">⚠ ${c}</span>`).join('')}
-                    </div>
-                  </div>
-                ` : ''}
-
-                ${lead.selectedSolutions.length > 0 ? `
-                  <div>
-                    <span class="text-[8px] font-mono text-sky-400 uppercase tracking-widest font-bold block mb-1">Upgrades Chosen</span>
-                    <div class="flex flex-wrap gap-1">
-                      ${lead.selectedSolutions.map(s => `<span class="bg-sky-950/20 border border-sky-900/30 text-sky-300 px-2 py-0.5 rounded text-[9px] font-mono">✦ ${s}</span>`).join('')}
-                    </div>
-                  </div>
-                ` : ''}
-              </div>
-
-              <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-850/60 space-y-1 font-mono text-[10px]">
-                <div>Email: <a href="mailto:${lead.email}" class="text-sky-400 hover:underline">${lead.email}</a></div>
-                ${lead.phone ? `<div>Phone: ${lead.phone}</div>` : ''}
-                ${lead.additionalNotes ? `<div class="text-slate-500 italic mt-2 border-t border-slate-900 pt-1">"${lead.additionalNotes}"</div>` : ''}
-              </div>
-            </div>
-
-            ${lead.aiAssessment ? `
-              <div class="bg-sky-950/10 border border-sky-500/10 p-4 rounded-lg flex items-start gap-3">
-                <div class="p-1 bg-sky-500/10 rounded text-sky-400 shrink-0 mt-0.5">
-                  <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <div>
-                  <span class="text-[8px] font-mono text-sky-400 uppercase tracking-widest font-bold block mb-0.5">Systems AI Technical Pre-Assessment</span>
-                  <p class="text-xs text-slate-300 italic">"${lead.aiAssessment}"</p>
-                </div>
-              </div>
-            ` : ''}
-          `;
-          feed.appendChild(card);
-        });
-      }
-
-      // 7. SMART SYSTEMS AI ADVISOR CHAT ACTIONS
-      async function sendChatMessage() {
-        const input = document.getElementById('chat-input');
-        const text = input.value.trim();
-        if (!text) return;
-
-        input.value = '';
-        await appendChatBubble('user', text);
-
-        // Append loader
-        const loader = document.createElement('div');
-        loader.id = "chat-bubble-loader";
-        loader.className = "flex gap-3 mr-auto max-w-[85%]";
-        loader.innerHTML = `
-          <div class="p-2 h-8 w-8 rounded-full border bg-sky-500/10 border-sky-500/20 text-sky-400 shrink-0 flex items-center justify-center">O</div>
-          <div class="bg-slate-950 border border-slate-850 rounded-2xl rounded-tl-none px-4 py-3 text-xs text-slate-500 flex items-center gap-2">
-            <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19"></path></svg>
-            <span>Systems Advisor is evaluating mechanical limits...</span>
-          </div>
-        `;
-        document.getElementById('chat-feed-box').appendChild(loader);
-        document.getElementById('chat-feed-box').scrollTop = document.getElementById('chat-feed-box').scrollHeight;
-
-        try {
-          const response = await fetch("/api/advisor/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              messages: chatHistory.map(m => ({ role: m.role, content: m.content }))
-            })
-          });
-
-          const data = await response.json();
-          document.getElementById('chat-bubble-loader').remove();
-
-          if (response.status === 503) {
-            appendChatBubble('assistant', data.fallbackResponse || "Offline consultation mode enabled.");
-          } else if (response.ok && data.response) {
-            appendChatBubble('assistant', data.response);
-          } else {
-            appendChatBubble('assistant', "I encountered an error calculating those tolerances. Standard engineering datasheets apply.");
-          }
-        } catch (err) {
-          console.error(err);
-          document.getElementById('chat-bubble-loader').remove();
-          appendChatBubble('assistant', "Communication dropout inside metal shaft corridor. Standard compliance guidelines apply.");
-        }
-      }
-
-      function appendChatBubble(role, content) {
-        chatHistory.push({ role, content });
-        const box = document.getElementById('chat-feed-box');
-        
-        const bubble = document.createElement('div');
-        bubble.className = `flex gap-3 max-w-[85%] ${role === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'}`;
-        bubble.innerHTML = `
-          <div class="p-2 h-8 w-8 rounded-full border shrink-0 flex items-center justify-center text-xs ${role === 'user' ? 'bg-slate-800 border-slate-700 text-sky-400' : 'bg-sky-500/15 border-sky-500/10 text-sky-400'}">
-            ${role === 'user' ? 'U' : 'A'}
-          </div>
-          <div class="rounded-2xl px-4 py-3 text-xs leading-relaxed font-sans ${role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'bg-slate-950 border border-slate-850 text-slate-300 rounded-tl-none font-light'}">
-            ${content}
-          </div>
-        `;
-        box.appendChild(bubble);
-        box.scrollTop = box.scrollHeight;
-      }
-
-      function submitChatPrompt(prompt) {
-        document.getElementById('chat-input').value = prompt;
-        sendChatMessage();
-      }
-
-      // Modal open/close utilities
-      function toggleStrategyModal(isOpen) {
-        const modal = document.getElementById('strategy-modal');
-        if (isOpen) modal.classList.remove('hidden');
-        else modal.classList.add('hidden');
-      }
-
-      function toggleLeadsModal(isOpen) {
-        const modal = document.getElementById('leads-modal');
-        if (isOpen) {
-          modal.classList.remove('hidden');
-          syncLeadsFromBackend();
-        } else {
-          modal.classList.add('hidden');
-        }
-      }
-
-      function toggleAdvisorModal(isOpen) {
-        const modal = document.getElementById('advisor-modal');
-        if (isOpen) modal.classList.remove('hidden');
-        else modal.classList.add('hidden');
-      }
-
-      function openAdvisor() { toggleAdvisorModal(true); }
-      function openLeadConsole() { toggleLeadsModal(true); }
-    </script>
-  </body>
+      `;
+      
+      // Prepend to list
+      grid.insertBefore(newCard, grid.firstChild);
+
+      // Swap Form screen to Success screen
+      document.getElementById('submission-form').classList.add('hidden');
+      document.getElementById('sub-success').classList.remove('hidden');
+    }
+
+    function resetSubmission() {
+      document.getElementById('submission-form').reset();
+      document.getElementById('sub-success').classList.add('hidden');
+      document.getElementById('submission-form').classList.remove('hidden');
+    }
+
+  </script>
+</body>
 </html>
