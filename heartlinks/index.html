@@ -150,7 +150,7 @@
             line-height: 1.5;
         }
 
-        /* Premium Minimalist Input Engine */
+        /* Premium Input Engine */
         .magic-input-wrapper {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -228,7 +228,7 @@
         }
 
         .advanced-settings-panel.open {
-            max-height: 1000px; /* arbitrary limit to allow slide effect */
+            max-height: 1000px;
             padding: 1.5rem;
             border: 1px dashed rgba(255, 255, 255, 0.05);
         }
@@ -290,6 +290,7 @@
             flex-direction: column;
             align-items: center;
             overflow-y: auto;
+            position: relative;
         }
 
         /* Mockup Active Elements */
@@ -371,7 +372,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(13, 13, 17, 0.9);
+            background: rgba(13, 13, 17, 0.95);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -466,7 +467,7 @@
             <div class="tool-card">
                 <span class="section-tag">Instant Smart Link Engine</span>
                 <h2 class="tool-title">Generate Smart Links</h2>
-                <p class="tool-subtitle">Paste any single music streaming link (Spotify, Apple, YouTube) or paste a UPC / ISRC identifier. The engine will instantly scan, resolve, and map links across all platforms globally.</p>
+                <p class="tool-subtitle">Paste any music streaming link (Spotify, Apple, YouTube) or type a UPC / ISRC identifier. The engine will instantly scan, resolve, and map links across all platforms globally.</p>
                 
                 <!-- The Modern Single Action Search bar -->
                 <div class="magic-input-wrapper">
@@ -517,3 +518,212 @@
                             <input type="text" id="link-amazon" class="input-field" placeholder="https://..." oninput="updatePreview()">
                         </div>
                     </div>
+
+                    <!-- Custom Logo and Platform addition -->
+                    <h3 style="font-size: 0.95rem; font-weight: 700; margin: 2rem 0 1.2rem 0; color: var(--accent-cyan); text-transform: uppercase;">Custom Redirects (e.g., Bandcamp, Audiomack)</h3>
+                    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 0.8rem; margin-bottom: 1rem;">
+                        <input type="text" id="cust-name" class="input-field" placeholder="Platform Name">
+                        <input type="text" id="cust-url" class="input-field" placeholder="Platform Link">
+                        <input type="text" id="cust-logo" class="input-field" placeholder="Custom Logo Image URL">
+                    </div>
+                    <button class="primary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem; background: linear-gradient(to right, #d946ef, #4facfe); color: #fff;" onclick="addCustomPlatform()">+ Mount Custom Redirect</button>
+                </div>
+            </div>
+
+            <div class="ad-placeholder">
+                Future AdSense Advertisement Banner Placement
+            </div>
+
+            <div class="seo-block">
+                <h4 class="seo-title">Why Modern Independent Artists Need Dynamic Smart Links</h4>
+                <p class="seo-text">
+                    For independent musicians, releasing music is only half the battle. If a prospective fan sees your release promotion on Instagram or YouTube but has to manually open Spotify or Apple Music to search for your name, you lose up to 70% of potential streams to distraction.
+                </p>
+                <p class="seo-text">
+                    HeartLinks solves this friction by unifying all digital service provider coordinates on a high-fidelity single page. This setup bypasses social media algorithmic restrictions, letting listeners choose their favorite platform instantly and maximizing organic reach and royalties on release day.
+                </p>
+            </div>
+        </div>
+
+        <!-- Phone Preview Mockup -->
+        <div class="preview-panel">
+            <div class="phone-mockup">
+                <div class="phone-screen" id="preview-screen">
+                    
+                    <!-- Dynamic Loading Overlay -->
+                    <div id="mockup-loader" class="mockup-loader">
+                        <div class="spinner"></div>
+                        <p style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">AUTOFETCH ACTIVE...</p>
+                    </div>
+
+                    <div class="mockup-header">
+                        <div class="mockup-avatar" id="prev-avatar"></div>
+                        <h3 class="mockup-title" id="prev-track">Synthetic Dreams</h3>
+                        <p class="mockup-subtitle" id="prev-artist">Velvet Solar System</p>
+                    </div>
+                    
+                    <div class="mockup-links-list" id="prev-links">
+                        <!-- Links render automatically here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Heartscript Studios. Built for independent creators. | <a href="/privacy-policy/" style="color: var(--text-muted);">Privacy Policy</a> | <a href="/terms-of-service/" style="color: var(--text-muted);">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        let customPlatforms = [];
+
+        const defaultLogos = {
+            spotify: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+            itunes: "https://upload.wikimedia.org/wikipedia/commons/d/df/Apple_Music_logo.svg",
+            youtube: "https://upload.wikimedia.org/wikipedia/commons/archive/0/09/20211015074818%21YouTube_full-color_icon_%282017%29.svg",
+            amazonMusic: "https://upload.wikimedia.org/wikipedia/commons/0/00/Amazon_Music_logo_2021.svg"
+        };
+
+        function toggleAdvancedSettings() {
+            const panel = document.getElementById('advanced-panel');
+            const icon = document.getElementById('trigger-icon');
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                icon.innerText = "▼";
+            } else {
+                panel.classList.add('open');
+                icon.innerText = "▲";
+            }
+        }
+
+        async function fetchSongDetails() {
+            const inputVal = document.getElementById('magic-input').value.trim();
+            if (!inputVal) {
+                alert("Please paste a link or enter a UPC code first!");
+                return;
+            }
+
+            const loader = document.getElementById('mockup-loader');
+            loader.style.display = 'flex';
+
+            try {
+                let apiUrl = "";
+                const isNumericId = /^\d+$/.test(inputVal);
+
+                if (isNumericId) {
+                    apiUrl = `https://api.song.link/v1-alpha.1/links?upc=${inputVal}`;
+                } else {
+                    const encodedUrl = encodeURIComponent(inputVal);
+                    apiUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
+                }
+
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("Could not fetch release coordinates.");
+
+                const data = await response.json();
+                
+                // Get basic metadata (Art, Title, Artist)
+                const firstEntityKey = data.entityUniqueIds[0];
+                const songMeta = data.entitiesByUniqueId[firstEntityKey];
+
+                if (songMeta) {
+                    document.getElementById('artist-name').value = songMeta.artistName || "";
+                    document.getElementById('track-title').value = songMeta.title || "";
+                    document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
+                }
+
+                // Get dynamic links securely from the secure payload
+                const links = data.linksByPlatform;
+                if (links) {
+                    document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
+                    document.getElementById('link-apple').value = (links.itunes && links.itunes.url) ? links.itunes.url : "";
+                    document.getElementById('link-youtube').value = (links.youtube && links.youtube.url) ? links.youtube.url : "";
+                    document.getElementById('link-amazon').value = (links.amazonMusic && links.amazonMusic.url) ? links.amazonMusic.url : "";
+                }
+
+                updatePreview();
+            } catch (error) {
+                alert("Auto-fetch encountered an issue. Check your UPC/URL or try using Advanced Manual Overrides.");
+                console.error(error);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        function addCustomPlatform() {
+            const name = document.getElementById('cust-name').value.trim();
+            const url = document.getElementById('cust-url').value.trim();
+            const logo = document.getElementById('cust-logo').value.trim() || "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD_icon.svg";
+
+            if (!name || !url) {
+                alert("Platform Name and Link are required to mount!");
+                return;
+            }
+
+            customPlatforms.push({ name, url, logo });
+
+            document.getElementById('cust-name').value = "";
+            document.getElementById('cust-url').value = "";
+            document.getElementById('cust-logo').value = "";
+
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const artist = document.getElementById('artist-name').value || 'Velvet Solar System';
+            const track = document.getElementById('track-title').value || 'Synthetic Dreams';
+            const cover = document.getElementById('cover-art').value;
+
+            document.getElementById('prev-artist').innerText = artist;
+            document.getElementById('prev-track').innerText = track;
+
+            const avatar = document.getElementById('prev-avatar');
+            if (cover && cover.trim() !== "") {
+                avatar.style.backgroundImage = `url('${cover}')`;
+            } else {
+                avatar.style.backgroundImage = 'none';
+            }
+
+            const listContainer = document.getElementById('prev-links');
+            listContainer.innerHTML = "";
+
+            // Populate active platforms
+            addPlatformButton(listContainer, 'link-spotify', 'Spotify', defaultLogos.spotify);
+            addPlatformButton(listContainer, 'link-apple', 'Apple Music', defaultLogos.itunes);
+            addPlatformButton(listContainer, 'link-youtube', 'YouTube', defaultLogos.youtube);
+            addPlatformButton(listContainer, 'link-amazon', 'Amazon Music', defaultLogos.amazonMusic);
+
+            // Populate user custom platforms
+            customPlatforms.forEach(platform => {
+                const linkElement = document.createElement('a');
+                linkElement.href = platform.url;
+                linkElement.target = "_blank";
+                linkElement.className = "mockup-btn";
+                linkElement.innerHTML = `
+                    <span>Listen on ${platform.name}</span>
+                    <img class="platform-logo" src="${platform.logo}" alt="${platform.name}">
+                `;
+                listContainer.appendChild(linkElement);
+            });
+        }
+
+        function addPlatformButton(container, inputId, label, logoUrl) {
+            const url = document.getElementById(inputId).value.trim();
+            if (url) {
+                const linkElement = document.createElement('a');
+                linkElement.href = url;
+                linkElement.target = "_blank";
+                linkElement.className = "mockup-btn";
+                linkElement.innerHTML = `
+                    <span>Listen on ${label}</span>
+                    <img class="platform-logo" src="${logoUrl}" alt="${label}">
+                `;
+                container.appendChild(linkElement);
+            }
+        }
+
+        updatePreview();
+    </script>
+</body>
+</html>
