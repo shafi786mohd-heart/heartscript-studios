@@ -6,7 +6,6 @@
     <title>Official Profile | Heartscript Studios</title>
     
     <!-- REQUIRED GOOGLE ADSENSE CODE AREA -->
-    <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your actual AdSense Publisher ID -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
     <style>
@@ -21,6 +20,8 @@
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
+            width: 100%;
+            overflow-x: hidden;
         }
         a {
             text-decoration: none;
@@ -59,22 +60,30 @@
             color: #06b6d4;
         }
 
-        /* FIXED: Widescreen Layout Grid Config with forced 100% expansion */
+        /* BULLETPROOF FLEXBOX CONTAINER (Prevents Crushing) */
         .wrapper {
-            width: 100%;
+            width: 88%;
             max-width: 1350px;
             margin: 50px auto;
-            padding: 0 6%;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 350px;
-            gap: 60px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
         }
 
-        /* FIXED: Left Main Content Layout Column forced to fill space */
+        /* LEFT MAIN CONTENT AREA (Forced to expand fully) */
         .content-area {
-            width: 100%;
-            min-width: 0;
+            flex: 1;
+            min-width: 0; /* Essential for text wrapping constraints */
         }
+        
+        /* RIGHT SIDEBAR PANEL (Locked at fixed safe width) */
+        .sidebar-panel {
+            width: 350px;
+            flex-shrink: 0;
+        }
+
         .main-title {
             font-size: 2.8rem;
             font-weight: 800;
@@ -108,6 +117,7 @@
             padding: 25px;
             border-radius: 6px;
             margin: 35px 0 45px 0;
+            width: 100%;
         }
         .navigation-box-title {
             font-size: 0.75rem;
@@ -135,7 +145,7 @@
             opacity: 0.8;
         }
 
-        /* Document Section Headers with Border Divider lines */
+        /* Section Headers */
         .block-header {
             font-size: 1.3rem;
             text-transform: uppercase;
@@ -145,16 +155,17 @@
             border-bottom: 1px solid #161616;
             padding-bottom: 10px;
             font-weight: 700;
+            width: 100%;
         }
         .purple-accent { color: #a855f7; }
         .cyan-accent { color: #06b6d4; }
 
-        /* Traditional Profile Body Paragraphs */
         .body-paragraph {
             color: #b5b5b5;
             font-size: 1rem;
             line-height: 1.75;
             margin-bottom: 25px;
+            width: 100%;
         }
 
         /* Discography Rows Architecture */
@@ -168,6 +179,7 @@
             align-items: center;
             gap: 30px;
             margin-bottom: 18px;
+            width: 100%;
         }
         .media-details h4 {
             font-size: 1.15rem;
@@ -199,17 +211,13 @@
             color: #000000;
         }
 
-        /* Right Column Sidebar Panel Layout */
-        .sidebar-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
+        /* Right Sidebar Panel Cards */
         .profile-card {
             background-color: #080808;
             border: 1px solid #161616;
             padding: 30px;
             border-radius: 6px;
+            width: 100%;
         }
         .profile-card-header {
             text-align: center;
@@ -230,7 +238,6 @@
             font-weight: 600;
         }
         
-        /* The Image Container Box inside Sidebar */
         .avatar-box {
             width: 100%;
             aspect-ratio: 1;
@@ -246,7 +253,6 @@
             object-fit: cover;
         }
 
-        /* Sidebar Meta Data Table Rows */
         .metadata-table {
             list-style: none;
             font-size: 0.9rem;
@@ -273,13 +279,13 @@
             text-align: right;
         }
 
-        /* Channel Milestone Reach Container */
         .milestone-box {
             background-color: #080808;
             border: 1px solid #161616;
             padding: 30px;
             border-radius: 6px;
             text-align: center;
+            width: 100%;
         }
         .milestone-label {
             font-size: 0.75rem;
@@ -310,7 +316,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* AD COMPLIANCE PANEL STYLING */
         .ad-placeholder {
             background-color: #050505;
             border: 1px dashed #222222;
@@ -325,7 +330,6 @@
             width: 100%;
         }
 
-        /* COMPLIANT STUDIO FOOTER STYLING */
         footer {
             text-align: center;
             padding: 40px 6%;
@@ -353,11 +357,20 @@
             color: #a855f7;
         }
 
-        /* Full Responsive Configurations */
+        /* Responsive Layout Updates */
         @media (max-width: 992px) {
             .wrapper {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+                width: 90%;
                 gap: 40px;
+            }
+            .content-area {
+                width: 100%;
+            }
+            .sidebar-panel {
+                width: 100%;
+                max-width: 400px;
             }
             header {
                 flex-direction: column;
@@ -389,10 +402,10 @@
         </nav>
     </header>
 
-    <!-- Main Grid Container -->
+    <!-- Main Flexbox Container -->
     <div class="wrapper">
         
-        <!-- Left Column: Biography Content Panels -->
+        <!-- Left Main Content Column -->
         <main class="content-area">
             <h1 class="main-title">Mohammad Shafiuddeen (Shafi)</h1>
             <p class="main-subtitle">Founder | Songwriter | Director | Artist</p>
@@ -480,7 +493,7 @@
 
         </main>
 
-        <!-- Right Column: Sidebar Panels Section -->
+        <!-- Right Sidebar Panels Column -->
         <aside class="sidebar-panel">
             
             <!-- Artist Profile Metadata Block -->
@@ -490,7 +503,6 @@
                     <span>Artist Profile</span>
                 </div>
                 
-                <!-- Fixed Logo Image Container pointing to your manual .jpg adjustment -->
                 <div class="avatar-box">
                     <img src="logo.jpg" alt="Heartscript Studios Logo">
                 </div>
