@@ -1,89 +1,65 @@
-export interface VisualTheme {
+export interface Product {
   id: string;
   name: string;
-  bgColor: string;
-  accentColor: string;
-  textColor: string;
-  fontFamily: string;
-  backdropEffect: 'none' | 'gradient-pulse' | 'static-grid' | 'crimson-bleed' | 'cyan-glow' | 'organic-grain';
-  timingAnimation: string;
-}
-
-export interface LyricTiming {
-  start: number;
-  end: number;
-  text: string;
-}
-
-export interface VisualDesignSuggestion {
-  lyricsTiming: LyricTiming[];
-  backgroundGradient: string[];
-  suggestedAccentColor: string;
-  visualVibeDescription: string;
-  typographySpacing: string;
-  motionSpeed: string;
-}
-
-export interface LinkData {
-  spotify?: string;
-  youtube?: string;
-  appleMusic?: string;
-  soundcloud?: string;
-  bandcamp?: string;
-  instagram?: string;
-  customName?: string;
-  customUrl?: string;
-  customPlatforms?: {
-    id: string;
-    name: string;
-    url: string;
-    logoUrl?: string;
-  }[];
-}
-
-export interface HeartLink {
-  slug: string;
-  title: string;
-  artist: string;
-  imageUrl: string;
-  theme: string;
-  description?: string;
-  links: LinkData;
-  views: number;
-  clicks: Record<string, number>;
-  createdAt: string;
-}
-
-export interface CreatorPass {
-  id: string;
-  name: string;
-  email: string;
-  artistName: string;
-  tier: 'basic' | 'pro' | 'ultimate';
-  price: number;
-  status: 'pending' | 'success';
-  createdAt: string;
-  activationKey: string;
-}
-
-export interface TrackComment {
-  id: string;
-  trackId: string;
-  author: string;
-  email: string;
-  content: string;
-  rating: number;
-  createdAt: string;
-}
-
-export interface Track {
-  id: string;
-  title: string;
-  releaseDate: string;
-  coverUrl: string;
-  audioUrl: string;
-  duration: string;
-  genre: string;
-  lyrics: string;
+  tagline: string;
   description: string;
+  features: string[];
+  specs: Record<string, string>;
+  image: string;
+}
+
+export interface Solution {
+  id: string;
+  name: string;
+  problem: string;
+  engineeringChallenge: string;
+  solution: string;
+  benefits: string[];
+  products: Product[];
+  image: string;
+  icon: string; // lucide icon name
+}
+
+export interface Industry {
+  id: string;
+  name: string;
+  description: string;
+  challenges: string[];
+  solutionSet: string[];
+  caseStudyTitle: string;
+  caseStudySummary: string;
+  image: string;
+}
+
+export interface TechArticle {
+  id: string;
+  title: string;
+  category: "Engineering" | "Safety" | "IoT" | "B2B Strategy";
+  summary: string;
+  content: string;
+  author: string;
+  readTime: string;
+  tags: string[];
+}
+
+export interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+}
+
+export interface RFQLead {
+  id: string;
+  timestamp: string;
+  clientName: string;
+  companyName: string;
+  email: string;
+  phone: string;
+  buildingType: string;
+  elevatorCount: number;
+  shaftConstraints: string[];
+  selectedSolutions: string[];
+  additionalNotes: string;
+  aiAssessment?: string;
 }
