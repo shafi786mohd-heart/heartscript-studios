@@ -60,28 +60,32 @@
             color: #06b6d4;
         }
 
-        /* BULLETPROOF FLEXBOX CONTAINER (Prevents Crushing) */
+        /* FLEXBOX MAIN STRUCTURAL WRAPPER */
         .wrapper {
             width: 88%;
             max-width: 1350px;
-            margin: 50px auto;
+            margin: 50px auto 0 auto;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
             gap: 50px;
+            padding-bottom: 60px;
         }
 
-        /* LEFT MAIN CONTENT AREA (Forced to expand fully) */
+        /* LEFT MAIN CONTENT AREA */
         .content-area {
             flex: 1;
-            min-width: 0; /* Essential for text wrapping constraints */
+            min-width: 0;
         }
         
-        /* RIGHT SIDEBAR PANEL (Locked at fixed safe width) */
+        /* RIGHT SIDEBAR PANEL */
         .sidebar-panel {
             width: 350px;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .main-title {
@@ -316,7 +320,8 @@
             letter-spacing: 0.5px;
         }
 
-        .ad-placeholder {
+        /* AD PLACEMENT STYLING */
+        .horizontal-ad {
             background-color: #050505;
             border: 1px dashed #222222;
             padding: 20px;
@@ -326,35 +331,65 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             border-radius: 6px;
-            margin-top: 30px;
+            margin-top: 35px;
             width: 100%;
+        }
+        
+        /* NEW RIGHT SIDE VERTICAL SKYSCRAPER AD CONTAINER */
+        .sidebar-ad-box {
+            background-color: #050505;
+            border: 1px dashed #222222;
+            width: 100%;
+            height: 450px; /* Perfect height to absorb the empty vertical tracking space */
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 20px;
         }
 
+        /* RE-ENGINEERED PREMIUM STUDIO FOOTER */
         footer {
-            text-align: center;
-            padding: 40px 6%;
-            background-color: #050505;
+            background-color: #070707;
             border-top: 1px solid #141414;
-            font-size: 0.85rem;
-            color: #555555;
-            margin-top: 80px;
+            padding: 40px 0;
             width: 100%;
+            margin-top: 50px;
         }
-        footer .footer-content {
+        .footer-container {
+            width: 88%;
             max-width: 1350px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
         }
-        footer a {
-            color: #06b6d4;
-            transition: color 0.2s;
+        .footer-copyright {
+            color: #666666;
+            font-size: 0.9rem;
+            font-weight: 400;
         }
-        footer a:hover {
+        .footer-brand-name {
             color: #a855f7;
+            font-weight: 700;
+        }
+        .footer-nav {
+            display: flex;
+            gap: 30px;
+        }
+        .footer-nav a {
+            color: #888888;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .footer-nav a:hover {
+            color: #06b6d4;
         }
 
         /* Responsive Layout Updates */
@@ -364,6 +399,7 @@
                 align-items: center;
                 width: 90%;
                 gap: 40px;
+                margin-top: 30px;
             }
             .content-area {
                 width: 100%;
@@ -371,6 +407,9 @@
             .sidebar-panel {
                 width: 100%;
                 max-width: 400px;
+            }
+            .sidebar-ad-box {
+                height: 250px;
             }
             header {
                 flex-direction: column;
@@ -380,8 +419,9 @@
             .main-title {
                 font-size: 2.2rem;
             }
-            footer .footer-content {
+            .footer-container {
                 flex-direction: column;
+                gap: 20px;
                 text-align: center;
             }
         }
@@ -402,7 +442,7 @@
         </nav>
     </header>
 
-    <!-- Main Flexbox Container -->
+    <!-- Main Flexbox Wrapper -->
     <div class="wrapper">
         
         <!-- Left Main Content Column -->
@@ -486,14 +526,14 @@
                 <button class="media-action-btn">Listen Now</button>
             </div>
 
-            <!-- ADVERTISEMENT DISPLAY PLACEMENT AREA -->
-            <div class="ad-placeholder">
-                Advertisement Space
+            <!-- Bottom Horizontal Ad Unit -->
+            <div class="horizontal-ad">
+                Advertisement Space (Horizontal Unit)
             </div>
 
         </main>
 
-        <!-- Right Sidebar Panels Column -->
+        <!-- Right Column: Sidebar Panels Section -->
         <aside class="sidebar-panel">
             
             <!-- Artist Profile Metadata Block -->
@@ -537,15 +577,25 @@
                 </div>
             </div>
 
+            <!-- NEW: Right-Side Sidebar Ad Box (Utilizing Wasted Empty Space) -->
+            <div class="sidebar-ad-box">
+                Advertisement Space (Vertical Skyscraper Unit)
+            </div>
+
         </aside>
 
     </div>
 
-    <!-- COMPLIANT STUDIO FOOTER CONTAINER -->
+    <!-- RE-ENGINEERED HIGH-END PROFESSIONAL FOOTER -->
     <footer>
-        <div class="footer-content">
-            <p>© 2026 Heartscript Studios. All rights reserved.</p>
-            <p><a href="privacy.html">Privacy Policy</a></p>
+        <div class="footer-container">
+            <div class="footer-copyright">
+                © 2026 <span class="footer-brand-name">Heartscript Studios</span>. All rights reserved.
+            </div>
+            <div class="footer-nav">
+                <a href="index.html">Official Profile</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
         </div>
     </footer>
 
