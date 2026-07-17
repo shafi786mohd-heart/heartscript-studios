@@ -62,7 +62,7 @@
 
         /* Hero Text */
         .hero-title {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
             letter-spacing: -1px;
             text-align: center;
@@ -77,71 +77,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
-            margin-bottom: 35px;
-        }
-
-        /* Front-Loaded Video Player Container */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Perfect 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #222222;
-            background-color: #0c0c0c;
             margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* High-Visibility Subscription Links */
-        .subscribe-headline {
-            text-align: center;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #aaaaaa;
-            margin-bottom: 15px;
-        }
-        .subscribe-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-        .btn-sub {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 32px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            min-width: 200px;
-        }
-        .btn-sub:hover {
-            transform: translateY(-2px);
-        }
-        .btn-youtube {
-            background-color: #ff0000;
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
-        }
-        .btn-spotify {
-            background-color: #1ed760;
-            color: #000000;
-            box-shadow: 0 4px 20px rgba(30, 215, 96, 0.3);
         }
 
         /* Section Breakdown Styling */
@@ -149,6 +85,7 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            margin-top: 40px;
             margin-bottom: 20px;
             border-bottom: 1px solid #1c1c1c;
             padding-bottom: 8px;
@@ -156,25 +93,57 @@
         .purple-text { color: #a855f7; }
         .cyan-text { color: #06b6d4; }
 
-        /* Purely Creative Bio Text */
-        .bio-box {
+        /* Content Blocks */
+        .info-box {
             background-color: #0c0c0c;
             border: 1px solid #1a1a1a;
             padding: 30px;
             border-radius: 6px;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
         }
-        .bio-box p {
+        .info-box p {
             color: #cccccc;
             font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 15px;
         }
-        .bio-box p:last-child {
+        .info-box p:last-child {
             margin-bottom: 0;
         }
 
-        /* Blog Section & Native "Read More" Expansion Fix */
+        /* Timeline / Grid Styles */
+        .grid-two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .card {
+            background-color: #0c0c0c;
+            border: 1px solid #1e1e1e;
+            padding: 25px;
+            border-radius: 6px;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .card .date-tag {
+            color: #a855f7;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .card p {
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Blog Section & Native "Read More" Expansion */
         .blog-card {
             background-color: #0c0c0c;
             border: 1px solid #1a1a1a;
@@ -200,7 +169,6 @@
             line-height: 1.6;
         }
         
-        /* The "Read More" Mechanical Fix */
         details {
             margin-top: 10px;
         }
@@ -209,19 +177,19 @@
             font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            list-style: none; /* Hides default triangle */
+            list-style: none;
             outline: none;
             padding-top: 5px;
             display: inline-block;
         }
         details summary::-webkit-details-marker {
-            display: none; /* Hides triangle on Safari */
+            display: none;
         }
         details summary:hover {
             opacity: 0.8;
         }
         details[open] summary {
-            display: none; /* Hides the button once expanded */
+            display: none;
         }
         .full-post-content {
             color: #aaaaaa;
@@ -238,15 +206,7 @@
                 text-align: center;
             }
             .hero-title {
-                font-size: 2rem;
-            }
-            .subscribe-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .btn-sub {
-                width: 100%;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -270,44 +230,54 @@
     <div class="container">
         
         <!-- Hero Brand Header -->
-        <h1 class="hero-title">Heartscript Studios</h1>
-        <p class="hero-subtitle">Sonic Realism & Cinematic Narratives</p>
+        <h1 class="hero-title">Mohammed Shafiuddeen</h1>
+        <p class="hero-subtitle">Professional Profile & Creative Director</p>
 
-        <!-- FRONT-LOADED MUSIC VIDEO PLAYER -->
-        <!-- Note: Replace the YouTube URL ID below with your actual featured video link when ready -->
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/videoseries?list=PL4F8C43B2BB416D4C" 
-                title="Heartscript Studios Featured Release" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- IMPOSSIBLE TO MISS SUBSCRIPTION CALLS TO ACTION -->
-        <p class="subscribe-headline">Connect & Stream Everywhere</p>
-        <div class="subscribe-container">
-            <!-- Replace # with your exact public link destinations -->
-            <a href="https://www.youtube.com/channel/YOUR_ID" target="_blank" class="btn-sub btn-youtube">
-                Subscribe on YouTube
-            </a>
-            <a href="https://open.spotify.com/artist/YOUR_ID" target="_blank" class="btn-sub btn-spotify">
-                Follow on Spotify
-            </a>
-        </div>
-
-        <!-- PURELY CREATIVE ARTIST BIO SECTION -->
-        <h2 class="section-header purple-text">The Creative Architecture</h2>
-        <div class="bio-box">
+        <!-- 1. PROFESSIONAL SUMMARY -->
+        <h2 class="section-header purple-text">Professional Summary</h2>
+        <div class="info-box">
             <p>
-                Heartscript Studios is an independent creative house specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Driven by raw emotional songwriting and vivid storytelling, the studio focuses on capturing the deep complexities of human psychology, isolation, and vulnerable lifecycles.
+                An experienced healthcare documentation professional with over 17 years of dedicated experience across medical transcription and clinical scribing workflows. Specializing in highly accurate medical data validation, real-time documentation, and comprehensive clinical records management, ensuring seamless coordination within fast-paced healthcare environments.
             </p>
             <p>
-                By blending custom synthesized arrangement matrices with advanced generative AI video pipelines, every audio release is constructed alongside custom visual worlds. The result is a complete, multi-sensory translation of thoughts directly from the studio floor to the digital screen.
+                Alongside a career in operational healthcare informatics, operates as an independent music artist, songwriter, and media generator under the brand Heartscript Studios. Merging technical discipline with creative software tools, the studio manages end-to-end sonic production workflows, atmospheric arrangement architectures, and automated generative visual pipelines.
             </p>
         </div>
 
-        <!-- BLOG SECTION WITH THE WORKING "READ MORE" FIX -->
+        <!-- 2. MEDICAL DOCUMENTATION CAREER MATRIX -->
+        <h2 class="section-header purple-text">Medical Documentation Career Matrix</h2>
+        <div class="grid-two-col">
+            <div class="card">
+                <h3>Medical Scribe</h3>
+                <span class="date-tag">January 2018 – February 2025</span>
+                <p>Delivered comprehensive documentation support at Elico. Managed live electronic health records (EHR) entry, clinical documentation tracking, and workflow accuracy constraints for medical practitioners.</p>
+            </div>
+            <div class="card">
+                <h3>Medical Scribe / Documentation Specialist</h3>
+                <span class="date-tag">February 2025 – August 2025</span>
+                <p>Managed specialized healthcare documentation frameworks and clinical chart management systems at IDS, maintaining strict data integrity benchmarks.</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Core Core Skills & Competencies:</strong></p>
+            <p style="font-size: 0.9rem; color: #aaa;">
+                • 10+ Years Medical Transcription Workflow Mastery<br>
+                • 7+ Years Real-Time Clinical Scribing & Chart Entry<br>
+                • Electronic Health Records (EHR) Navigation & Management<br>
+                • Multi-Genre Sound Design, Lyrics Writing, and Track Distribution
+            </p>
+        </div>
+
+        <!-- 3. CREATIVE IDENTITY -->
+        <h2 class="section-header cyan-text">Heartscript Studios Identity</h2>
+        <div class="info-box">
+            <p>
+                Heartscript Studios is a modern creative studio specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Built around deep storytelling and vulnerable narrative structures, the operation leverages modern AI audio tools and custom generative video pipelines to distribute fully realized visual tracks to streaming networks worldwide.
+            </p>
+        </div>
+
+        <!-- 4. LATEST JOURNAL POST -->
         <h2 class="section-header cyan-text">Latest Studio Journal</h2>
         <div class="blog-card">
             <span class="blog-date">July 2026</span>
@@ -316,12 +286,11 @@
                 Our latest exploration in sonic production focuses on pushing the boundary between fragile acoustic wind instruments and heavy electronic grids. Achieving a balanced mix when completely contrasting sound spaces collide requires an intentional approach to sub-bass separation...
             </p>
             
-            <!-- THE FIX: Natively expands the text instantly when clicked -->
             <details>
                 <summary>Read More ↓</summary>
                 <div class="full-post-content">
                     <p style="margin-top: 10px;">
-                        By dedicating specific pocket frequencies to atmospheric elements while letting compressed percussion run the rhythm framework, we avoid muddying the mix. This architecture allows us to keep the emotional vulnerability of the vocals completely intact without losing structural energy. Stay tuned for our complete breakdown breakdown breakdown video arriving on the main feed next week.
+                        By dedicating specific pocket frequencies to atmospheric elements while letting compressed percussion run the rhythm framework, we avoid muddying the mix. This architecture allows us to keep the emotional vulnerability of the vocals completely intact without losing structural energy. Stay tuned for our complete breakdown video arriving on the main feed next week.
                     </p>
                 </div>
             </details>
