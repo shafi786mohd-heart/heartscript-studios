@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartLinks - Artist Smart Hub | Heartscript Studios</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0d11;
+            --card-bg: #14141c;
+            --accent-cyan: #00f2fe;
+            --accent-pink: #d946ef;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-glow: rgba(0, 242, 254, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Nav Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(13, 13, 17, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--text-main), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--accent-pink);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--border-glow);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.active {
+            border-color: var(--accent-pink);
+            background: rgba(217, 70, 239, 0.05);
+        }
+
+        /* Layout Grid */
+        .app-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Workspace Panel */
+        .workspace-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-pink));
+            border-radius: 16px;
+            z-index: -1;
+            opacity: 0.08;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-pink);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tool-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--border-glow);
+        }
+
+        /* Grid configuration for links */
+        .links-builder {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .links-builder {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Live Preview Smartphone Mockup */
+        .preview-panel {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .phone-mockup {
+            width: 380px;
+            height: 760px;
+            background: #101014;
+            border: 12px solid #22222a;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            position: sticky;
+            top: 100px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: inherit;
+        }
+
+        .phone-screen {
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Mini Mockup Dynamic Content Styles */
+        .mockup-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .mockup-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #2a2a35;
+            margin-bottom: 1rem;
+            border: 3px solid var(--accent-pink);
+            box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mockup-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .mockup-subtitle {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .mockup-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .mockup-btn {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .mockup-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.05);
+            transform: scale(1.02);
+        }
+
+        /* SEO / Educational Text Block */
+        .seo-block {
+            background: rgba(20, 20, 28, 0.4);
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .seo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .seo-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Ad Slot Placeholder styling */
+        .ad-placeholder {
+            margin: 3rem 0;
+            width: 100%;
+            background: rgba(20, 20, 28, 0.8);
+            border: 2px dashed rgba(255,255,255,0.05);
+            border-radius: 12px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="/" class="logo-container">
+            <div class="logo-text">
+                <h1>Heartscript Studios</h1>
+                <p>Creator Suite</p>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="/" class="nav-btn">Hub</a>
+            <a href="/heartlinks/" class="nav-btn active">HeartLinks</a>
+            <a href="/heartvision/" class="nav-btn">HeartVision</a>
+            <a href="/pulse/" class="nav-btn">Pulse</a>
+        </nav>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <div class="app-container">
+        
+        <!-- Left Side: Interactive Controls -->
+        <div class="workspace-panel">
+            <div class="tool-card">
+                <span class="section-tag">Release Utility</span>
+                <h2 class="tool-title">Generate Smart Links</h2>
+                
+                <!-- Quick Meta Fields -->
+                <div class="input-group">
+                    <label for="artist-name">Artist Name</label>
+                    <input type="text" id="artist-name" class="input-field" placeholder="e.g., Velvet Solar System" oninput="updatePreview()">
+                </div>
+
+                <div class="input-group">
+                    <label for="track-title">Release Title</label>
+                    <input type="text" id="track-title" class="input-field" placeholder="e.g., Synthetic Dreams" oninput="updatePreview()">
+                </div>
+
+                <div class="input-group">
+                    <label for="cover-art">Cover Art Image URL</label>
+                    <input type="text" id="cover-art" class="input-field" placeholder="Paste image link here..." oninput="updatePreview()">
+                </div>
+
+                <!-- Live Custom Redirects -->
+                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-cyan);">Streaming Redirect Channels</h3>
+                <div class="links-builder">
+                    <div class="input-group">
+                        <label for="link-spotify">Spotify Link</label>
+                        <input type="text" id="link-spotify" class="input-field" placeholder="https://spotify.com/..." oninput="updatePreview()">
+                    </div>
+                    <div class="input-group">
+                        <label for="link-apple">Apple Music Link</label>
+                        <input type="text" id="link-apple" class="input-field" placeholder="https://apple.com/..." oninput="updatePreview()">
+                    </div>
+                    <div class="input-group">
+                        <label for="link-youtube">YouTube Link</label>
+                        <input type="text" id="link-youtube" class="input-field" placeholder="https://youtube.com/..." oninput="updatePreview()">
+                    </div>
+                    <div class="input-group">
+                        <label for="link-amazon">Amazon Music Link</label>
+                        <input type="text" id="link-amazon" class="input-field" placeholder="https://amazon.com/..." oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ad Slot Placeholder -->
+            <div class="ad-placeholder">
+                Future AdSense Advertisement Banner Placement
+            </div>
+
+            <!-- SEO Content Section for AdSense Value -->
+            <div class="seo-block">
+                <h4 class="seo-title">Why Modern Independent Artists Need Dynamic Smart Links</h4>
+                <p class="seo-text">
+                    For independent musicians, releasing music is only half the battle. If a prospective fan sees your release promotion on Instagram or YouTube but has to manually open Spotify or Apple Music to search for your name, you lose up to 70% of potential streams to distraction.
+                </p>
+                <p class="seo-text">
+                    HeartLinks solves this friction by unifying all digital service provider coordinates on a high-fidelity single page. This setup bypasses social media algorithmic restrictions, letting listeners choose their favorite platform instantly and maximizing organic reach and royalties on release day.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side: Live preview smartphone -->
+        <div class="preview-panel">
+            <div class="phone-mockup">
+                <div class="phone-screen" id="preview-screen">
+                    <div class="mockup-header">
+                        <div class="mockup-avatar" id="prev-avatar"></div>
+                        <h3 class="mockup-title" id="prev-track">Synthetic Dreams</h3>
+                        <p class="mockup-subtitle" id="prev-artist">Velvet Solar System</p>
+                    </div>
+                    
+                    <div class="mockup-links-list" id="prev-links">
+                        <a href="#" class="mockup-btn" id="btn-spotify">Listen on Spotify</a>
+                        <a href="#" class="mockup-btn" id="btn-apple">Listen on Apple Music</a>
+                        <a href="#" class="mockup-btn" id="btn-youtube">Watch on YouTube</a>
+                        <a href="#" class="mockup-btn" id="btn-amazon">Listen on Amazon Music</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Heartscript Studios. Built for independent creators. | <a href="/privacy-policy/" style="color: var(--text-muted);">Privacy Policy</a> | <a href="/terms-of-service/" style="color: var(--text-muted);">Terms of Service</a></p>
+    </footer>
+
+    <!-- Interactive script to sync fields with the smartphone visualization instantly -->
+    <script>
+        function updatePreview() {
+            // Text Inputs
+            const artist = document.getElementById('artist-name').value || 'Velvet Solar System';
+            const track = document.getElementById('track-title').value || 'Synthetic Dreams';
+            const cover = document.getElementById('cover-art').value;
+
+            // Update Preview Text Elements
+            document.getElementById('prev-artist').innerText = artist;
+            document.getElementById('prev-track').innerText = track;
+
+            // Image Update
+            const avatar = document.getElementById('prev-avatar');
+            if(cover && cover.trim() !== "") {
+                avatar.style.backgroundImage = `url('${cover}')`;
+            } else {
+                avatar.style.backgroundImage = 'none';
+            }
+
+            // Button visibility configurations
+            toggleBtn('link-spotify', 'btn-spotify', 'Listen on Spotify');
+            toggleBtn('link-apple', 'btn-apple', 'Listen on Apple Music');
+            toggleBtn('link-youtube', 'btn-youtube', 'Watch on YouTube');
+            toggleBtn('link-amazon', 'btn-amazon', 'Listen on Amazon Music');
+        }
+
+        function toggleBtn(inputId, btnId, defaultText) {
+            const val = document.getElementById(inputId).value;
+            const btn = document.getElementById(btnId);
+            if(val && val.trim() !== "") {
+                btn.href = val;
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'block'; // Keep elements visible for mockup aesthetic, toggle links
+            }
+        }
+    </script>
+</body>
+</html>
