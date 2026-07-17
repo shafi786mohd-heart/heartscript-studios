@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HeartLinks - Artist Smart Hub | Heartscript Studios</title>
-    <!-- Google Fonts -->
+    <title>HeartLinks - Instant Smart Links | Heartscript Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* Nav Bar */
+        /* Navigation Bar */
         header {
             display: flex;
             justify-content: space-between;
@@ -97,9 +96,9 @@
             background: rgba(217, 70, 239, 0.05);
         }
 
-        /* Layout Grid */
+        /* Workspace Core Layout */
         .app-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 2rem auto;
             padding: 0 2rem;
             display: grid;
@@ -114,7 +113,6 @@
             }
         }
 
-        /* Utility Workspace Panel */
         .workspace-panel {
             display: flex;
             flex-direction: column;
@@ -127,20 +125,6 @@
             border-radius: 16px;
             padding: 2.5rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            background: linear-gradient(to right, var(--accent-cyan), var(--accent-pink));
-            border-radius: 16px;
-            z-index: -1;
-            opacity: 0.08;
         }
 
         .section-tag {
@@ -156,51 +140,60 @@
         .tool-title {
             font-size: 2rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--text-muted);
         }
 
-        .input-field {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.8rem 1.2rem;
-            border-radius: 10px;
-            color: var(--text-main);
-            font-family: inherit;
+        .tool-subtitle {
+            color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        /* Premium Minimalist Input Engine */
+        .magic-input-wrapper {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
         }
 
-        .input-field:focus {
-            outline: none;
+        .magic-input-wrapper:focus-within {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 12px var(--border-glow);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.15), inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* Action Buttons */
+        .magic-field {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .magic-field:focus {
+            outline: none;
+        }
+
         .primary-btn {
             background: linear-gradient(to right, #00f2fe, #4facfe);
             border: none;
             color: #000;
             font-weight: 700;
-            padding: 0.8rem 1.5rem;
+            padding: 0.9rem 1.8rem;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .primary-btn:hover {
@@ -208,39 +201,70 @@
             transform: translateY(-1px);
         }
 
-        .secondary-btn {
+        /* Collapsible Manual Settings Panel */
+        .collapsible-trigger {
             background: transparent;
-            border: 1px solid var(--accent-pink);
-            color: var(--text-main);
-            font-weight: 600;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border: none;
+            color: var(--accent-pink);
             font-family: inherit;
-        }
-
-        .secondary-btn:hover {
-            background: rgba(217, 70, 239, 0.1);
-            box-shadow: 0 0 10px rgba(217, 70, 239, 0.2);
-        }
-
-        .flex-row {
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
             display: flex;
-            gap: 1rem;
-            align-items: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+            user-select: none;
         }
 
-        /* Custom Platform Adder section */
-        .custom-platform-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px dashed rgba(255, 255, 255, 0.1);
+        .advanced-settings-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(255, 255, 255, 0.01);
             border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
+            padding: 0;
+            margin-top: 1rem;
         }
 
-        /* Live Preview Smartphone Mockup */
+        .advanced-settings-panel.open {
+            max-height: 1000px; /* arbitrary limit to allow slide effect */
+            padding: 1.5rem;
+            border: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        /* Live Preview Mockup container */
         .preview-panel {
             display: flex;
             justify-content: center;
@@ -248,21 +272,19 @@
         }
 
         .phone-mockup {
-            width: 380px;
-            height: 760px;
+            width: 370px;
+            height: 740px;
             background: #101014;
             border: 12px solid #22222a;
-            border-radius: 48px;
+            border-radius: 44px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
             position: sticky;
             top: 100px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
 
         .phone-screen {
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 1.8rem;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -270,7 +292,7 @@
             overflow-y: auto;
         }
 
-        /* Mini Mockup Dynamic Content Styles */
+        /* Mockup Active Elements */
         .mockup-header {
             display: flex;
             flex-direction: column;
@@ -283,13 +305,14 @@
         .mockup-avatar {
             width: 110px;
             height: 110px;
-            border-radius: 16px; /* Album art rounded square */
+            border-radius: 16px;
             background: #2a2a35;
             margin-bottom: 1rem;
             border: 2px solid rgba(255,255,255,0.1);
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: background-image 0.3s ease;
         }
 
         .mockup-title {
@@ -327,7 +350,6 @@
             align-items: center;
             justify-content: space-between;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
         }
 
         .mockup-btn:hover {
@@ -340,10 +362,54 @@
             width: 22px;
             height: 22px;
             object-fit: contain;
-            border-radius: 4px;
         }
 
-        /* SEO / Educational Text Block */
+        /* Loading Overlay inside the Phone screen during lookup */
+        .mockup-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 13, 17, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 242, 254, 0.1);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .ad-placeholder {
+            margin: 3rem 0;
+            width: 100%;
+            background: rgba(20, 20, 28, 0.8);
+            border: 2px dashed rgba(255,255,255,0.05);
+            border-radius: 12px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
         .seo-block {
             background: rgba(20, 20, 28, 0.4);
             border: 1px solid rgba(255,255,255,0.02);
@@ -366,23 +432,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Ad Slot Placeholder styling */
-        .ad-placeholder {
-            margin: 3rem 0;
-            width: 100%;
-            background: rgba(20, 20, 28, 0.8);
-            border: 2px dashed rgba(255,255,255,0.05);
-            border-radius: 12px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.2);
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
         footer {
             margin-top: auto;
             padding: 2rem;
@@ -395,7 +444,6 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <header>
         <a href="/" class="logo-container">
             <div class="logo-text">
@@ -411,86 +459,80 @@
         </nav>
     </header>
 
-    <!-- Main Workspace Grid -->
     <div class="app-container">
         
-        <!-- Left Side: Interactive Controls -->
+        <!-- Interactive Panel -->
         <div class="workspace-panel">
             <div class="tool-card">
                 <span class="section-tag">Instant Smart Link Engine</span>
-                <h2 class="tool-title" style="margin-bottom: 0.5rem;">Magic Link Generator</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Paste a single Spotify, Apple, or YouTube link to auto-fetch metadata and all streaming platforms instantly.</p>
+                <h2 class="tool-title">Generate Smart Links</h2>
+                <p class="tool-subtitle">Paste any single music streaming link (Spotify, Apple, YouTube) or paste a UPC / ISRC identifier. The engine will instantly scan, resolve, and map links across all platforms globally.</p>
                 
-                <!-- 1. The Magic Link Input -->
-                <div class="input-group flex-row">
-                    <div style="flex-grow: 1;">
-                        <label for="magic-link">Paste Your Track/Album URL</label>
-                        <input type="text" id="magic-link" class="input-field" placeholder="Paste Spotify, Apple Music, or YouTube link here...">
-                    </div>
-                    <button class="primary-btn" onclick="fetchSongDetails()">Fetch All Platforms</button>
+                <!-- The Modern Single Action Search bar -->
+                <div class="magic-input-wrapper">
+                    <input type="text" id="magic-input" class="magic-field" placeholder="Paste Spotify/Apple link or type UPC...">
+                    <button class="primary-btn" onclick="fetchSongDetails()">Generate Smart Link</button>
                 </div>
 
-                <div id="loading-spinner" style="display: none; color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 1.5rem;">
-                    ⚡ Scanning global platforms, fetching assets...
-                </div>
+                <!-- Toggle for Advanced Manual Corrections -->
+                <button class="collapsible-trigger" onclick="toggleAdvancedSettings()">
+                    <span id="trigger-icon">▼</span> Advanced Manual Overrides & Custom Logo Additions
+                </button>
 
-                <!-- 2. Meta Overrides -->
-                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-pink);">Meta Overrides</h3>
-                <div class="input-group">
-                    <label for="artist-name">Artist Name</label>
-                    <input type="text" id="artist-name" class="input-field" placeholder="Artist Name" oninput="updatePreview()">
-                </div>
-
-                <div class="input-group">
-                    <label for="track-title">Release Title</label>
-                    <input type="text" id="track-title" class="input-field" placeholder="Release Title" oninput="updatePreview()">
-                </div>
-
-                <div class="input-group">
-                    <label for="cover-art">Cover Art Image Link</label>
-                    <input type="text" id="cover-art" class="input-field" placeholder="Image URL..." oninput="updatePreview()">
-                </div>
-
-                <!-- 3. Standard Platform links -->
-                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-cyan);">Platform Links</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <!-- Hidden by default advanced fields panel -->
+                <div id="advanced-panel" class="advanced-settings-panel">
+                    <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent-cyan); text-transform: uppercase;">Manual Meta Tuning</h3>
+                    
                     <div class="input-group">
-                        <label for="link-spotify">Spotify Link</label>
-                        <input type="text" id="link-spotify" class="input-field" placeholder="Spotify URL" oninput="updatePreview()">
+                        <label>Artist Name</label>
+                        <input type="text" id="artist-name" class="input-field" placeholder="Artist Name Override" oninput="updatePreview()">
                     </div>
-                    <div class="input-group">
-                        <label for="link-apple">Apple Music Link</label>
-                        <input type="text" id="link-apple" class="input-field" placeholder="Apple Music URL" oninput="updatePreview()">
-                    </div>
-                    <div class="input-group">
-                        <label for="link-youtube">YouTube Link</label>
-                        <input type="text" id="link-youtube" class="input-field" placeholder="YouTube URL" oninput="updatePreview()">
-                    </div>
-                    <div class="input-group">
-                        <label for="link-amazon">Amazon Music Link</label>
-                        <input type="text" id="link-amazon" class="input-field" placeholder="Amazon URL" oninput="updatePreview()">
-                    </div>
-                </div>
 
-                <!-- 4. Add Custom Platform Block -->
-                <div class="custom-platform-box">
-                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">Add Custom/Alternative Platform</h4>
+                    <div class="input-group">
+                        <label>Release Title</label>
+                        <input type="text" id="track-title" class="input-field" placeholder="Release Title Override" oninput="updatePreview()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cover Art URL</label>
+                        <input type="text" id="cover-art" class="input-field" placeholder="Image URL Override" oninput="updatePreview()">
+                    </div>
+
+                    <h3 style="font-size: 0.95rem; font-weight: 700; margin: 2rem 0 1.2rem 0; color: var(--accent-pink); text-transform: uppercase;">Direct Platform Overwrites</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="input-group">
+                            <label>Spotify Link</label>
+                            <input type="text" id="link-spotify" class="input-field" placeholder="https://..." oninput="updatePreview()">
+                        </div>
+                        <div class="input-group">
+                            <label>Apple Music Link</label>
+                            <input type="text" id="link-apple" class="input-field" placeholder="https://..." oninput="updatePreview()">
+                        </div>
+                        <div class="input-group">
+                            <label>YouTube Link</label>
+                            <input type="text" id="link-youtube" class="input-field" placeholder="https://..." oninput="updatePreview()">
+                        </div>
+                        <div class="input-group">
+                            <label>Amazon Music Link</label>
+                            <input type="text" id="link-amazon" class="input-field" placeholder="https://..." oninput="updatePreview()">
+                        </div>
+                    </div>
+
+                    <!-- Custom Logo and Platform addition -->
+                    <h3 style="font-size: 0.95rem; font-weight: 700; margin: 2rem 0 1.2rem 0; color: var(--accent-cyan); text-transform: uppercase;">Custom Redirects (e.g., Bandcamp, Audiomack)</h3>
                     <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 0.8rem; margin-bottom: 1rem;">
-                        <input type="text" id="cust-name" class="input-field" placeholder="Platform Name (e.g., Bandcamp)">
+                        <input type="text" id="cust-name" class="input-field" placeholder="Platform Name">
                         <input type="text" id="cust-url" class="input-field" placeholder="Platform Link">
-                        <input type="text" id="cust-logo" class="input-field" placeholder="Logo Image URL">
+                        <input type="text" id="cust-logo" class="input-field" placeholder="Custom Logo Image URL">
                     </div>
-                    <button class="secondary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;" onclick="addCustomPlatform()">+ Add Custom Platform</button>
+                    <button class="primary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem; background: linear-gradient(to right, #d946ef, #4facfe); color: #fff;" onclick="addCustomPlatform()">+ Mount Custom Redirect</button>
                 </div>
-
             </div>
 
-            <!-- Ad Slot Placeholder -->
             <div class="ad-placeholder">
                 Future AdSense Advertisement Banner Placement
             </div>
 
-            <!-- SEO Content Section for AdSense Value -->
             <div class="seo-block">
                 <h4 class="seo-title">Why Modern Independent Artists Need Dynamic Smart Links</h4>
                 <p class="seo-text">
@@ -502,10 +544,17 @@
             </div>
         </div>
 
-        <!-- Right Side: Live preview smartphone -->
+        <!-- Phone Preview Mockup -->
         <div class="preview-panel">
             <div class="phone-mockup">
                 <div class="phone-screen" id="preview-screen">
+                    
+                    <!-- Dynamic Loading Overlay -->
+                    <div id="mockup-loader" class="mockup-loader">
+                        <div class="spinner"></div>
+                        <p style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">AUTOFETCH ACTIVE...</p>
+                    </div>
+
                     <div class="mockup-header">
                         <div class="mockup-avatar" id="prev-avatar"></div>
                         <h3 class="mockup-title" id="prev-track">Synthetic Dreams</h3>
@@ -513,7 +562,7 @@
                     </div>
                     
                     <div class="mockup-links-list" id="prev-links">
-                        <!-- Dynamic buttons will render here -->
+                        <!-- Links render automatically here -->
                     </div>
                 </div>
             </div>
@@ -526,10 +575,8 @@
     </footer>
 
     <script>
-        // Array to store custom platforms added by the user
         let customPlatforms = [];
 
-        // Standalone logos for default platforms
         const defaultLogos = {
             spotify: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
             itunes: "https://upload.wikimedia.org/wikipedia/commons/d/df/Apple_Music_logo.svg",
@@ -537,27 +584,46 @@
             amazonMusic: "https://upload.wikimedia.org/wikipedia/commons/0/00/Amazon_Music_logo_2021.svg"
         };
 
-        // Fetch music platform links from Songlink/Odesli API
+        function toggleAdvancedSettings() {
+            const panel = document.getElementById('advanced-panel');
+            const icon = document.getElementById('trigger-icon');
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                icon.innerText = "▼";
+            } else {
+                panel.classList.add('open');
+                icon.innerText = "▲";
+            }
+        }
+
         async function fetchSongDetails() {
-            const inputUrl = document.getElementById('magic-link').value.trim();
-            if (!inputUrl) {
-                alert("Please paste a song link first!");
+            const inputVal = document.getElementById('magic-input').value.trim();
+            if (!inputVal) {
+                alert("Please paste a link or enter a UPC code first!");
                 return;
             }
 
-            const spinner = document.getElementById('loading-spinner');
-            spinner.style.display = 'block';
+            const loader = document.getElementById('mockup-loader');
+            loader.style.display = 'flex';
 
             try {
-                const encodedUrl = encodeURIComponent(inputUrl);
-                const apiUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
-                
+                let apiUrl = "";
+                // Check if input looks like a UPC/EAN (numeric-only, typically 12 or 13 digits)
+                const isNumericId = /^\d+$/.test(inputVal);
+
+                if (isNumericId) {
+                    apiUrl = `https://api.song.link/v1-alpha.1/links?upc=${inputVal}`;
+                } else {
+                    const encodedUrl = encodeURIComponent(inputVal);
+                    apiUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
+                }
+
                 const response = await fetch(apiUrl);
                 if (!response.ok) throw new Error("Could not fetch release coordinates.");
 
                 const data = await response.json();
                 
-                // Extract song details from the match details
+                // Get basic metadata (Art, Title, Artist)
                 const firstEntityKey = data.entityUniqueIds[0];
                 const songMeta = data.entitiesByUniqueId[firstEntityKey];
 
@@ -567,7 +633,7 @@
                     document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
                 }
 
-                // Populate dynamic platform links
+                // Get dynamic links
                 const links = data.linksByPlatform;
                 document.getElementById('link-spotify').value = links.spotify ? links.spotify.url : "";
                 document.getElementById('link-apple').value = links.itunes ? links.itunes.url : "";
@@ -576,27 +642,25 @@
 
                 updatePreview();
             } catch (error) {
-                alert("Failed to auto-fetch. Please verify the URL or input manually.");
+                alert("Auto-fetch encountered an issue. Check your UPC/URL or try using Advanced Manual Overrides.");
                 console.error(error);
             } finally {
-                spinner.style.display = 'none';
+                loader.style.display = 'none';
             }
         }
 
-        // Add user-defined platforms dynamically
         function addCustomPlatform() {
             const name = document.getElementById('cust-name').value.trim();
             const url = document.getElementById('cust-url').value.trim();
             const logo = document.getElementById('cust-logo').value.trim() || "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD_icon.svg";
 
             if (!name || !url) {
-                alert("Please fill in both the Platform Name and Platform Link!");
+                alert("Platform Name and Link are required to mount!");
                 return;
             }
 
             customPlatforms.push({ name, url, logo });
 
-            // Clear custom inputs
             document.getElementById('cust-name').value = "";
             document.getElementById('cust-url').value = "";
             document.getElementById('cust-logo').value = "";
@@ -604,7 +668,6 @@
             updatePreview();
         }
 
-        // Render preview inside the smartphone mockup
         function updatePreview() {
             const artist = document.getElementById('artist-name').value || 'Velvet Solar System';
             const track = document.getElementById('track-title').value || 'Synthetic Dreams';
@@ -620,17 +683,16 @@
                 avatar.style.backgroundImage = 'none';
             }
 
-            // Rebuild mockup links list dynamically
             const listContainer = document.getElementById('prev-links');
             listContainer.innerHTML = "";
 
-            // 1. Add Default platform buttons if their inputs are not empty
+            // Populate active fetched platforms
             addPlatformButton(listContainer, 'link-spotify', 'Spotify', defaultLogos.spotify);
             addPlatformButton(listContainer, 'link-apple', 'Apple Music', defaultLogos.itunes);
             addPlatformButton(listContainer, 'link-youtube', 'YouTube', defaultLogos.youtube);
             addPlatformButton(listContainer, 'link-amazon', 'Amazon Music', defaultLogos.amazonMusic);
 
-            // 2. Add Custom user-defined platform buttons
+            // Populate user custom platforms
             customPlatforms.forEach(platform => {
                 const linkElement = document.createElement('a');
                 linkElement.href = platform.url;
@@ -659,7 +721,6 @@
             }
         }
 
-        // Run initial preview on load
         updatePreview();
     </script>
 </body>
