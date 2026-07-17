@@ -3,220 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammad Shafiuddeen (Shafi) - Official Profile | Heartscript Studios</title>
-    
-    <!-- Google AdSense Verification Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1803575400392750" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Official Profile | Heartscript Studios</title>
     <style>
-        .glow-purple { text-shadow: 0 0 15px rgba(147, 51, 234, 0.6); }
-        .glow-cyan { text-shadow: 0 0 15px rgba(6, 182, 212, 0.6); }
-        html { scroll-behavior: smooth; }
+        /* Base Reset & Studio Theme */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navigation Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            background-color: #000000;
+            border-bottom: 1px solid #111111;
+        }
+        .logo {
+            color: #a855f7;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        nav ul li a {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            transition: color 0.2s ease;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            color: #06b6d4;
+        }
+
+        /* Main Layout Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 4%;
+        }
+
+        /* Hero Text */
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-align: center;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #ffffff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            color: #666666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        /* Front-Loaded Video Player Container */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Perfect 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #222222;
+            background-color: #0c0c0c;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* High-Visibility Subscription Links */
+        .subscribe-headline {
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #aaaaaa;
+            margin-bottom: 15px;
+        }
+        .subscribe-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .btn-sub {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            min-width: 200px;
+        }
+        .btn-sub:hover {
+            transform: translateY(-2px);
+        }
+        .btn-youtube {
+            background-color: #ff0000;
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+        }
+        .btn-spotify {
+            background-color: #1ed760;
+            color: #000000;
+            box-shadow: 0 4px 20px rgba(30, 215, 96, 0.3);
+        }
+
+        /* Section Breakdown Styling */
+        .section-header {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #1c1c1c;
+            padding-bottom: 8px;
+        }
+        .purple-text { color: #a855f7; }
+        .cyan-text { color: #06b6d4; }
+
+        /* Purely Creative Bio Text */
+        .bio-box {
+            background-color: #0c0c0c;
+            border: 1px solid #1a1a1a;
+            padding: 30px;
+            border-radius: 6px;
+            margin-bottom: 50px;
+        }
+        .bio-box p {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .bio-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Blog Section & Native "Read More" Expansion Fix */
+        .blog-card {
+            background-color: #0c0c0c;
+            border: 1px solid #1a1a1a;
+            padding: 30px;
+            border-radius: 6px;
+        }
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .blog-date {
+            color: #666666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .blog-snippet {
+            color: #aaaaaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* The "Read More" Mechanical Fix */
+        details {
+            margin-top: 10px;
+        }
+        details summary {
+            color: #06b6d4;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none; /* Hides default triangle */
+            outline: none;
+            padding-top: 5px;
+            display: inline-block;
+        }
+        details summary::-webkit-details-marker {
+            display: none; /* Hides triangle on Safari */
+        }
+        details summary:hover {
+            opacity: 0.8;
+        }
+        details[open] summary {
+            display: none; /* Hides the button once expanded */
+        }
+        .full-post-content {
+            color: #aaaaaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding-top: 5px;
+        }
+
+        /* Responsive Layout Updates */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .subscribe-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .btn-sub {
+                width: 100%;
+            }
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-200 font-sans selection:bg-purple-600 selection:text-white pt-20">
+<body>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="border-b border-zinc-800 bg-zinc-900/90 backdrop-blur-md fixed w-full z-50 top-0 left-0">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold tracking-wider text-purple-500 glow-purple">HEARTSCRIPT STUDIOS</a>
-            <div class="space-x-6">
-                <a href="index.html" class="text-cyan-400 font-medium transition">Official Profile</a>
-                <a href="portfolio.html" class="hover:text-purple-400 font-medium transition">Services & Music</a>
-                <a href="blog.html" class="hover:text-purple-400 font-medium transition">Artist Blog</a>
-                <a href="contact.html" class="hover:text-purple-400 font-medium transition">Contact Us</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Header Navigation Section -->
+    <header>
+        <div class="logo">Heartscript Studios</div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Official Profile</a></li>
+                <li><a href="portfolio.html">Services & Music</a></li>
+                <li><a href="blog.html">Artist Blog</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- TOP AD PLACEHOLDER -->
-    <div class="max-w-6xl mx-auto mt-6 px-4 text-center">
-        <div class="bg-zinc-900 border border-zinc-800 p-2 text-zinc-500 text-xs tracking-widest rounded">
-            ADVERTISEMENT - TOP BANNER (728x90)
-        </div>
-    </div>
-
-    <!-- MAIN PROFILE CONTAINER -->
-    <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Main Content Container -->
+    <div class="container">
         
-        <!-- LEFT/MAIN BODY CONTENT -->
-        <div class="lg:col-span-3 space-y-8">
-            
-            <header class="border-b border-zinc-800 pb-4">
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-2">Mohammad Shafiuddeen (Shafi)</h1>
-                <p class="text-sm text-zinc-500 font-mono tracking-wide uppercase">FOUNDER | CREATOR | DIRECTOR | WRITER</p>
-            </header>
+        <!-- Hero Brand Header -->
+        <h1 class="hero-title">Heartscript Studios</h1>
+        <p class="hero-subtitle">Sonic Realism & Cinematic Narratives</p>
 
-            <p class="text-base md:text-lg leading-relaxed text-zinc-300">
-                <strong class="text-white">Mohammad Shafiuddeen</strong> (born c. 1985), known professionally as <strong class="text-purple-400">Shafi</strong>, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the <strong class="text-white">founder of and creator at <strong class="text-cyan-400">Heartscript Studios</strong></strong>, a decentralized creative hub specializing in AI-driven dark-pop, acoustic ballads, and alternative visual storytelling pipelines. Shafi is recognized for his unique workflow that transforms deep personal emotional trauma into structured visual poetry and advanced music video generation.
+        <!-- FRONT-LOADED MUSIC VIDEO PLAYER -->
+        <!-- Note: Replace the YouTube URL ID below with your actual featured video link when ready -->
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/videoseries?list=PL4F8C43B2BB416D4C" 
+                title="Heartscript Studios Featured Release" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- IMPOSSIBLE TO MISS SUBSCRIPTION CALLS TO ACTION -->
+        <p class="subscribe-headline">Connect & Stream Everywhere</p>
+        <div class="subscribe-container">
+            <!-- Replace # with your exact public link destinations -->
+            <a href="https://www.youtube.com/channel/YOUR_ID" target="_blank" class="btn-sub btn-youtube">
+                Subscribe on YouTube
+            </a>
+            <a href="https://open.spotify.com/artist/YOUR_ID" target="_blank" class="btn-sub btn-spotify">
+                Follow on Spotify
+            </a>
+        </div>
+
+        <!-- PURELY CREATIVE ARTIST BIO SECTION -->
+        <h2 class="section-header purple-text">The Creative Architecture</h2>
+        <div class="bio-box">
+            <p>
+                Heartscript Studios is an independent creative house specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Driven by raw emotional songwriting and vivid storytelling, the studio focuses on capturing the deep complexities of human psychology, isolation, and vulnerable lifecycles.
             </p>
-
-            <!-- TABLE OF CONTENTS -->
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg max-w-sm">
-                <h2 class="text-xs uppercase tracking-widest text-zinc-400 font-bold mb-3">Contents Directory</h2>
-                <ol class="space-y-1.5 text-sm text-cyan-400 font-medium">
-                    <li><a href="#early-life" class="hover:underline">1. Early Life & Emotional Genesis (2012)</a></li>
-                    <li><a href="#professional-background" class="hover:underline">2. Medical Documentation Career Matrix</a></li>
-                    <li><a href="#heartscript-era" class="hover:underline">3. Founding of Heartscript Studios (2025)</a></li>
-                    <li><a href="#artistic-philosophy" class="hover:underline">4. Creative Philosophy & Technical Workflow</a></li>
-                    <li><a href="#discography" class="hover:underline">5. Discography & Featured Tracks</a></li>
-                </ol>
-            </div>
-
-            <!-- SECTION 1: EARLY LIFE -->
-            <section id="early-life" class="space-y-4 border-t border-zinc-900 pt-6">
-                <h2 class="text-2xl font-bold text-white border-b border-zinc-800 pb-1">1. Early Life & Emotional Genesis (2012)</h2>
-                <p class="text-zinc-300 leading-relaxed">
-                    Shafi's relationship with writing dates back 14 years, initiated by a profound, disruptive emotional trauma in 2012. Lacking an immediate interpersonal outlet or support structure to process the internal crisis, he began recording raw feelings directly onto paper. Peer feedback subsequently categorized these early manuscripts as poetry, establishing the emotional blueprint for <strong class="text-purple-400">Heartscript Studios</strong>.
-                </p>
-            </section>
-
-            <!-- SECTION 2: PROFESSIONAL BACKGROUND -->
-            <section id="professional-background" class="space-y-4 border-t border-zinc-900 pt-6">
-                <h2 class="text-2xl font-bold text-white border-b border-zinc-800 pb-1">2. Medical Documentation Career Matrix</h2>
-                <p class="text-zinc-300 leading-relaxed">
-                    Prior to expanding full-time into autonomous digital media production, Shafi established a robust tenure within high-stakes healthcare documentation environments, including certified medical transcriptionist and clinical scribe specialist positions. His technical background spans a decade operating in transcription alongside 7 distinct years as a dedicated clinical medical scribe. This includes professional documentation roles at Elico from 2018 to early 2025 and subsequent assignments with IDS. This history heavily informs the analytical detail and discipline driving his studio operations.
-                </p>
-            </section>
-
-            <!-- SECTION 3: FOUNDING OF HEARTSCRIPT STUDIOS -->
-            <section id="heartscript-era" class="space-y-4 border-t border-zinc-900 pt-6">
-                <h2 class="text-2xl font-bold text-white border-b border-zinc-800 pb-1">3. Founding of Heartscript Studios (2025)</h2>
-                <p class="text-zinc-300 leading-relaxed">
-                    To scale his vision into audio-visual landscapes, Shafi officially established <strong class="text-white">Heartscript Studios</strong> on <strong class="text-cyan-400">August 26, 2025</strong>. The studio functions as a creative hub optimizing the intersection of classic acoustic instrumentation, moody synth arrangements, and advanced generative digital tools. The venture shifted into public prominence following rapid scaling metrics across digital streaming ecosystems, securing a registered footprint of over 75,000 views on YouTube, 10,000 plays on Amazon Music, and 5,000 streams via Spotify channels.
-                </p>
-            </section>
-
-            <!-- SECTION 4: ARTISTIC PHILOSOPHY -->
-            <section id="artistic-philosophy" class="space-y-4 border-t border-zinc-900 pt-6">
-                <h2 class="text-2xl font-bold text-white border-b border-zinc-800 pb-1">4. Creative Philosophy & Technical Workflow</h2>
-                <p class="text-zinc-300 leading-relaxed">
-                    The core directive of Heartscript Studios is to provide listeners with an uncompromising, empathetic space to process collective human grief and stay entirely aligned with their feelings. Shafi achieves this by pairing deeply emotional, melancholic writing with modern creative systems. The technical infrastructure utilizes advanced generative neural models—including custom prompt frameworks with platform networks like Suno and video synthesis layout models such as Google Veo 3.1—to scale raw lyrical scripts into sweeping, atmospheric music videos.
-                </p>
-            </section>
-
-            <!-- SECTION 5: DISCOGRAPHY & FEATURED TRACKS -->
-            <section id="discography" class="space-y-4 border-t border-zinc-900 pt-6 mb-12">
-                <h2 class="text-2xl font-bold text-white border-b border-zinc-800 pb-1">5. Discography & Featured Tracks</h2>
-                <div class="space-y-4">
-                    <!-- Akelepan Ka Safar -->
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-purple-400">"Akelepan Ka Safar"</h3>
-                            <p class="text-sm text-zinc-400 mt-1">Signature melancholic composition exploring midnight isolation, raw emotional truths, and late-night songwriting architectures.</p>
-                        </div>
-                        <a href="https://www.youtube.com/@Official-Shafi-heartscript" target="_blank" class="inline-block text-center text-xs font-bold text-cyan-400 bg-cyan-950/40 border border-cyan-800 px-4 py-2 rounded hover:bg-cyan-900 transition whitespace-nowrap">Stream Channel</a>
-                    </div>
-
-                    <!-- Blind To The Game -->
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-cyan-400">"Blind To The Game"</h3>
-                            <p class="text-sm text-zinc-400 mt-1">A high-concept dark-pop and cinematic narrative release tracking the raw psychological stages of losing identity in deep love.</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=jbFDop09as4" target="_blank" class="inline-block text-center text-xs font-bold text-cyan-400 bg-cyan-950/40 border border-cyan-800 px-4 py-2 rounded hover:bg-cyan-900 transition whitespace-nowrap">Watch Video</a>
-                    </div>
-
-                    <!-- Devotion -->
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-purple-400">"DEVOTION"</h3>
-                            <p class="text-sm text-zinc-400 mt-1">An aggressive alt-pop framework transitioning from an intimate, haunting piano whisper into a heavy stadium beat drop.</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=kWFDObHELto" target="_blank" class="inline-block text-center text-xs font-bold text-cyan-400 bg-cyan-950/40 border border-cyan-800 px-4 py-2 rounded hover:bg-cyan-900 transition whitespace-nowrap">Watch Video</a>
-                    </div>
-
-                    <!-- Gunaah -->
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-zinc-200">"Gunaah"</h3>
-                            <p class="text-sm text-zinc-400 mt-1">Hindi heartbreak anthem balancing intense, atmospheric storytelling loops with a sweet, inescapable sorrow.</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=WWucJTQetag" target="_blank" class="inline-block text-center text-xs font-bold text-cyan-400 bg-cyan-950/40 border border-cyan-800 px-4 py-2 rounded hover:bg-cyan-900 transition whitespace-nowrap">Watch Video</a>
-                    </div>
-
-                    <!-- Humdard -->
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-zinc-400">"Humdard" (Phonk Fusion Remix)</h3>
-                            <p class="text-sm text-zinc-400 mt-1">An innovative sonic architecture pairing fragile flute melodies with an aggressive, hard-hitting electronic sub-bass mix.</p>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=F5m5YFNt0ns" target="_blank" class="inline-block text-center text-xs font-bold text-cyan-400 bg-cyan-950/40 border border-cyan-800 px-4 py-2 rounded hover:bg-cyan-900 transition whitespace-nowrap">Listen Audio</a>
-                    </div>
-                </div>
-            </section>
-
+            <p>
+                By blending custom synthesized arrangement matrices with advanced generative AI video pipelines, every audio release is constructed alongside custom visual worlds. The result is a complete, multi-sensory translation of thoughts directly from the studio floor to the digital screen.
+            </p>
         </div>
 
-        <!-- RIGHT COLUMN: THE OFFICIAL PROFILE CARD -->
-        <aside class="lg:col-span-1">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 shadow-2xl sticky top-24 space-y-4">
-                
-                <div class="text-center border-b border-zinc-800 pb-3">
-                    <h2 class="text-lg font-black text-white tracking-wide">Shafi</h2>
-                    <p class="text-xs text-purple-400 uppercase font-mono tracking-widest mt-0.5">HEARTSCRIPT STUDIOS</p>
+        <!-- BLOG SECTION WITH THE WORKING "READ MORE" FIX -->
+        <h2 class="section-header cyan-text">Latest Studio Journal</h2>
+        <div class="blog-card">
+            <span class="blog-date">July 2026</span>
+            <h3>Decoding the Phonk & Acoustic Fusion Matrix</h3>
+            <p class="blog-snippet">
+                Our latest exploration in sonic production focuses on pushing the boundary between fragile acoustic wind instruments and heavy electronic grids. Achieving a balanced mix when completely contrasting sound spaces collide requires an intentional approach to sub-bass separation...
+            </p>
+            
+            <!-- THE FIX: Natively expands the text instantly when clicked -->
+            <details>
+                <summary>Read More ↓</summary>
+                <div class="full-post-content">
+                    <p style="margin-top: 10px;">
+                        By dedicating specific pocket frequencies to atmospheric elements while letting compressed percussion run the rhythm framework, we avoid muddying the mix. This architecture allows us to keep the emotional vulnerability of the vocals completely intact without losing structural energy. Stay tuned for our complete breakdown breakdown breakdown video arriving on the main feed next week.
+                    </p>
                 </div>
-
-                <div class="border border-zinc-800 rounded flex flex-col items-center justify-center text-center">
-                    <img src="logo.jpg" alt="Heartscript Studios Official Logo" class="w-full aspect-square rounded object-contain bg-zinc-950">
-                    <p class="text-[10px] text-cyan-400 uppercase font-bold tracking-widest py-1.5">[ FOUNDER & CREATOR ]</p>
-                </div>
-
-                <div class="text-xs space-y-2.5">
-                    <div class="grid grid-cols-3 border-b border-zinc-950 pb-2">
-                        <span class="text-zinc-500 font-semibold">Full name</span>
-                        <span class="text-zinc-300 col-span-2">Mohammad Shafiuddeen</span>
-                    </div>
-                    <div class="grid grid-cols-3 border-b border-zinc-950 pb-2">
-                        <span class="text-zinc-500 font-semibold">Born</span>
-                        <span class="text-zinc-300 col-span-2">c. 1985 (Age 41)</span>
-                    </div>
-                    <div class="grid grid-cols-3 border-b border-zinc-950 pb-2">
-                        <span class="text-zinc-500 font-semibold">Founded</span>
-                        <span class="text-zinc-300 col-span-2">August 26, 2025</span>
-                    </div>
-                    <div class="grid grid-cols-3 border-b border-zinc-950 pb-2">
-                        <span class="text-zinc-500 font-semibold">Origin</span>
-                        <span class="text-zinc-300 col-span-2">Hyderabad, India</span>
-                    </div>
-                    <div class="grid grid-cols-3 border-b border-zinc-950 pb-2">
-                        <span class="text-zinc-500 font-semibold">Occupation</span>
-                        <span class="text-zinc-300 col-span-2">FOUNDER, Creative Director, Writer, Scribe Specialist</span>
-                    </div>
-                    <div class="grid grid-cols-3">
-                        <span class="text-zinc-500 font-semibold">Official Site</span>
-                        <span class="text-cyan-400 col-span-2 break-all hover:underline"><a href="index.html">heartscriptstudios.in</a></span>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-950 border border-zinc-800 p-3 rounded text-center space-y-1">
-                    <h4 class="text-[10px] uppercase font-mono text-zinc-500 tracking-widest font-bold">Verified Studio Metrics</h4>
-                    <p class="text-sm font-black text-white">75,000+ YT Views</p>
-                    <p class="text-xs text-zinc-400">10,000+ Amazon Streams</p>
-                </div>
-
-                <div class="bg-zinc-950 border border-zinc-800 p-2 text-center text-[10px] text-zinc-600 tracking-wider rounded">
-                    ADVERTISEMENT<br>(300x250 Box Slot)
-                </div>
-
-            </div>
-        </aside>
-
-    </main>
-
-    <!-- IN-LINE MID LEVEL AD PLACEHOLDER -->
-    <div class="max-w-6xl mx-auto px-4 my-6 text-center">
-        <div class="bg-zinc-900 border border-zinc-800 p-2 text-zinc-500 text-xs tracking-widest rounded">
-            ADVERTISEMENT - BOTTOM RESPONSIVE BANNER
+            </details>
         </div>
+
     </div>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-zinc-900 bg-zinc-900/40 mt-16 py-8 text-center text-xs text-zinc-600 px-4">
-        <p class="text-zinc-500 max-w-xl mx-auto mb-2">This entire biography, content directory, and all visual materials are the strict intellectual property of and copyrighted by Heartscript Studios. Unauthorized duplication or redistribution is strictly prohibited.</p>
-        <p>&copy; 2026 <strong class="text-white">Heartscript Studios</strong>. Mohammad Shafiuddeen (Founder/Creator). Built for independent creator visibility pipelines. | <a href="privacy.html" class="text-zinc-400 hover:underline">Privacy Policy</a></p>
-    </footer>
 
 </body>
 </html>
