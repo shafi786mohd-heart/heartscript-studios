@@ -3,9 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elevatech LLP | Premium B2B Elevator Engineering Solutions</title>
+    <title>Elevatech LLP | B2B Elevator Engineering Solutions & Systems Advisor</title>
     
-    <!-- Schema.org JSON-LD Structured Data for AI Search Engines -->
+    <!-- Design Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              slate: {
+                950: '#030712',
+                900: '#0f172a',
+                850: '#1e293b',
+                800: '#334155',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      /* Smooth transitions */
+      .tab-transition {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+
+    <!-- Schema.org JSON-LD Structured Data for Generative AI & Search Engines -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -19,9 +62,8 @@
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+1-800-555-3538",
-            "contactType": "technical support",
-            "email": "solutions@elevatech.engineering",
-            "availableLanguage": "en"
+            "contactType": "technical sales",
+            "email": "solutions@elevatech.engineering"
           },
           "description": "An engineering pioneer curating and developing high-performance cabin climate, secure wireless communication, and predictive IoT integrations for premium commercial elevators."
         },
@@ -29,7 +71,7 @@
           "@type": "Product",
           "@id": "https://elevatech.engineering/#dry-ac",
           "name": "Elevatech zero-liquid condensation Dry AC",
-          "description": "Zero-drain, zero-liquid condensation elevator cabin climate control system. Eliminates the risk of toxic moisture corrosion in vertical shafts.",
+          "description": "Zero-drain, zero-liquid condensation elevator cabin climate control system. Eliminates the risk of water pooling and toxic moisture corrosion in vertical shafts.",
           "brand": {
             "@type": "Brand",
             "name": "Elevatech"
@@ -61,9 +103,1546 @@
     }
     </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-slate-950">
+
+    <!-- NAVIGATION HEADER -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 text-slate-100 px-6 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <!-- Brand Block -->
+        <div class="flex flex-col cursor-pointer" onclick="switchTab('home')">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-sky-500 rounded-md text-slate-950 font-extrabold tracking-wider text-sm flex items-center justify-center">
+              E
+            </span>
+            <span class="font-display font-bold text-xl tracking-tight text-white">
+              ELEVATECH
+            </span>
+            <span class="text-xs text-sky-400 font-mono font-medium tracking-wide border border-sky-500/30 px-1.5 py-0.5 rounded ml-1 bg-sky-950/40">
+              LLP
+            </span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5 ml-0.5">
+            Enabling Technologies for Elevator
+          </span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center gap-6">
+          <button onclick="switchTab('home')" id="nav-home" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-sky-400 font-semibold">
+            Solutions Explorer
+          </button>
+          <button onclick="switchTab('builder')" id="nav-builder" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-slate-300">
+            Cabin Configurator
+          </button>
+          <button onclick="switchTab('knowledge')" id="nav-knowledge" class="text-sm font-medium tracking-wide hover:text-sky-400 transition-colors text-slate-300">
+            Engineering Library
+          </button>
+        </div>
+
+        <!-- Utility CTAs -->
+        <div class="flex items-center gap-3">
+          <button onclick="openAdvisor()" class="flex items-center gap-2 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs px-3.5 py-2.5 rounded-lg font-medium tracking-wide transition-all shadow-md shadow-sky-900/10 active:scale-95">
+            <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            <span class="hidden sm:inline">Consult AI Advisor</span>
+          </button>
+
+          <button onclick="openLeadConsole()" class="relative flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3.5 py-2.5 rounded-lg font-medium tracking-wide transition-colors border border-slate-700/60">
+            <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            <span class="hidden sm:inline">CRM Pipeline</span>
+            <span id="leads-count-badge" class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white hidden">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT PORTALS -->
+    <main class="flex-grow">
+      
+      <!-- TAB 1: HOME PAGE (Solutions Explorer & Hero Strategy Intro) -->
+      <div id="tab-content-home" class="tab-transition">
+        
+        <!-- HERO SEGMENT & WEB STRATEGY OVERVIEW -->
+        <div class="relative overflow-hidden bg-slate-950 text-slate-100 py-16 px-6 border-b border-slate-900">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.1),transparent_50%)]"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(99,102,241,0.05),transparent_50%)]"></div>
+
+          <div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Header -->
+            <div class="lg:col-span-7 flex flex-col space-y-6">
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-500/10 border border-sky-400/20 rounded-full text-sky-400 text-xs font-mono font-medium w-fit">
+                <span class="flex h-2 w-2 rounded-full bg-sky-400 animate-ping"></span>
+                <span>Active B2B Portal Redesign Enacted</span>
+              </div>
+
+              <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
+                Bridging the Gap in <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-indigo-400">
+                  Elevator Safety & Comfort
+                </span>
+              </h1>
+
+              <p class="text-slate-400 text-lg font-sans font-light max-w-xl leading-relaxed">
+                All major elevator manufacturers excel at vertical transportation, but they consistently fall short on the secondary climate and media technologies that high-occupancy towers demand. 
+                <strong class="text-slate-200 font-normal">Elevatech LLP acts as your premium, brand-agnostic systems partner</strong>, delivering compliant custom-engineered solutions.
+              </p>
+
+              <div class="flex flex-wrap items-center gap-4 pt-4">
+                <button onclick="switchTab('builder')" class="flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 px-6 py-3.5 rounded-lg font-display font-bold tracking-wide transition-all shadow-lg shadow-sky-500/20 active:scale-95 text-sm">
+                  <span>Launch Spec Configurator</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+                <button onclick="toggleStrategyModal(true)" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 px-6 py-3.5 rounded-lg font-sans font-semibold tracking-wide transition-colors border border-slate-800 text-sm">
+                  <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                  <span>Review Strategic Brief Audit</span>
+                </button>
+              </div>
+
+              <!-- Quick Engineering Metrics -->
+              <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-900 max-w-xl">
+                <div>
+                  <div class="text-2xl sm:text-3xl font-mono font-bold text-white">0.0 L</div>
+                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">Liquid AC Runoff</div>
+                </div>
+                <div>
+                  <div class="text-2xl sm:text-3xl font-mono font-bold text-sky-400">100%</div>
+                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">CCTV Outages Fixed</div>
+                </div>
+                <div>
+                  <div class="text-2xl sm:text-3xl font-mono font-bold text-indigo-400">&lt; 1.5ms</div>
+                  <div class="text-[10px] text-slate-400 uppercase font-mono tracking-wider mt-1">Wireless Comm Latency</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Brief Highlight Card -->
+            <div class="lg:col-span-5 relative">
+              <div class="relative bg-slate-900/40 backdrop-blur-md border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-sky-500/10 rounded-bl-3xl -z-10 blur-xl"></div>
+                
+                <h3 class="font-display font-semibold text-lg text-white mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                  <span>B2B User Experience Architecture</span>
+                </h3>
+
+                <div class="space-y-4 text-xs font-sans font-light leading-relaxed">
+                  <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
+                    <span class="text-[10px] font-mono font-semibold uppercase text-sky-400 tracking-wider block mb-1">Our Strategic Mandate</span>
+                    Elevate the standard digital catalog from a passive product list to an active consulting platform. We enable builders and architects to self-qualify instantly.
+                  </div>
+
+                  <div class="space-y-3">
+                    <div class="flex items-start gap-2.5">
+                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">A</span>
+                      <div>
+                        <h4 class="font-semibold text-slate-200">Solution-Based Navigation</h4>
+                        <p class="text-slate-400 text-[11px] mt-0.5">Filter directly by vertical pain-points (safety water codes, snapped CCTV lines) instead of SKU part numbers.</p>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">B</span>
+                      <div>
+                        <h4 class="font-semibold text-slate-200">Integrated Spec Configurator</h4>
+                        <p class="text-slate-400 text-[11px] mt-0.5">Captures high-rise architectural parameters, calculating cooling loads and projecting yearly maintenance ROI instantly.</p>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-2.5">
+                      <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-sky-500/10 text-sky-400 font-mono text-[10px]">C</span>
+                      <div>
+                        <h4 class="font-semibold text-slate-200">Semantic AI Search Optimization</h4>
+                        <p class="text-slate-400 text-[11px] mt-0.5">Rich schema graphs and knowledge clusters ensure discoverability by LLMs and conversational answer engines.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PORTFOLIO ADAPTIVE SOLUTION EXPLORER -->
+        <section class="py-16 px-6 max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 border-b border-slate-900 pb-8 gap-6">
+            <div>
+              <span class="text-xs text-sky-400 font-mono uppercase tracking-wider block mb-2">B2B Core Competencies</span>
+              <h2 class="text-3xl font-display font-bold text-white tracking-tight">Engineering Solutions for Vertical Challenges</h2>
+              <p class="text-slate-400 mt-2 text-sm leading-relaxed max-w-xl font-light">
+                Generic climate and communication units fail under vertical velocity and physical vibration. We build compliance-vetted systems that bridge these exact gaps.
+              </p>
+            </div>
+
+            <!-- Switch Mode buttons -->
+            <div class="inline-flex p-1 bg-slate-900 border border-slate-800 rounded-xl self-start lg:self-auto">
+              <button onclick="setExplorerTab('solutions')" id="exp-tab-solutions" class="flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                <span>Browse by Technology</span>
+              </button>
+              <button onclick="setExplorerTab('industries')" id="exp-tab-industries" class="flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                <span>Browse by Industry</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- GRID VIEW CONTAINER -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Sidebar selection -->
+            <div class="lg:col-span-4 flex flex-col space-y-3" id="explorer-sidebar">
+              <!-- Rendered Dynamically via JS -->
+            </div>
+
+            <!-- Detailed Panel Spec -->
+            <div class="lg:col-span-8 bg-slate-900/20 border border-slate-900 rounded-2xl p-6 sm:p-8 space-y-8" id="explorer-panel">
+              <!-- Rendered Dynamically via JS -->
+            </div>
+
+          </div>
+        </section>
+
+        <!-- STATIC PROMOTION INTERMEDIATE -->
+        <section class="bg-gradient-to-r from-sky-950/20 via-indigo-950/10 to-slate-950 py-16 px-6 border-t border-b border-slate-900">
+          <div class="max-w-4xl mx-auto text-center space-y-6">
+            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block">Interactive Specification Flow</span>
+            <h3 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight leading-tight">
+              Construct a Verified B2B Engineering Specification
+            </h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed max-w-xl mx-auto">
+              Our configurator maps your elevator shaft constraints (such as water codes, cellular dropouts, and structural clearances) against our product catalogs, drafting a compliance-vetted quote request in seconds.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <button onclick="switchTab('builder')" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-6 py-3 rounded-lg text-xs tracking-wider uppercase transition-colors">
+                <span>Start Free Configurator</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              </button>
+              <button onclick="switchTab('knowledge')" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-6 py-3 rounded-lg text-xs tracking-wider uppercase transition-colors">
+                <span>View Engineering Whitepapers</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- TAB 2: INTERACTIVE SOLUTION CONFIGURATOR -->
+      <div id="tab-content-builder" class="tab-transition hidden">
+        <section class="py-16 px-6 max-w-7xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block mb-2">Self-Service B2B Estimator</span>
+            <h2 class="text-3xl font-display font-bold text-white tracking-tight">Interactive Elevator Solution Configurator</h2>
+            <p class="text-slate-400 text-sm mt-2 font-light">
+              Submit your vertical architectural roadblocks to generate an automated pricing estimate and custom systems engineering pre-assessment.
+            </p>
+          </div>
+
+          <!-- FORM CONFIGURATION ROW -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left inputs (7 Cols) -->
+            <div class="lg:col-span-7 bg-slate-950 border border-slate-900 p-6 sm:p-8 rounded-2xl space-y-8">
+              
+              <!-- 1. Building details -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
+                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">1</span>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Building Classification</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Sector Type</label>
+                    <select id="config-sector" onchange="recalculateEstimates()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono">
+                      <option value="Commercial">Commercial Office (High-Rise)</option>
+                      <option value="Healthcare">Healthcare & Clinical Facility</option>
+                      <option value="Luxury">Luxury Residential Condo</option>
+                      <option value="Industrial">Industrial Mineshaft / Warehouse</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Elevator Cab count: <span id="cab-count-val" class="text-sky-400 font-bold">4</span></label>
+                    <input type="range" id="config-cabs" min="1" max="24" value="4" oninput="updateCabCountSlider(this.value)" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500 my-3">
+                    <div class="flex justify-between text-[9px] text-slate-500 font-mono">
+                      <span>1 Unit</span>
+                      <span>12 Units</span>
+                      <span>24 Units</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Architectural constraints -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
+                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">2</span>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Structural Constraints & Compliance</h3>
+                </div>
+                <p class="text-xs text-slate-500 font-light">Identify shaft roadblocks raising compliance warnings or causing maintenance bottlenecks:</p>
+
+                <div class="space-y-2.5">
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="c-water" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Car-Top Condensation Discharge Ban</span>
+                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Local safety rules prohibit traditional AC condensation dripping inside high-voltage shafts.</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="c-cable" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">CAT6 Traveling Cable Fatigue</span>
+                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Tension and bending cycles at high velocity snap copper camera feeds, triggering out-of-order repairs.</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="c-signal" onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Faraday-Cage Cellular Drops</span>
+                      <span class="text-[10px] text-slate-500 font-light mt-1 block">Occupants lose phone data reception inside thick steel cabins, creating safety concerns.</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 3. Integration components selection -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
+                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">3</span>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">Select Engineering Upgrades</h3>
+                </div>
+
+                <div class="space-y-2.5">
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="u-ac" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Dry AC Water-Free Cabin Cooler</span>
+                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Thermal re-evaporation channels exhaust condensation cleanly; no water drains required.</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="u-cctv" checked onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">Wireless CCTV Smart-Link Millimeter Bridge</span>
+                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Directional transceivers deliver interference-free 4K security feeds without physical wires.</span>
+                    </div>
+                  </label>
+
+                  <label class="flex items-start gap-3 p-3 bg-slate-900/10 hover:bg-slate-900/30 border border-slate-900 rounded-lg cursor-pointer transition-all">
+                    <input type="checkbox" id="u-iot" onchange="recalculateEstimates()" class="mt-0.5 rounded border-slate-800 text-sky-500 focus:ring-sky-500">
+                    <div>
+                      <span class="text-xs font-semibold text-slate-200 block leading-tight">G3 IoT Smart Gateway System</span>
+                      <span class="text-[10px] text-slate-400 font-light mt-1 block">Sensory pods track acoustics and vibration curves to trigger predictive maintenance dispatches.</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- 4. Contact Credentials -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-900 pb-2">
+                  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-slate-950 text-xs font-mono font-bold">4</span>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-white">RFQ Contact Details</h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Lead Architect / Contact *</label>
+                    <input type="text" id="rfq-name" required placeholder="e.g. John Doe" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Company Entity *</label>
+                    <input type="text" id="rfq-company" required placeholder="e.g. Apex Structures LLP" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Corporate Email Address *</label>
+                    <input type="email" id="rfq-email" required placeholder="e.g. j.doe@apex.com" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Business Phone</label>
+                    <input type="tel" id="rfq-phone" placeholder="e.g. +1 (555) 012-3456" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1">Specialized Engineering Notes</label>
+                  <textarea id="rfq-notes" rows="3" placeholder="Specify building height, maximum elevator speeds, or unique thermal criteria..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 resize-none"></textarea>
+                </div>
+              </div>
+
+              <!-- Submit Action Button -->
+              <button onclick="submitRfqForm()" id="submit-rfq-btn" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-slate-950 font-bold py-3.5 px-6 rounded-lg tracking-wide shadow-md active:scale-[0.99] transition-all text-xs font-mono uppercase">
+                <span>Compile Spec & Request RFQ Assessment</span>
+              </button>
+
+              <!-- Success Alert Box -->
+              <div id="rfq-success-box" class="hidden bg-sky-950/20 border border-sky-500/20 p-5 rounded-xl space-y-3">
+                <div class="flex items-center gap-2 text-sky-400 font-semibold text-xs">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <span>RFQ Compiled & Registered Successfully</span>
+                </div>
+                <p class="text-[11px] text-slate-300 font-sans font-light leading-relaxed" id="rfq-success-text"></p>
+                <div class="bg-sky-500/5 p-4 border border-sky-500/10 rounded-lg" id="rfq-ai-box">
+                  <span class="text-[9px] font-mono text-sky-400 uppercase tracking-wider block font-bold mb-1">Systems AI Assessment</span>
+                  <p class="text-[11px] text-slate-300 italic font-sans" id="rfq-ai-text"></p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right estimates card (5 Cols) -->
+            <div class="lg:col-span-5 space-y-6">
+              <div class="bg-slate-950 border border-slate-900 p-6 rounded-2xl space-y-6">
+                <h3 class="font-display font-bold text-md text-white border-b border-slate-900 pb-3 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                  <span>Dynamic Spec Sizing Estimator</span>
+                </h3>
+
+                <div class="space-y-4">
+                  <!-- Sizing -->
+                  <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-850 space-y-2">
+                    <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Physical Sizing Targets</span>
+                    <div class="flex justify-between text-xs py-0.5">
+                      <span class="text-slate-400 font-light">Target Elevators</span>
+                      <span id="est-cars" class="font-mono text-white font-medium">4 units</span>
+                    </div>
+                    <div class="flex justify-between text-xs py-0.5">
+                      <span class="text-slate-400 font-light">Total Target Cooling</span>
+                      <span id="est-btu" class="font-mono text-white font-medium">36,000 BTU</span>
+                    </div>
+                    <div class="flex justify-between text-xs py-0.5">
+                      <span class="text-slate-400 font-light">Wireless CCTV Bridges</span>
+                      <span id="est-bridges" class="font-mono text-white font-medium">4 links</span>
+                    </div>
+                  </div>
+
+                  <!-- Savings -->
+                  <div class="bg-sky-950/20 p-4 rounded-xl border border-sky-950/40 space-y-2">
+                    <span class="text-[9px] text-sky-400 font-mono uppercase tracking-widest block font-bold">Projected B2B Value Added</span>
+                    <div class="flex justify-between text-xs py-0.5">
+                      <span class="text-slate-300 font-light">Annual Cable Failures Avoided</span>
+                      <span id="est-savings" class="font-mono text-emerald-400 font-semibold">~$9,600 / yr</span>
+                    </div>
+                    <div class="flex justify-between text-xs py-0.5">
+                      <span class="text-slate-300 font-light">Comfort-related Complaints</span>
+                      <span class="font-mono text-emerald-400 font-semibold">-95% projected</span>
+                    </div>
+                  </div>
+
+                  <!-- Compliance checks -->
+                  <div class="bg-slate-900/25 p-4 rounded-xl border border-slate-900 space-y-2">
+                    <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Safety Code Pre-Check</span>
+                    <div class="space-y-1.5 text-[10px] text-slate-300 font-light">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Zero car-top liquid water drainage compliant (safe code pass)</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Universal chassis mounting bracket layout</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 3: TECHNICAL KNOWLEDGE CENTER -->
+      <div id="tab-content-knowledge" class="tab-transition hidden">
+        <section class="py-16 px-6 max-w-7xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs text-sky-400 font-mono uppercase tracking-widest block mb-2">Technical Reference Library</span>
+            <h2 class="text-3xl font-display font-bold text-white tracking-tight">Elevator Technology Resource Hub</h2>
+            <p class="text-slate-400 text-sm mt-2 font-light">
+              Structured engineering explainers and FAQs mapped to industrial safety codes and systems mechanics.
+            </p>
+          </div>
+
+          <!-- SEARCH BAR -->
+          <div class="max-w-md mx-auto mb-12 relative">
+            <input type="text" id="lib-search" oninput="filterArticles(this.value)" placeholder="Search articles or parameters..." class="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+            <svg class="absolute left-3 top-3 w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+
+          <!-- ARTICLES GRID -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16" id="articles-target-grid">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- FAQ ACCORDION -->
+          <div class="bg-slate-900/10 border border-slate-900 rounded-2xl p-6 sm:p-8 space-y-6 max-w-3xl mx-auto">
+            <h3 class="text-lg font-display font-bold text-white border-b border-slate-900 pb-3 flex items-center gap-2">
+              <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span>Code, Safety, & Compliance FAQs</span>
+            </h3>
+
+            <div class="space-y-4 divide-y divide-slate-900" id="faqs-target-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+    </main>
+
+    <!-- CORE CORPORATE B2B FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 px-6 py-12 text-slate-400">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left brand -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-sky-500 rounded text-slate-950 font-extrabold text-xs">E</span>
+            <span class="font-display font-bold text-white text-lg tracking-tight">ELEVATECH LLP</span>
+          </div>
+          <span class="text-[10px] text-slate-500 font-mono uppercase tracking-widest block">Enabling Technologies for Elevator</span>
+          <p class="text-xs text-slate-400 leading-relaxed font-light max-w-sm">
+            Elevatech LLP is a distinguished B2B systems integrator and developer of high-efficiency vertical climate, wireless networking, and predictive sensory technologies.
+          </p>
+          <div class="flex gap-4 text-[10px] font-mono text-slate-600">
+            <span>ISO 9001:2015 Cert</span>
+            <span>•</span>
+            <span>EU Elevator Code Compliant</span>
+          </div>
+        </div>
+
+        <!-- Links map -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="text-xs font-mono font-bold uppercase text-slate-400">Information Map</h4>
+          <ul class="space-y-2 text-xs font-light">
+            <li><button onclick="switchTab('home')" class="hover:text-sky-400 transition-colors">Technical Solutions Explorer</button></li>
+            <li><button onclick="switchTab('builder')" class="hover:text-sky-400 transition-colors">Interactive Spec Configurator</button></li>
+            <li><button onclick="switchTab('knowledge')" class="hover:text-sky-400 transition-colors">Engineering Reference Library</button></li>
+          </ul>
+        </div>
+
+        <!-- Contacts -->
+        <div class="md:col-span-4 space-y-3">
+          <h4 class="text-xs font-mono font-bold uppercase text-slate-400">Inquiries & HQ</h4>
+          <ul class="space-y-2.5 text-xs font-light">
+            <li>Suite 405, Engineering Complex, Tech Park Sector-12, IN.</li>
+            <li>Email: <a href="mailto:solutions@elevatech.engineering" class="text-sky-400 hover:underline font-mono">solutions@elevatech.engineering</a></li>
+            <li>Phone: <span class="font-mono text-slate-300">+1 (800) 555-ELEV</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Underbar -->
+      <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-600 font-mono gap-4">
+        <div>© 2026 Elevatech LLP. All engineering rights reserved.</div>
+        <div class="flex gap-4">
+          <span class="hover:text-slate-400 cursor-pointer">Security Protocols</span>
+          <span>•</span>
+          <span class="hover:text-slate-400 cursor-pointer">Technical Warranty</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL 1: STRATEGIC WEB BRIEF AUDIT -->
+    <div id="strategy-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden animate-fade-in">
+      <div class="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-10 text-slate-300">
+        <button onclick="toggleStrategyModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white font-mono text-xs px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-950/40 hover:bg-slate-950 transition-all">
+          ✕ Close
+        </button>
+
+        <div class="space-y-8">
+          <div class="border-b border-slate-800 pb-4">
+            <span class="text-xs text-sky-400 font-mono uppercase tracking-wider">Web Strategy & UI/UX Audit</span>
+            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white mt-1">The 3 Biggest Flaws of Elevatech's Current Catalog Approach</h2>
+            <p class="text-[10px] text-slate-400 font-mono mt-1">Prepared by Senior B2B Web Strategist</p>
+          </div>
+
+          <!-- Sitemap IA Section -->
+          <div class="bg-slate-950/60 border border-slate-800/80 p-5 rounded-xl space-y-4">
+            <h3 class="text-xs font-mono font-bold uppercase text-sky-400 tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+              <span>Redesigned B2B Website Information Architecture (Sitemap)</span>
+            </h3>
+            <p class="text-xs text-slate-400 font-light font-sans">
+              AI search engines rank organizations based on semantic entities and clear hierarchical sitemaps. Below is our optimized B2B sitemap mapping:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono pt-2">
+              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
+                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">1. /solutions [Core]</span>
+                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
+                  <li>/passenger-comfort (Dry AC)</li>
+                  <li>/shaft-comms (Wireless Link)</li>
+                  <li>/iot-monitoring (Gateway G3)</li>
+                  <li>/access-infotainment</li>
+                </ul>
+              </div>
+
+              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
+                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">2. /industries [Sectors]</span>
+                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
+                  <li>/commercial-office-towers</li>
+                  <li>/healthcare-facilities</li>
+                  <li>/luxury-residential</li>
+                </ul>
+              </div>
+
+              <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-800">
+                <span class="text-white font-bold block mb-1.5 border-b border-slate-800 pb-1">3. /knowledge [Library]</span>
+                <ul class="space-y-1 text-slate-400 font-light list-disc list-inside">
+                  <li>/tech-articles (HEPA, CAT6)</li>
+                  <li>/whitepapers-downloads</li>
+                  <li>/compliance-faqs</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flaw 1 -->
+          <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">1</span>
+              <span>Feature-Spewing SKU Cataloging vs. Solution-Based Context</span>
+            </h3>
+            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
+                <p class="text-xs leading-relaxed text-slate-400">Presenting items purely as SKU numbers (e.g., "Dry AC Model V2") forces busy architects to calculate compatibility themselves. Standard elevators have zero-drain rules; they buy compliance, not BTUs.</p>
+              </div>
+              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
+                <p class="text-xs leading-relaxed text-slate-300">Organizing the layout around specific architectural bottlenecks (e.g. "Safe overhead water-free cooling"). We map compliance criteria directly inside tabbed technology groups.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flaw 2 -->
+          <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">2</span>
+              <span>High-Friction Static Downloads vs. Interactive Configurator Flows</span>
+            </h3>
+            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
+                <p class="text-xs leading-relaxed text-slate-400">Relying on static PDF downloads and blank "Contact Us" forms. Elevator consultants are busy and expect instantaneous technical confirmation of shaft constraints.</p>
+              </div>
+              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
+                <p class="text-xs leading-relaxed text-slate-300">An interactive self-service spec configurator. Users specify elevator counts and mechanical constraints to obtain instant sizing results and calculated B2B value outputs.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flaw 3 -->
+          <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/10 text-rose-400 font-mono text-xs border border-rose-500/20">3</span>
+              <span>Zero Search / Answer Engine Optimization (AEO/GEO) Readiness</span>
+            </h3>
+            <div class="pl-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-rose-950/10 border border-rose-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-rose-400 font-mono block mb-1">Current Catalog Flaw</span>
+                <p class="text-xs leading-relaxed text-slate-400">Online lists contain sparse, thin keywords. They fail to rank for complex systems queries and are invisible to conversational systems (ChatGPT, Gemini) that aggregate providers based on authority schemas.</p>
+              </div>
+              <div class="bg-emerald-950/10 border border-emerald-900/20 p-4 rounded-xl">
+                <span class="text-[9px] uppercase tracking-wider text-emerald-400 font-mono block mb-1">Our Modern Redesign Fix</span>
+                <p class="text-xs leading-relaxed text-slate-300">Structured Schema.org entity metadata injected directly in-header, supported by a semantic Engineering Library (detailed HEPA air re-evaporation and CCTV physics articles) establishing technical authority.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 text-center">
+            <button onclick="toggleStrategyModal(false); switchTab('builder')" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-2.5 rounded-lg text-xs transition-all uppercase">
+              Launch Configurator Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: CRM ADMIN LEADS VIEWER -->
+    <div id="leads-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm hidden animate-fade-in">
+      <div class="relative w-full max-w-5xl h-[85vh] overflow-hidden bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col">
+        
+        <!-- Header -->
+        <div class="p-5 border-b border-slate-800 bg-slate-950 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-sky-500/10 border border-sky-400/20 rounded-xl text-sky-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-display font-bold text-white uppercase tracking-wide">B2B CRM Pipeline & Lead Desk</h3>
+              <p class="text-[9px] text-slate-500 font-mono tracking-wider mt-0.5">Secure B2B Inquiries persisted in container scope</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="syncLeadsFromBackend()" class="p-2 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-slate-300">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19"></path></svg>
+            </button>
+            <button onclick="toggleLeadsModal(false)" class="text-slate-400 hover:text-white font-mono text-xs px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-900">
+              ✕ Close
+            </button>
+          </div>
+        </div>
+
+        <!-- Analytics stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800 bg-slate-950/60 border-b border-slate-800 text-center py-4">
+          <div class="p-1">
+            <div id="stat-total" class="text-lg font-mono font-bold text-white">0</div>
+            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Pipeline Leads</div>
+          </div>
+          <div class="p-1">
+            <div id="stat-priority" class="text-lg font-mono font-bold text-sky-400">0</div>
+            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">High-Priority Deals</div>
+          </div>
+          <div class="p-1">
+            <div id="stat-units" class="text-lg font-mono font-bold text-indigo-400">0 cars</div>
+            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Elevators Under Review</div>
+          </div>
+          <div class="p-1">
+            <div id="stat-savings" class="text-lg font-mono font-bold text-emerald-400">$0</div>
+            <div class="text-[9px] text-slate-500 uppercase font-mono tracking-wider">Projected Annual Savings</div>
+          </div>
+        </div>
+
+        <!-- CRM Feed -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-950/20" id="crm-leads-feed">
+          <!-- Rendered via JS -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL 3: SYSTEMS AI ADVISOR CHAT CONSOLE -->
+    <div id="advisor-modal" class="fixed inset-0 z-50 flex items-center justify-end p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm hidden animate-fade-in">
+      <div class="absolute inset-0 -z-10" onclick="toggleAdvisorModal(false)"></div>
+      
+      <div class="w-full sm:max-w-xl h-full sm:h-[90vh] bg-slate-900 sm:border border-slate-800 sm:rounded-2xl flex flex-col shadow-2xl relative">
+        
+        <!-- Header -->
+        <div class="p-5 border-b border-slate-800 bg-slate-950 rounded-t-none sm:rounded-t-2xl flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-sky-500/10 border border-sky-400/20 rounded-xl text-sky-400 shrink-0">
+              <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-display font-bold text-white">Elevatech Systems AI Advisor</h3>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest">Consultant Active</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="toggleAdvisorModal(false)" class="text-slate-400 hover:text-white font-mono text-xs px-2 py-1 rounded-lg border border-slate-800 bg-slate-900">
+            ✕ Close
+          </button>
+        </div>
+
+        <!-- Chat Feed -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4" id="chat-feed-box">
+          <!-- Initial message -->
+          <div class="flex gap-3 max-w-[85%]">
+            <div class="p-2 h-8 w-8 rounded-full border bg-sky-500/10 border-sky-500/20 text-sky-400 shrink-0 flex items-center justify-center">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <div class="bg-slate-950 border border-slate-850 text-slate-300 rounded-2xl rounded-tl-none px-4 py-3 text-xs leading-relaxed font-sans font-light">
+              Hello! I am Elevatech's B2B Systems Advisor. I consult on our zero-drain Dry AC technology, directional mm-wave Wireless CCTV, and predictive G3 IoT gateways. Ask me any engineering or safety compliance questions.
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick prompts -->
+        <div class="px-5 py-3 border-t border-slate-800 bg-slate-950/20 space-y-2">
+          <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest block font-bold">Suggested B2B Queries</span>
+          <div class="grid grid-cols-1 gap-1.5" id="suggested-queries-box">
+            <button onclick="submitChatPrompt('Explain how the Dry AC handles condensation without drains.')" class="flex items-center justify-between text-left text-[10px] text-slate-300 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 px-3 py-1.5 rounded-lg group transition-colors hover:text-sky-400">
+              <span>Explain how the Dry AC handles condensation without drains.</span>
+              <svg class="w-3.5 h-3.5 text-slate-600 group-hover:text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            <button onclick="submitChatPrompt('Why do traditional CCTV cables snap and how does wireless fix it?')" class="flex items-center justify-between text-left text-[10px] text-slate-300 bg-slate-900 hover:bg-slate-850 border border-slate-800/80 px-3 py-1.5 rounded-lg group transition-colors hover:text-sky-400">
+              <span>Why do traditional CCTV cables snap and how does wireless fix it?</span>
+              <svg class="w-3.5 h-3.5 text-slate-600 group-hover:text-sky-400 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="p-4 border-t border-slate-800 bg-slate-950">
+          <div class="flex gap-2">
+            <input type="text" id="chat-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" placeholder="Ask about safety codes, compliance, or Dry AC spec..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+            <button onclick="sendChatMessage()" class="p-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded-lg shrink-0 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+          </div>
+          <div class="mt-2 text-center text-[9px] text-slate-500 font-mono">
+            Safety compliance vetted parameters. No core elevator wiring modified.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MAIN DATA ENGINE & INTERACTIVITY (VANILLA JS) -->
+    <script>
+      // 1. STATIC ENGINEERING DATA
+      const SOLUTIONS_DATA = [
+        {
+          id: "passenger-comfort",
+          name: "Passenger Comfort & Dry AC",
+          problem: "Standard AC systems collect massive amounts of condensation water. Discharging water onto high-voltage, high-speed elevator shafts violates critical building safety and electrical codes.",
+          challenge: "Engineers must supply premium cooling within highly confined overhead tolerances, without creating water accumulation.",
+          fix: "Elevatech's zero-liquid condensation Dry AC. Uses thermodynamic atomization to re-evaporate 100% of condensation back into the warm exhaust airstream dynamically.",
+          benefits: [
+            "Zero Runoff: Absolute elimination of drain hoses or collection tanks.",
+            "Double Purification: Inbuilt medical-grade HEPA and UV-C sanitizers.",
+            "Vibration Controls: Dual floating isolation mounts reduce structure hum."
+          ],
+          sku: "ELE-AC-V2",
+          specs: {
+            "Cooling Output": "9,000 to 12,000 BTU models",
+            "Water Runoff": "0.0 L / hour (Atomized Thermal Evaporator)",
+            "Chassis Clearance": "Requires only 380 mm car-top space",
+            "Power Draw": "220V, 50/60Hz, 850W active"
+          },
+          image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>`
+        },
+        {
+          id: "shaft-comms",
+          name: "Wireless CCTV & Communications",
+          problem: "Copper traveling CAT6 cables subjected to repeated mechanical high-speed bending suffer fatigue and snap regularly, rendering in-cab security feeds offline.",
+          challenge: "Establish high-speed security streams inside a heavily shielded concrete and metal Faraday-cage lift shaft at velocities over 8 m/s.",
+          fix: "Elevatech Wireless Millimeter-wave Bridge. Directional microwave transceivers create an ultra-reliable, license-free, cable-free gigabit data network.",
+          benefits: [
+            "Zero Cable Fatigue: Replaces physical fiber or copper strands.",
+            "Micro-latency: Under 1.5ms latency supports clean real-time 4K security feeds.",
+            "Interference Shield: Directional beamforming prevents steel rope multi-path reflection issues."
+          ],
+          sku: "ELE-CCTV-LINK",
+          specs: {
+            "Maximum Reach": "Up to 450 meters (1,500 feet) hoistway height",
+            "Bandwidth Stream": "1.2 Gbps bidirectional",
+            "Frequencies": "5.8 GHz & 60 GHz auto-failover bands",
+            "Speed Rated": "Vetted up to 12 m/s mechanical velocity"
+          },
+          image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80",
+          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>`
+        },
+        {
+          id: "iot-monitoring",
+          name: "G3 IoT Fleet Smart Monitoring",
+          problem: "Building operators remain blind to mechanical degradation, acting reactively only after major breakdowns or occupant trapping occurrences.",
+          challenge: "Read elevator system performance safely and transmit metrics to cloud boards without interfering with proprietary, safety-critical controller logic.",
+          fix: "Non-intrusive sensory pods. Opto-isolated dry gates and vibration acceleration pods relay continuous mechanical telemetry to cloud dashboards.",
+          benefits: [
+            "Predictive Insights: Identifies door friction and guide alignment anomalies early.",
+            "Real-time Dashboard: Tracks exact cab coordinate paths and velocity metrics.",
+            "Auto-Dispatch: Auto-triggers technical alerts directly to maintenance desks."
+          ],
+          sku: "ELE-IOT-G3",
+          specs: {
+            "Edge Processor": "Quad-core ARM Edge AI Processor",
+            "Sensory Inclusions": "3-Axis Accel, Gyro, Acoustic & Thermal sensor arrays",
+            "Integrations": "BACnet IP, Modbus RTU, opto-isolated dry gates",
+            "Encryption Level": "TLS 1.3 cryptographic secure hardware"
+          },
+          image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
+          icon: `<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>`
+        }
+      ];
+
+      const INDUSTRIES_DATA = [
+        {
+          id: "commercial-towers",
+          name: "Commercial Office Towers",
+          problem: "relentless high-speed peak travel, strict safety water discharge rules, high tenant comfort complaints.",
+          fix: "zero-drain Dry AC installations coupled with Wireless CCTV links to prevent expensive wire breakdowns.",
+          challenges: [
+            "Continuous traveling wire friction causing security feeds to cut out.",
+            "Standard AC water dripping is completely forbidden by municipal building inspectors.",
+            "Stagnant air inside high-occupancy towers during morning/evening commute spikes."
+          ],
+          solutions: [
+            "Dry AC Model V2 with zero water discharge.",
+            "Wireless CCTV Smart-Link to eliminate traveling line snaps.",
+            "Predictive G3 IoT gateways for cloud maintenance oversight."
+          ],
+          case: "Grand Horizon Tower, NY: Replaced standard ACs with Dry ACs and added wireless millimeter links across 50 stories. Resulted in 100% elimination of traveling data cable failures and reduced comfort complaints by 94% instantly."
+        },
+        {
+          id: "healthcare",
+          name: "Hospitals & Medical Centers",
+          problem: "sterile environment concerns, high cabin occupancy, zero-downtime emergency requirements.",
+          fix: "medical-grade air purification filtration loops integrated inside our Dry AC models.",
+          challenges: [
+            "Pathogen and particulate accumulation inside elevator transit shafts.",
+            "Critical elevator down-time directly affecting clinical operations.",
+            "Unrestricted access control risks to ICU and sterile theater floors."
+          ],
+          solutions: [
+            "UV-C and medical HEPA modules integrated inside our Dry AC climate units.",
+            "Predictive edge IoT alerts to prevent emergency lift breakdowns.",
+            "Smart in-cab biometric facial readers for secure staff transitions."
+          ],
+          case: "Metro Expansion Center: Fitted 12 patient cabins with UV-C Dry AC and G3 IoT sensors. Maintained a 99.99% emergency uptime rate over a 2-year study, with pristine air filtration metrics."
+        }
+      ];
+
+      const TECH_ARTICLES_DATA = [
+        {
+          id: "ac-evap",
+          title: "Thermal Condensate Re-evaporation: Engineering Safe Lift HVACs",
+          category: "Engineering",
+          summary: "A technical breakdown of why standard water discharge systems are critical safety hazards inside high-voltage elevator shafts.",
+          author: "Prashant Shah, Chief Systems Engineer",
+          tags: ["hvac", "safety", "mechanics"]
+        },
+        {
+          id: "cctv-wifi",
+          title: "Cable Fatigue Physics: Millimeter wave bridges in high velocity shafts",
+          category: "Safety",
+          summary: "Analyzing the flex tension that snaps CAT6 lines, and why 60GHz beamforming transceivers provide uninterrupted security feeds.",
+          author: "Elena Rostov, Comms Specialist",
+          tags: ["wireless", "cctv", "networking"]
+        },
+        {
+          id: "iot-vibe",
+          title: "Edge Vibration Analytics: Diagnosing rail misalignments before fail",
+          category: "IoT",
+          summary: "How edge-computed Fast Fourier Transform (FFT) algorithms identify micro-bearing failures in elevator guide shoes.",
+          author: "Dr. Aris Thorne, Systems Architect",
+          tags: ["iot", "predictive", "telemetry"]
+        }
+      ];
+
+      const FAQS_DATA = [
+        {
+          id: "faq-1",
+          question: "Why can't building operators install a regular residential AC on top of an elevator cabin?",
+          answer: "Residential or portable AC units accumulate water condensation. Elevators run alongside high-voltage cable grids and traction ropes. Dripping water inside a hoistway violates standard national fire and safety codes. Elevatech's Dry AC re-evaporates condensation into atomized hot air, keeping high-voltage areas completely dry."
+        },
+        {
+          id: "faq-2",
+          question: "Does the wireless CCTV system suffer from signal interference in tight metal shafts?",
+          answer: "No. Our millimeter-wave transceivers operate on highly directional, high-frequency beam bands (5.8GHz and 60GHz) that bypass steel rope multipath reflections. This guarantees stable, low-latency (<1.5ms) feeds in all moving states."
+        },
+        {
+          id: "faq-3",
+          question: "Can these upgrades fit on any brand of elevator, such as Kone, Schindler, or Otis?",
+          answer: "Yes, our solutions are brand-agnostic. They are designed to fit on any universal car-chassis, utilizing standard mounting rails and universal power inputs."
+        }
+      ];
+
+      // 2. RUNTIME APP STATE
+      let currentExplorerTab = 'solutions'; // 'solutions' or 'industries'
+      let activeSolutionId = 'passenger-comfort';
+      let activeIndustryId = 'commercial-towers';
+      let chatHistory = [];
+      let crmLeads = [];
+
+      // Initialize on load
+      window.onload = function() {
+        renderExplorerSidebar();
+        renderExplorerPanel();
+        renderArticles();
+        renderFaqs();
+        syncLeadsFromBackend();
+        recalculateEstimates();
+      };
+
+      // Navigation routing
+      function switchTab(tabId) {
+        document.getElementById('tab-content-home').classList.add('hidden');
+        document.getElementById('tab-content-builder').classList.add('hidden');
+        document.getElementById('tab-content-knowledge').classList.add('hidden');
+
+        document.getElementById(`tab-content-${tabId}`).classList.remove('hidden');
+
+        // Update nav styling
+        ['home', 'builder', 'knowledge'].forEach(t => {
+          const btn = document.getElementById(`nav-${t}`);
+          if (btn) {
+            btn.className = "text-sm font-medium tracking-wide hover:text-sky-400 transition-colors " + 
+                            (t === tabId ? "text-sky-400 font-semibold" : "text-slate-300");
+          }
+        });
+
+        // Scroll back to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // 3. EXPLORER tab switcher
+      function setExplorerTab(tab) {
+        currentExplorerTab = tab;
+        
+        // Buttons
+        const solBtn = document.getElementById('exp-tab-solutions');
+        const indBtn = document.getElementById('exp-tab-industries');
+        
+        if (tab === 'solutions') {
+          solBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10";
+          indBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200";
+        } else {
+          indBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all bg-sky-500 text-slate-950 shadow-md shadow-sky-500/10";
+          solBtn.className = "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all text-slate-400 hover:text-slate-200";
+        }
+
+        renderExplorerSidebar();
+        renderExplorerPanel();
+      }
+
+      function renderExplorerSidebar() {
+        const sidebar = document.getElementById('explorer-sidebar');
+        sidebar.innerHTML = '';
+
+        if (currentExplorerTab === 'solutions') {
+          SOLUTIONS_DATA.forEach(sol => {
+            const isActive = sol.id === activeSolutionId;
+            const btn = document.createElement('button');
+            btn.onclick = () => { activeSolutionId = sol.id; renderExplorerSidebar(); renderExplorerPanel(); };
+            btn.className = `flex items-start gap-4 p-4 rounded-xl border text-left transition-all cursor-pointer ${
+              isActive ? "bg-slate-900/60 border-sky-500/40 shadow-lg shadow-sky-500/5" : "bg-transparent border-slate-900 hover:bg-slate-900/20 hover:border-slate-800"
+            }`;
+            btn.innerHTML = `
+              <div class="p-2 rounded-lg shrink-0 ${isActive ? 'bg-sky-500/10 text-sky-400' : 'bg-slate-900 text-slate-400'}">
+                ${sol.icon}
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold leading-tight ${isActive ? 'text-white' : 'text-slate-300'}">${sol.name}</h4>
+                <p class="text-[11px] text-slate-500 mt-1 line-clamp-1">${sol.problem}</p>
+              </div>
+            `;
+            sidebar.appendChild(btn);
+          });
+        } else {
+          INDUSTRIES_DATA.forEach(ind => {
+            const isActive = ind.id === activeIndustryId;
+            const btn = document.createElement('button');
+            btn.onclick = () => { activeIndustryId = ind.id; renderExplorerSidebar(); renderExplorerPanel(); };
+            btn.className = `flex items-start gap-4 p-4 rounded-xl border text-left transition-all cursor-pointer w-full ${
+              isActive ? "bg-slate-900/60 border-sky-500/40 shadow-lg shadow-sky-500/5" : "bg-transparent border-slate-900 hover:bg-slate-900/20 hover:border-slate-800"
+            }`;
+            btn.innerHTML = `
+              <div class="p-2 rounded-lg shrink-0 ${isActive ? 'bg-sky-500/10 text-sky-400' : 'bg-slate-900 text-slate-400'}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+              </div>
+              <div class="self-center">
+                <h4 class="text-sm font-semibold leading-tight ${isActive ? 'text-white' : 'text-slate-300'}">${ind.name}</h4>
+              </div>
+            `;
+            sidebar.appendChild(btn);
+          });
+        }
+      }
+
+      function renderExplorerPanel() {
+        const panel = document.getElementById('explorer-panel');
+        panel.innerHTML = '';
+
+        if (currentExplorerTab === 'solutions') {
+          const sol = SOLUTIONS_DATA.find(s => s.id === activeSolutionId) || SOLUTIONS_DATA[0];
+          panel.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+              <div class="md:col-span-8 space-y-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] text-sky-400 font-mono uppercase tracking-wider">Solution Blueprint</span>
+                  <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  <span class="text-[10px] text-slate-300 font-mono">${sol.name}</span>
+                </div>
+                <h3 class="text-2xl font-display font-bold text-white tracking-tight">${sol.name}</h3>
+                <p class="text-xs text-slate-400 leading-relaxed border-l-2 border-sky-500/20 pl-3">
+                  <strong class="text-sky-400 font-normal">Core Roadblock:</strong> ${sol.problem}
+                </p>
+              </div>
+              <div class="md:col-span-4 rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+                <img src="${sol.image}" alt="${sol.name}" class="w-full h-32 object-cover opacity-80" referrerpolicy="no-referrer">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-slate-900">
+              <div class="bg-slate-950/40 border border-slate-900 p-5 rounded-xl">
+                <span class="text-[9px] text-rose-400 font-mono uppercase tracking-wider block mb-1">Engineering Challenge</span>
+                <p class="text-xs text-slate-300 font-sans font-light leading-relaxed">${sol.challenge}</p>
+              </div>
+              <div class="bg-sky-500/5 border border-sky-500/10 p-5 rounded-xl">
+                <span class="text-[9px] text-sky-400 font-mono uppercase tracking-wider block mb-1">Elevatech Engineered Fix</span>
+                <p class="text-xs text-slate-300 font-sans font-light leading-relaxed">${sol.fix}</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 pt-4">
+              <span class="text-[10px] font-mono font-semibold uppercase text-slate-500 tracking-widest block">Verifiable Operational Benefits</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                ${sol.benefits.map(b => `
+                  <div class="flex items-start gap-2 p-3 bg-slate-900/30 rounded-lg border border-slate-900/50">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span class="text-xs font-light text-slate-300">${b}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-900 space-y-4">
+              <span class="text-[10px] font-mono font-semibold uppercase text-sky-500 tracking-widest block">Product Specifications Datasheet</span>
+              <div class="bg-slate-950 border border-slate-900 rounded-xl p-5 space-y-4">
+                <div class="flex justify-between items-center gap-2">
+                  <h4 class="text-sm font-bold text-white">${sol.name} - Model Core</h4>
+                  <span class="text-[9px] font-mono text-slate-500 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">SKU: ${sol.sku}</span>
+                </div>
+                <div class="bg-slate-900/40 rounded-lg overflow-hidden border border-slate-800/50 divide-y divide-slate-900">
+                  ${Object.entries(sol.specs).map(([lbl, val]) => `
+                    <div class="grid grid-cols-2 px-4 py-2 text-[11px]">
+                      <span class="font-mono text-slate-500">${lbl}</span>
+                      <span class="font-mono text-slate-300 font-medium text-right">${val}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          const ind = INDUSTRIES_DATA.find(i => i.id === activeIndustryId) || INDUSTRIES_DATA[0];
+          panel.innerHTML = `
+            <div class="border-b border-slate-900 pb-4">
+              <span class="text-[10px] text-sky-400 font-mono uppercase tracking-wider">Target Vertical Profile</span>
+              <h3 class="text-2xl font-display font-bold text-white tracking-tight mt-1">${ind.name}</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-rose-950/10 border border-rose-900/20 p-5 rounded-xl space-y-3">
+                <span class="text-[10px] text-rose-400 font-mono uppercase tracking-wider block font-bold border-b border-rose-900/25 pb-1.5">Sector Challenges</span>
+                <ul class="space-y-2.5">
+                  ${ind.challenges.map(c => `
+                    <li class="flex items-start gap-2 text-xs text-slate-300 font-sans font-light leading-relaxed">
+                      <svg class="w-4 h-4 text-rose-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                      <span>${c}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+
+              <div class="bg-emerald-950/10 border border-emerald-900/20 p-5 rounded-xl space-y-3">
+                <span class="text-[10px] text-emerald-400 font-mono uppercase tracking-wider block font-bold border-b border-emerald-900/25 pb-1.5">Recommended Solution Set</span>
+                <ul class="space-y-2.5">
+                  ${ind.solutions.map(s => `
+                    <li class="flex items-start gap-2 text-xs text-slate-300 font-sans font-light leading-relaxed">
+                      <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      <span>${s}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-900 rounded-xl p-6 space-y-3">
+              <span class="text-[9px] text-sky-400 font-mono uppercase tracking-wider block font-bold">B2B Case Study Proof of Concept</span>
+              <p class="text-xs text-slate-300 leading-relaxed font-sans font-light">${ind.case}</p>
+            </div>
+          `;
+        }
+      }
+
+      // 4. KNOWLEDGE BASE RENDERERS
+      function renderArticles(filter = "") {
+        const grid = document.getElementById('articles-target-grid');
+        grid.innerHTML = '';
+
+        const filtered = TECH_ARTICLES_DATA.filter(art => 
+          art.title.toLowerCase().includes(filter.toLowerCase()) || 
+          art.summary.toLowerCase().includes(filter.toLowerCase())
+        );
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="col-span-3 text-center py-8 text-xs text-slate-500 font-mono">No reference articles match your search parameters.</div>`;
+          return;
+        }
+
+        filtered.forEach(art => {
+          const block = document.createElement('article');
+          block.className = "bg-slate-900/35 border border-slate-900 hover:border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4 transition-all";
+          block.innerHTML = `
+            <div class="space-y-2.5">
+              <div class="flex justify-between items-center text-[9px] font-mono">
+                <span class="text-sky-400 bg-sky-950/40 border border-sky-900/30 px-2 py-0.5 rounded">${art.category}</span>
+                <span class="text-slate-500">6 min read</span>
+              </div>
+              <h3 class="text-xs font-sans font-bold text-white leading-tight hover:text-sky-400 cursor-pointer">${art.title}</h3>
+              <p class="text-xs text-slate-400 leading-relaxed font-sans font-light">${art.summary}</p>
+            </div>
+            <div class="pt-3 border-t border-slate-900 text-[10px] text-slate-500 font-mono">
+              Authored by: <span class="text-slate-300">${art.author}</span>
+              <div class="flex gap-1.5 mt-2">
+                ${art.tags.map(t => `<span class="text-[9px] text-slate-600">#${t}</span>`).join('')}
+              </div>
+            </div>
+          `;
+          grid.appendChild(block);
+        });
+      }
+
+      function renderFaqs() {
+        const list = document.getElementById('faqs-target-list');
+        list.innerHTML = '';
+
+        FAQS_DATA.forEach((faq, idx) => {
+          const div = document.createElement('div');
+          div.className = "py-4 first:pt-0 last:pb-0";
+          div.innerHTML = `
+            <button onclick="toggleFaqAccordion('${faq.id}')" class="w-full flex justify-between items-center text-left text-xs font-bold text-slate-200 hover:text-white py-1.5">
+              <span class="flex items-center gap-2.5">
+                <span class="text-sky-400 font-mono">?</span>
+                <span>${faq.question}</span>
+              </span>
+              <span id="faq-chevron-${faq.id}" class="text-slate-500 text-xs font-mono">+</span>
+            </button>
+            <div id="faq-answer-${faq.id}" class="hidden pl-5 pt-2 text-[11px] text-slate-400 leading-relaxed font-light">
+              ${faq.answer}
+            </div>
+          `;
+          list.appendChild(div);
+        });
+      }
+
+      function toggleFaqAccordion(id) {
+        const ans = document.getElementById(`faq-answer-${id}`);
+        const chev = document.getElementById(`faq-chevron-${id}`);
+        if (ans.classList.contains('hidden')) {
+          ans.classList.remove('hidden');
+          chev.innerText = "-";
+        } else {
+          ans.classList.add('hidden');
+          chev.innerText = "+";
+        }
+      }
+
+      function filterArticles(val) {
+        renderArticles(val);
+      }
+
+      // 5. INTERACTIVE SPEC CONFIGURATOR SIZING & SUBMISSIONS
+      function updateCabCountSlider(val) {
+        document.getElementById('cab-count-val').innerText = val;
+        recalculateEstimates();
+      }
+
+      function recalculateEstimates() {
+        const cabs = parseInt(document.getElementById('config-cabs').value) || 1;
+        const btu = cabs * 9000;
+        const savings = cabs * 2400;
+
+        document.getElementById('est-cars').innerText = `${cabs} units`;
+        document.getElementById('est-btu').innerText = `${btu.toLocaleString()} BTU`;
+        
+        const wirelessChecked = document.getElementById('u-cctv').checked;
+        document.getElementById('est-bridges').innerText = wirelessChecked ? `${cabs} links` : "0 links";
+        
+        const cableConstraints = document.getElementById('c-cable').checked;
+        document.getElementById('est-savings').innerText = cableConstraints ? `~$${savings.toLocaleString()} / yr` : "$0 / yr";
+      }
+
+      async function submitRfqForm() {
+        const name = document.getElementById('rfq-name').value.trim();
+        const company = document.getElementById('rfq-company').value.trim();
+        const email = document.getElementById('rfq-email').value.trim();
+        const phone = document.getElementById('rfq-phone').value.trim();
+        const notes = document.getElementById('rfq-notes').value.trim();
+
+        if (!name || !company || !email) {
+          alert("Contact Name, Company, and Business Email are required to compile an RFQ.");
+          return;
+        }
+
+        const sector = document.getElementById('config-sector').value;
+        const cabs = parseInt(document.getElementById('config-cabs').value) || 1;
+
+        // Constraints array
+        const shaftConstraints = [];
+        if (document.getElementById('c-water').checked) shaftConstraints.push("Water Discharge Ban");
+        if (document.getElementById('c-cable').checked) shaftConstraints.push("CAT6 Breakages");
+        if (document.getElementById('c-signal').checked) shaftConstraints.push("Faraday-Cage Cellular Drops");
+
+        // Solutions array
+        const selectedSolutions = [];
+        if (document.getElementById('u-ac').checked) selectedSolutions.push("Dry AC Water-Free Cabin Cooler");
+        if (document.getElementById('u-cctv').checked) selectedSolutions.push("Wireless CCTV Smart-Link");
+        if (document.getElementById('u-iot').checked) selectedSolutions.push("G3 IoT Smart Gateway System");
+
+        // Disable button while processing
+        const btn = document.getElementById('submit-rfq-btn');
+        btn.disabled = true;
+        btn.innerText = "Analyzing Engineering Constraints...";
+
+        try {
+          const response = await fetch("/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              clientName: name,
+              companyName: company,
+              email: email,
+              phone: phone,
+              buildingType: sector,
+              elevatorCount: cabs,
+              shaftConstraints,
+              selectedSolutions,
+              additionalNotes: notes
+            })
+          });
+
+          const data = await response.json();
+          if (data.success) {
+            document.getElementById('rfq-success-box').classList.remove('hidden');
+            document.getElementById('rfq-success-text').innerHTML = `Lead reference <strong>${data.lead.id}</strong> compiled safely. Sizing metrics forwarded to B2B Estimating Desk.`;
+            
+            if (data.lead.aiAssessment) {
+              document.getElementById('rfq-ai-box').classList.remove('hidden');
+              document.getElementById('rfq-ai-text').innerText = `"${data.lead.aiAssessment}"`;
+            } else {
+              document.getElementById('rfq-ai-box').classList.add('hidden');
+            }
+
+            // Clear inputs
+            document.getElementById('rfq-name').value = '';
+            document.getElementById('rfq-company').value = '';
+            document.getElementById('rfq-email').value = '';
+            document.getElementById('rfq-phone').value = '';
+            document.getElementById('rfq-notes').value = '';
+
+            // Update CRM numbers immediately
+            syncLeadsFromBackend();
+          } else {
+            alert(data.error || "Failed to submit B2B lead spec.");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error communicating with B2B lead API.");
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "Compile Spec & Request RFQ Assessment";
+        }
+      }
+
+      // 6. CRM ADMIN LEADS PANEL ACTIONS
+      async function syncLeadsFromBackend() {
+        try {
+          const response = await fetch("/api/leads");
+          if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.leads) {
+              crmLeads = data.leads;
+              updateLeadsDisplay();
+            }
+          }
+        } catch (err) {
+          console.error("CRM Sync failure:", err);
+        }
+      }
+
+      function updateLeadsDisplay() {
+        const feed = document.getElementById('crm-leads-feed');
+        feed.innerHTML = '';
+
+        // Badge
+        const badge = document.getElementById('leads-count-badge');
+        if (crmLeads.length > 0) {
+          badge.innerText = crmLeads.length;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+
+        // Stats calculators
+        const total = crmLeads.length;
+        const priority = crmLeads.filter(l => l.buildingType.includes("Commercial") || l.shaftConstraints.length >= 2).length;
+        const units = crmLeads.reduce((acc, l) => acc + (parseInt(l.elevatorCount) || 1), 0);
+        const savings = crmLeads.reduce((acc, l) => {
+          let s = 0;
+          if (l.shaftConstraints.includes("CAT6 Breakages")) {
+            s += (parseInt(l.elevatorCount) || 1) * 2400;
+          }
+          return acc + s;
+        }, 0);
+
+        document.getElementById('stat-total').innerText = total;
+        document.getElementById('stat-priority').innerText = priority;
+        document.getElementById('stat-units').innerText = `${units} cars`;
+        document.getElementById('stat-savings').innerText = `$${savings.toLocaleString()}`;
+
+        if (total === 0) {
+          feed.innerHTML = `<div class="text-center py-12 text-slate-500 font-mono text-xs">No corporate leads recorded in this session. Create a spec above.</div>`;
+          return;
+        }
+
+        crmLeads.forEach(lead => {
+          const card = document.createElement('div');
+          card.className = "bg-slate-900 border border-slate-850 p-5 rounded-xl space-y-4 shadow-md";
+          card.innerHTML = `
+            <div class="flex flex-col sm:flex-row justify-between items-start gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>${lead.clientName}</span>
+                  <span class="text-slate-500">/</span>
+                  <span class="text-sky-400 text-xs font-mono font-semibold">${lead.companyName}</span>
+                </h4>
+                <div class="flex flex-wrap gap-4 text-[9px] text-slate-500 font-mono mt-1.5">
+                  <span>Timestamp: ${new Date(lead.timestamp).toLocaleTimeString()}</span>
+                  <span>Category: ${lead.buildingType} (${lead.elevatorCount} active)</span>
+                </div>
+              </div>
+              <span class="text-[9px] text-slate-500 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">Lead Ref: ${lead.id}</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans font-light">
+              <div>
+                ${lead.shaftConstraints.length > 0 ? `
+                  <div class="mb-2">
+                    <span class="text-[8px] font-mono text-rose-400 uppercase tracking-widest font-bold block mb-1">Constraints</span>
+                    <div class="flex flex-wrap gap-1">
+                      ${lead.shaftConstraints.map(c => `<span class="bg-rose-950/20 border border-rose-900/30 text-rose-300 px-2 py-0.5 rounded text-[9px] font-mono">⚠ ${c}</span>`).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+
+                ${lead.selectedSolutions.length > 0 ? `
+                  <div>
+                    <span class="text-[8px] font-mono text-sky-400 uppercase tracking-widest font-bold block mb-1">Upgrades Chosen</span>
+                    <div class="flex flex-wrap gap-1">
+                      ${lead.selectedSolutions.map(s => `<span class="bg-sky-950/20 border border-sky-900/30 text-sky-300 px-2 py-0.5 rounded text-[9px] font-mono">✦ ${s}</span>`).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-850/60 space-y-1 font-mono text-[10px]">
+                <div>Email: <a href="mailto:${lead.email}" class="text-sky-400 hover:underline">${lead.email}</a></div>
+                ${lead.phone ? `<div>Phone: ${lead.phone}</div>` : ''}
+                ${lead.additionalNotes ? `<div class="text-slate-500 italic mt-2 border-t border-slate-900 pt-1">"${lead.additionalNotes}"</div>` : ''}
+              </div>
+            </div>
+
+            ${lead.aiAssessment ? `
+              <div class="bg-sky-950/10 border border-sky-500/10 p-4 rounded-lg flex items-start gap-3">
+                <div class="p-1 bg-sky-500/10 rounded text-sky-400 shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                  <span class="text-[8px] font-mono text-sky-400 uppercase tracking-widest font-bold block mb-0.5">Systems AI Technical Pre-Assessment</span>
+                  <p class="text-xs text-slate-300 italic">"${lead.aiAssessment}"</p>
+                </div>
+              </div>
+            ` : ''}
+          `;
+          feed.appendChild(card);
+        });
+      }
+
+      // 7. SMART SYSTEMS AI ADVISOR CHAT ACTIONS
+      async function sendChatMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        input.value = '';
+        await appendChatBubble('user', text);
+
+        // Append loader
+        const loader = document.createElement('div');
+        loader.id = "chat-bubble-loader";
+        loader.className = "flex gap-3 mr-auto max-w-[85%]";
+        loader.innerHTML = `
+          <div class="p-2 h-8 w-8 rounded-full border bg-sky-500/10 border-sky-500/20 text-sky-400 shrink-0 flex items-center justify-center">O</div>
+          <div class="bg-slate-950 border border-slate-850 rounded-2xl rounded-tl-none px-4 py-3 text-xs text-slate-500 flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19"></path></svg>
+            <span>Systems Advisor is evaluating mechanical limits...</span>
+          </div>
+        `;
+        document.getElementById('chat-feed-box').appendChild(loader);
+        document.getElementById('chat-feed-box').scrollTop = document.getElementById('chat-feed-box').scrollHeight;
+
+        try {
+          const response = await fetch("/api/advisor/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              messages: chatHistory.map(m => ({ role: m.role, content: m.content }))
+            })
+          });
+
+          const data = await response.json();
+          document.getElementById('chat-bubble-loader').remove();
+
+          if (response.status === 503) {
+            appendChatBubble('assistant', data.fallbackResponse || "Offline consultation mode enabled.");
+          } else if (response.ok && data.response) {
+            appendChatBubble('assistant', data.response);
+          } else {
+            appendChatBubble('assistant', "I encountered an error calculating those tolerances. Standard engineering datasheets apply.");
+          }
+        } catch (err) {
+          console.error(err);
+          document.getElementById('chat-bubble-loader').remove();
+          appendChatBubble('assistant', "Communication dropout inside metal shaft corridor. Standard compliance guidelines apply.");
+        }
+      }
+
+      function appendChatBubble(role, content) {
+        chatHistory.push({ role, content });
+        const box = document.getElementById('chat-feed-box');
+        
+        const bubble = document.createElement('div');
+        bubble.className = `flex gap-3 max-w-[85%] ${role === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'}`;
+        bubble.innerHTML = `
+          <div class="p-2 h-8 w-8 rounded-full border shrink-0 flex items-center justify-center text-xs ${role === 'user' ? 'bg-slate-800 border-slate-700 text-sky-400' : 'bg-sky-500/15 border-sky-500/10 text-sky-400'}">
+            ${role === 'user' ? 'U' : 'A'}
+          </div>
+          <div class="rounded-2xl px-4 py-3 text-xs leading-relaxed font-sans ${role === 'user' ? 'bg-sky-600 text-white rounded-tr-none' : 'bg-slate-950 border border-slate-850 text-slate-300 rounded-tl-none font-light'}">
+            ${content}
+          </div>
+        `;
+        box.appendChild(bubble);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      function submitChatPrompt(prompt) {
+        document.getElementById('chat-input').value = prompt;
+        sendChatMessage();
+      }
+
+      // Modal open/close utilities
+      function toggleStrategyModal(isOpen) {
+        const modal = document.getElementById('strategy-modal');
+        if (isOpen) modal.classList.remove('hidden');
+        else modal.classList.add('hidden');
+      }
+
+      function toggleLeadsModal(isOpen) {
+        const modal = document.getElementById('leads-modal');
+        if (isOpen) {
+          modal.classList.remove('hidden');
+          syncLeadsFromBackend();
+        } else {
+          modal.classList.add('hidden');
+        }
+      }
+
+      function toggleAdvisorModal(isOpen) {
+        const modal = document.getElementById('advisor-modal');
+        if (isOpen) modal.classList.remove('hidden');
+        else modal.classList.add('hidden');
+      }
+
+      function openAdvisor() { toggleAdvisorModal(true); }
+      function openLeadConsole() { toggleLeadsModal(true); }
+    </script>
   </body>
 </html>
-
