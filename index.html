@@ -35,6 +35,7 @@
             padding: 25px 6%;
             background-color: #000000;
             border-bottom: 1px solid #141414;
+            width: 100%;
         }
         .logo {
             color: #a855f7;
@@ -58,18 +59,20 @@
             color: #06b6d4;
         }
 
-        /* Widescreen Layout Grid Config */
+        /* FIXED: Widescreen Layout Grid Config with forced 100% expansion */
         .wrapper {
+            width: 100%;
             max-width: 1350px;
             margin: 50px auto;
             padding: 0 6%;
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: minmax(0, 1fr) 350px;
             gap: 60px;
         }
 
-        /* Left Main Content Layout Column */
+        /* FIXED: Left Main Content Layout Column forced to fill space */
         .content-area {
+            width: 100%;
             min-width: 0;
         }
         .main-title {
@@ -319,6 +322,7 @@
             letter-spacing: 2px;
             border-radius: 6px;
             margin-top: 30px;
+            width: 100%;
         }
 
         /* COMPLIANT STUDIO FOOTER STYLING */
@@ -330,6 +334,7 @@
             font-size: 0.85rem;
             color: #555555;
             margin-top: 80px;
+            width: 100%;
         }
         footer .footer-content {
             max-width: 1350px;
@@ -470,7 +475,6 @@
 
             <!-- ADVERTISEMENT DISPLAY PLACEMENT AREA -->
             <div class="ad-placeholder">
-                <!-- AdSense Auto-Ads or In-Article Units Will Render Here Naturally -->
                 Advertisement Space
             </div>
 
@@ -486,7 +490,7 @@
                     <span>Artist Profile</span>
                 </div>
                 
-                <!-- Fixed Logo Image Container (pointing to your manual .jpg adjustment) -->
+                <!-- Fixed Logo Image Container pointing to your manual .jpg adjustment -->
                 <div class="avatar-box">
                     <img src="logo.jpg" alt="Heartscript Studios Logo">
                 </div>
