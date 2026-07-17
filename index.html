@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Official Profile | Heartscript Studios</title>
+    
+    <!-- REQUIRED GOOGLE ADSENSE CODE AREA -->
+    <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your actual AdSense Publisher ID -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
     <style>
         /* Core Reset & Global Dark Theme Styling */
         * {
@@ -16,7 +21,6 @@
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            padding-bottom: 100px;
         }
         a {
             text-decoration: none;
@@ -303,6 +307,47 @@
             letter-spacing: 0.5px;
         }
 
+        /* AD COMPLIANCE PANEL STYLING */
+        .ad-placeholder {
+            background-color: #050505;
+            border: 1px dashed #222222;
+            padding: 20px;
+            text-align: center;
+            color: #444444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        /* COMPLIANT STUDIO FOOTER STYLING */
+        footer {
+            text-align: center;
+            padding: 40px 6%;
+            background-color: #050505;
+            border-top: 1px solid #141414;
+            font-size: 0.85rem;
+            color: #555555;
+            margin-top: 80px;
+        }
+        footer .footer-content {
+            max-width: 1350px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        footer a {
+            color: #06b6d4;
+            transition: color 0.2s;
+        }
+        footer a:hover {
+            color: #a855f7;
+        }
+
         /* Full Responsive Configurations */
         @media (max-width: 992px) {
             .wrapper {
@@ -316,6 +361,10 @@
             }
             .main-title {
                 font-size: 2.2rem;
+            }
+            footer .footer-content {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -419,6 +468,12 @@
                 <button class="media-action-btn">Listen Now</button>
             </div>
 
+            <!-- ADVERTISEMENT DISPLAY PLACEMENT AREA -->
+            <div class="ad-placeholder">
+                <!-- AdSense Auto-Ads or In-Article Units Will Render Here Naturally -->
+                Advertisement Space
+            </div>
+
         </main>
 
         <!-- Right Column: Sidebar Panels Section -->
@@ -431,7 +486,7 @@
                     <span>Artist Profile</span>
                 </div>
                 
-                <!-- Logo Image Container -->
+                <!-- Fixed Logo Image Container (pointing to your manual .jpg adjustment) -->
                 <div class="avatar-box">
                     <img src="logo.jpg" alt="Heartscript Studios Logo">
                 </div>
@@ -439,6 +494,7 @@
                 <ul class="metadata-table">
                     <li><span class="label">Director</span> <span class="val">Heartscript Studios</span></li>
                     <li><span class="label">Born</span> <span class="val">1985 (Age 41)</span></li>
+                    <li><span class="label">Founded</span> <span class="val">August 2025</span></li>
                     <li><span class="label">Based In</span> <span class="val">Hyderabad, India</span></li>
                     <li><span class="label">Focus</span> <span class="val">Dark Pop & Alt-Pop</span></li>
                     <li><span class="label">Distribution</span> <span class="val">Spotify / YouTube</span></li>
@@ -468,6 +524,14 @@
         </aside>
 
     </div>
+
+    <!-- COMPLIANT STUDIO FOOTER CONTAINER -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Heartscript Studios. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy Policy</a></p>
+        </div>
+    </footer>
 
 </body>
 </html>
