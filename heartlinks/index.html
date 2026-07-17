@@ -610,9 +610,6 @@
             const loader = document.getElementById('mockup-loader');
             loader.style.display = 'flex';
 
-            const oldScript = document.getElementById('odesli-jsonp');
-            if (oldScript) oldScript.remove();
-
             try {
                 let targetUrl = "";
                 const isNumericId = /^\d+$/.test(inputVal);
@@ -624,48 +621,44 @@
                     targetUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
                 }
 
-                window.handleOdesliResponse = function(data) {
-                    loader.style.display = 'none';
-                    
-                    if (!data || !data.entityUniqueIds || data.entityUniqueIds.length === 0) {
-                        alert("No track data found on streaming services. Please check the URL and try again.");
-                        return;
-                    }
+                // Use the precise allorigins string payload fetch to prevent script injection failure
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("CORS Proxy Network Connection Failed.");
 
-                    const firstEntityKey = data.entityUniqueIds[0];
-                    const songMeta = data.entitiesByUniqueId[firstEntityKey];
+                const wrapper = await response.json();
+                if (!wrapper || !wrapper.contents) throw new Error("Empty dataset returned from scanning proxy.");
 
-                    if (songMeta) {
-                        document.getElementById('artist-name').value = songMeta.artistName || "";
-                        document.getElementById('track-title').value = songMeta.title || "";
-                        document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
-                    }
+                const data = JSON.parse(wrapper.contents);
+                
+                if (!data.entityUniqueIds || data.entityUniqueIds.length === 0) {
+                    throw new Error("No tracking information matching this ID could be resolved globally.");
+                }
 
-                    const links = data.linksByPlatform;
-                    if (links) {
-                        document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
-                        document.getElementById('link-apple').value = (links.itunes && links.itunes.url) ? links.itunes.url : "";
-                        document.getElementById('link-youtube').value = (links.youtube && links.youtube.url) ? links.youtube.url : "";
-                        document.getElementById('link-amazon').value = (links.amazonMusic && links.amazonMusic.url) ? links.amazonMusic.url : "";
-                    }
+                const firstEntityKey = data.entityUniqueIds[0];
+                const songMeta = data.entitiesByUniqueId[firstEntityKey];
 
-                    updatePreview();
-                };
+                if (songMeta) {
+                    document.getElementById('artist-name').value = songMeta.artistName || "";
+                    document.getElementById('track-title').value = songMeta.title || "";
+                    document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
+                }
 
-                const script = document.createElement('script');
-                script.id = 'odesli-jsonp';
-                script.src = `${targetUrl}&callback=handleOdesliResponse`;
-                script.onerror = function() {
-                    loader.style.display = 'none';
-                    alert("Network error: Could not reach the link fetcher service directly.");
-                };
+                const links = data.linksByPlatform;
+                if (links) {
+                    document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
+                    document.getElementById('link-apple').value = (links.itunes && links.itunes.url) ? links.itunes.url : "";
+                    document.getElementById('link-youtube').value = (links.youtube && links.youtube.url) ? links.youtube.url : "";
+                    document.getElementById('link-amazon').value = (links.amazonMusic && links.amazonMusic.url) ? links.amazonMusic.url : "";
+                }
 
-                document.body.appendChild(script);
-
+                updatePreview();
             } catch (error) {
-                alert("Error during Auto-Fetch:\n\n" + error.message);
-                loader.style.display = 'none';
+                alert("Scan Alert:\n\n" + error.message + "\n\nFeel free to expand the Manual Overrides below to insert details directly.");
                 console.error(error);
+            } finally {
+                loader.style.display = 'none';
             }
         }
 
