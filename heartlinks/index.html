@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HeartLinks - Instant Smart Links | Heartscript Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -610,6 +610,9 @@
             const loader = document.getElementById('mockup-loader');
             loader.style.display = 'flex';
 
+            const oldScript = document.getElementById('odesli-jsonp');
+            if (oldScript) oldScript.remove();
+
             try {
                 let targetUrl = "";
                 const isNumericId = /^\d+$/.test(inputVal);
@@ -621,46 +624,48 @@
                     targetUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
                 }
 
-                // SECURE CORS BYPASS PROXY
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                window.handleOdesliResponse = function(data) {
+                    loader.style.display = 'none';
+                    
+                    if (!data || !data.entityUniqueIds || data.entityUniqueIds.length === 0) {
+                        alert("No track data found on streaming services. Please check the URL and try again.");
+                        return;
+                    }
 
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error("CORS Proxy Network Request Failed.");
+                    const firstEntityKey = data.entityUniqueIds[0];
+                    const songMeta = data.entitiesByUniqueId[firstEntityKey];
 
-                const wrapper = await response.json();
-                if (!wrapper || !wrapper.contents) throw new Error("Proxy returned an empty payload. The link pasted may be incorrect or missing letters.");
-                
-                // Parse the response
-                const data = JSON.parse(wrapper.contents);
-                
-                // Check if the API returned actual track matches
-                if (!data.entityUniqueIds || data.entityUniqueIds.length === 0) {
-                    throw new Error("No track data found on streaming services for this URL. Please verify the URL in a browser first.");
-                }
+                    if (songMeta) {
+                        document.getElementById('artist-name').value = songMeta.artistName || "";
+                        document.getElementById('track-title').value = songMeta.title || "";
+                        document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
+                    }
 
-                const firstEntityKey = data.entityUniqueIds[0];
-                const songMeta = data.entitiesByUniqueId[firstEntityKey];
+                    const links = data.linksByPlatform;
+                    if (links) {
+                        document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
+                        document.getElementById('link-apple').value = (links.itunes && links.itunes.url) ? links.itunes.url : "";
+                        document.getElementById('link-youtube').value = (links.youtube && links.youtube.url) ? links.youtube.url : "";
+                        document.getElementById('link-amazon').value = (links.amazonMusic && links.amazonMusic.url) ? links.amazonMusic.url : "";
+                    }
 
-                if (songMeta) {
-                    document.getElementById('artist-name').value = songMeta.artistName || "";
-                    document.getElementById('track-title').value = songMeta.title || "";
-                    document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
-                }
+                    updatePreview();
+                };
 
-                const links = data.linksByPlatform;
-                if (links) {
-                    document.getElementById('link-spotify').value = (links.spotify && links.spotify.url) ? links.spotify.url : "";
-                    document.getElementById('link-apple').value = (links.itunes && links.itunes.url) ? links.itunes.url : "";
-                    document.getElementById('link-youtube').value = (links.youtube && links.youtube.url) ? links.youtube.url : "";
-                    document.getElementById('link-amazon').value = (links.amazonMusic && links.amazonMusic.url) ? links.amazonMusic.url : "";
-                }
+                const script = document.createElement('script');
+                script.id = 'odesli-jsonp';
+                script.src = `${targetUrl}&callback=handleOdesliResponse`;
+                script.onerror = function() {
+                    loader.style.display = 'none';
+                    alert("Network error: Could not reach the link fetcher service directly.");
+                };
 
-                updatePreview();
+                document.body.appendChild(script);
+
             } catch (error) {
-                alert("Error during Auto-Fetch:\n\n" + error.message + "\n\n(Tip: Double check that the Spotify link was not cut off!)");
-                console.error(error);
-            } finally {
+                alert("Error during Auto-Fetch:\n\n" + error.message);
                 loader.style.display = 'none';
+                console.error(error);
             }
         }
 
@@ -701,13 +706,11 @@
             const listContainer = document.getElementById('prev-links');
             listContainer.innerHTML = "";
 
-            // Populate active platforms
             addPlatformButton(listContainer, 'link-spotify', 'Spotify', defaultLogos.spotify);
             addPlatformButton(listContainer, 'link-apple', 'Apple Music', defaultLogos.itunes);
             addPlatformButton(listContainer, 'link-youtube', 'YouTube', defaultLogos.youtube);
             addPlatformButton(listContainer, 'link-amazon', 'Amazon Music', defaultLogos.amazonMusic);
 
-            // Populate user custom platforms
             customPlatforms.forEach(platform => {
                 const linkElement = document.createElement('a');
                 linkElement.href = platform.url;
