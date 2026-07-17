@@ -223,7 +223,7 @@
             font-weight: 600;
         }
         
-        /* The Graphic Logo Box inside Sidebar */
+        /* The Image Container Box inside Sidebar */
         .avatar-box {
             width: 100%;
             aspect-ratio: 1;
@@ -231,15 +231,12 @@
             border: 1px solid #1c1c1c;
             border-radius: 4px;
             margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden; /* Keeps the image corners clean */
         }
-        .avatar-box span {
-            color: #a855f7;
-            font-weight: 800;
-            font-size: 2.5rem;
-            letter-spacing: 3px;
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Forces the logo image to fill the square perfectly */
         }
 
         /* Sidebar Meta Data Table Rows */
@@ -427,9 +424,9 @@
                     <span>Artist Profile</span>
                 </div>
                 
-                <!-- High-Impact Graphic Logo Box Container -->
+                <!-- RESTORED: Real Image Container for your Logo File -->
                 <div class="avatar-box">
-                    <span>HS</span>
+                    <img src="logo.png" alt="Heartscript Studios Logo">
                 </div>
 
                 <ul class="metadata-table">
