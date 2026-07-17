@@ -204,6 +204,46 @@
             transform: translateY(-1px);
         }
 
+        /* File Upload Engine Button styling */
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--accent-pink);
+            background: rgba(217, 70, 239, 0.02);
+            box-shadow: 0 0 10px rgba(217, 70, 239, 0.1);
+        }
+
+        .file-input-hidden {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
         /* Collapsible Manual Settings Panel */
         .collapsible-trigger {
             background: transparent;
@@ -231,7 +271,7 @@
         }
 
         .advanced-settings-panel.open {
-            max-height: 1000px;
+            max-height: 1200px;
             padding: 1.5rem;
             border: 1px dashed rgba(255, 255, 255, 0.05);
         }
@@ -316,7 +356,7 @@
             background-size: cover;
             background-position: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: background-image 0.3s ease;
+            transition: background-image 0.2s ease;
         }
 
         .mockup-title {
@@ -485,6 +525,7 @@
 
                 <!-- Hidden by default advanced fields panel -->
                 <div id="advanced-panel" class="advanced-settings-panel">
+                    
                     <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--accent-cyan); text-transform: uppercase;">Manual Meta Tuning</h3>
                     
                     <div class="input-group">
@@ -497,9 +538,15 @@
                         <input type="text" id="track-title" class="input-field" placeholder="Release Title Override" oninput="updatePreview()">
                     </div>
 
+                    <!-- Native File Upload Wrapper Interface -->
                     <div class="input-group">
-                        <label>Cover Art URL</label>
-                        <input type="text" id="cover-art" class="input-field" placeholder="Image URL Override" oninput="updatePreview()">
+                        <label>Cover Art Image</label>
+                        <div class="file-upload-wrapper">
+                            <label for="cover-art-file" class="file-upload-label" id="upload-status-text">
+                                📁 Choose Cover Art File...
+                            </label>
+                            <input type="file" id="cover-art-file" class="file-input-hidden" accept="image/*" onchange="handleImageUpload(this)">
+                        </div>
                     </div>
 
                     <h3 style="font-size: 0.95rem; font-weight: 700; margin: 2rem 0 1.2rem 0; color: var(--accent-pink); text-transform: uppercase;">Direct Platform Overwrites</h3>
@@ -580,6 +627,7 @@
 
     <script>
         let customPlatforms = [];
+        let uploadedImageBase64 = ""; // Holds the local uploaded image data
 
         const defaultLogos = {
             spotify: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
@@ -597,6 +645,21 @@
             } else {
                 panel.classList.add('open');
                 icon.innerText = "▲";
+            }
+        }
+
+        // Handle the dynamic conversion of the uploaded local image file
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    uploadedImageBase64 = e.target.result; // Dynamic base64 URL string
+                    document.getElementById('upload-status-text').innerHTML = "✅ Art Loaded: " + input.files[0].name;
+                    updatePreview(); // Trigger instant smartphone mockup paint
+                };
+                
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
@@ -621,7 +684,6 @@
                     targetUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
                 }
 
-                // Use the precise allorigins string payload fetch to prevent script injection failure
                 const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
                 
                 const response = await fetch(proxyUrl);
@@ -642,7 +704,11 @@
                 if (songMeta) {
                     document.getElementById('artist-name').value = songMeta.artistName || "";
                     document.getElementById('track-title').value = songMeta.title || "";
-                    document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
+                    // Fallback to fetch album art from API if no manual local upload is currently selected
+                    if (!uploadedImageBase64) {
+                        uploadedImageBase64 = songMeta.thumbnailUrl || "";
+                        document.getElementById('upload-status-text').innerHTML = "🌐 Fetched Artwork Automatically";
+                    }
                 }
 
                 const links = data.linksByPlatform;
@@ -684,14 +750,13 @@
         function updatePreview() {
             const artist = document.getElementById('artist-name').value || 'Velvet Solar System';
             const track = document.getElementById('track-title').value || 'Synthetic Dreams';
-            const cover = document.getElementById('cover-art').value;
 
             document.getElementById('prev-artist').innerText = artist;
             document.getElementById('prev-track').innerText = track;
 
             const avatar = document.getElementById('prev-avatar');
-            if (cover && cover.trim() !== "") {
-                avatar.style.backgroundImage = `url('${cover}')`;
+            if (uploadedImageBase64 && uploadedImageBase64.trim() !== "") {
+                avatar.style.backgroundImage = `url('${uploadedImageBase64}')`;
             } else {
                 avatar.style.backgroundImage = 'none';
             }
