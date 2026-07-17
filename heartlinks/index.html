@@ -161,6 +161,7 @@
 
         .input-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .input-group label {
@@ -189,17 +190,54 @@
             box-shadow: 0 0 12px var(--border-glow);
         }
 
-        /* Grid configuration for links */
-        .links-builder {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        /* Action Buttons */
+        .primary-btn {
+            background: linear-gradient(to right, #00f2fe, #4facfe);
+            border: none;
+            color: #000;
+            font-weight: 700;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
 
-        @media (max-width: 640px) {
-            .links-builder {
-                grid-template-columns: 1fr;
-            }
+        .primary-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            border: 1px solid var(--accent-pink);
+            color: var(--text-main);
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(217, 70, 239, 0.1);
+            box-shadow: 0 0 10px rgba(217, 70, 239, 0.2);
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        /* Custom Platform Adder section */
+        .custom-platform-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
         }
 
         /* Live Preview Smartphone Mockup */
@@ -221,17 +259,15 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            font-family: inherit;
         }
 
         .phone-screen {
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-y: auto;
-            position: relative;
         }
 
         /* Mini Mockup Dynamic Content Styles */
@@ -245,19 +281,19 @@
         }
 
         .mockup-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            border-radius: 16px; /* Album art rounded square */
             background: #2a2a35;
             margin-bottom: 1rem;
-            border: 3px solid var(--accent-pink);
-            box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
+            border: 2px solid rgba(255,255,255,0.1);
             background-size: cover;
             background-position: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .mockup-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 0.25rem;
             color: var(--text-main);
@@ -279,15 +315,17 @@
 
         .mockup-btn {
             width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
             color: var(--text-main);
-            padding: 1rem;
+            padding: 0.85rem 1.2rem;
             border-radius: 12px;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
@@ -296,6 +334,13 @@
             border-color: var(--accent-cyan);
             background: rgba(0, 242, 254, 0.05);
             transform: scale(1.02);
+        }
+
+        .platform-logo {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            border-radius: 4px;
         }
 
         /* SEO / Educational Text Block */
@@ -372,45 +417,72 @@
         <!-- Left Side: Interactive Controls -->
         <div class="workspace-panel">
             <div class="tool-card">
-                <span class="section-tag">Release Utility</span>
-                <h2 class="tool-title">Generate Smart Links</h2>
+                <span class="section-tag">Instant Smart Link Engine</span>
+                <h2 class="tool-title" style="margin-bottom: 0.5rem;">Magic Link Generator</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Paste a single Spotify, Apple, or YouTube link to auto-fetch metadata and all streaming platforms instantly.</p>
                 
-                <!-- Quick Meta Fields -->
+                <!-- 1. The Magic Link Input -->
+                <div class="input-group flex-row">
+                    <div style="flex-grow: 1;">
+                        <label for="magic-link">Paste Your Track/Album URL</label>
+                        <input type="text" id="magic-link" class="input-field" placeholder="Paste Spotify, Apple Music, or YouTube link here...">
+                    </div>
+                    <button class="primary-btn" onclick="fetchSongDetails()">Fetch All Platforms</button>
+                </div>
+
+                <div id="loading-spinner" style="display: none; color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    ⚡ Scanning global platforms, fetching assets...
+                </div>
+
+                <!-- 2. Meta Overrides -->
+                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-pink);">Meta Overrides</h3>
                 <div class="input-group">
                     <label for="artist-name">Artist Name</label>
-                    <input type="text" id="artist-name" class="input-field" placeholder="e.g., Velvet Solar System" oninput="updatePreview()">
+                    <input type="text" id="artist-name" class="input-field" placeholder="Artist Name" oninput="updatePreview()">
                 </div>
 
                 <div class="input-group">
                     <label for="track-title">Release Title</label>
-                    <input type="text" id="track-title" class="input-field" placeholder="e.g., Synthetic Dreams" oninput="updatePreview()">
+                    <input type="text" id="track-title" class="input-field" placeholder="Release Title" oninput="updatePreview()">
                 </div>
 
                 <div class="input-group">
-                    <label for="cover-art">Cover Art Image URL</label>
-                    <input type="text" id="cover-art" class="input-field" placeholder="Paste image link here..." oninput="updatePreview()">
+                    <label for="cover-art">Cover Art Image Link</label>
+                    <input type="text" id="cover-art" class="input-field" placeholder="Image URL..." oninput="updatePreview()">
                 </div>
 
-                <!-- Live Custom Redirects -->
-                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-cyan);">Streaming Redirect Channels</h3>
-                <div class="links-builder">
+                <!-- 3. Standard Platform links -->
+                <h3 style="font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem 0; color: var(--accent-cyan);">Platform Links</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="input-group">
                         <label for="link-spotify">Spotify Link</label>
-                        <input type="text" id="link-spotify" class="input-field" placeholder="https://spotify.com/..." oninput="updatePreview()">
+                        <input type="text" id="link-spotify" class="input-field" placeholder="Spotify URL" oninput="updatePreview()">
                     </div>
                     <div class="input-group">
                         <label for="link-apple">Apple Music Link</label>
-                        <input type="text" id="link-apple" class="input-field" placeholder="https://apple.com/..." oninput="updatePreview()">
+                        <input type="text" id="link-apple" class="input-field" placeholder="Apple Music URL" oninput="updatePreview()">
                     </div>
                     <div class="input-group">
                         <label for="link-youtube">YouTube Link</label>
-                        <input type="text" id="link-youtube" class="input-field" placeholder="https://youtube.com/..." oninput="updatePreview()">
+                        <input type="text" id="link-youtube" class="input-field" placeholder="YouTube URL" oninput="updatePreview()">
                     </div>
                     <div class="input-group">
                         <label for="link-amazon">Amazon Music Link</label>
-                        <input type="text" id="link-amazon" class="input-field" placeholder="https://amazon.com/..." oninput="updatePreview()">
+                        <input type="text" id="link-amazon" class="input-field" placeholder="Amazon URL" oninput="updatePreview()">
                     </div>
                 </div>
+
+                <!-- 4. Add Custom Platform Block -->
+                <div class="custom-platform-box">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">Add Custom/Alternative Platform</h4>
+                    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 0.8rem; margin-bottom: 1rem;">
+                        <input type="text" id="cust-name" class="input-field" placeholder="Platform Name (e.g., Bandcamp)">
+                        <input type="text" id="cust-url" class="input-field" placeholder="Platform Link">
+                        <input type="text" id="cust-logo" class="input-field" placeholder="Logo Image URL">
+                    </div>
+                    <button class="secondary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;" onclick="addCustomPlatform()">+ Add Custom Platform</button>
+                </div>
+
             </div>
 
             <!-- Ad Slot Placeholder -->
@@ -441,10 +513,7 @@
                     </div>
                     
                     <div class="mockup-links-list" id="prev-links">
-                        <a href="#" class="mockup-btn" id="btn-spotify">Listen on Spotify</a>
-                        <a href="#" class="mockup-btn" id="btn-apple">Listen on Apple Music</a>
-                        <a href="#" class="mockup-btn" id="btn-youtube">Watch on YouTube</a>
-                        <a href="#" class="mockup-btn" id="btn-amazon">Listen on Amazon Music</a>
+                        <!-- Dynamic buttons will render here -->
                     </div>
                 </div>
             </div>
@@ -456,43 +525,142 @@
         <p>&copy; 2026 Heartscript Studios. Built for independent creators. | <a href="/privacy-policy/" style="color: var(--text-muted);">Privacy Policy</a> | <a href="/terms-of-service/" style="color: var(--text-muted);">Terms of Service</a></p>
     </footer>
 
-    <!-- Interactive script to sync fields with the smartphone visualization instantly -->
     <script>
+        // Array to store custom platforms added by the user
+        let customPlatforms = [];
+
+        // Standalone logos for default platforms
+        const defaultLogos = {
+            spotify: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+            itunes: "https://upload.wikimedia.org/wikipedia/commons/d/df/Apple_Music_logo.svg",
+            youtube: "https://upload.wikimedia.org/wikipedia/commons/archive/0/09/20211015074818%21YouTube_full-color_icon_%282017%29.svg",
+            amazonMusic: "https://upload.wikimedia.org/wikipedia/commons/0/00/Amazon_Music_logo_2021.svg"
+        };
+
+        // Fetch music platform links from Songlink/Odesli API
+        async function fetchSongDetails() {
+            const inputUrl = document.getElementById('magic-link').value.trim();
+            if (!inputUrl) {
+                alert("Please paste a song link first!");
+                return;
+            }
+
+            const spinner = document.getElementById('loading-spinner');
+            spinner.style.display = 'block';
+
+            try {
+                const encodedUrl = encodeURIComponent(inputUrl);
+                const apiUrl = `https://api.song.link/v1-alpha.1/links?url=${encodedUrl}`;
+                
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("Could not fetch release coordinates.");
+
+                const data = await response.json();
+                
+                // Extract song details from the match details
+                const firstEntityKey = data.entityUniqueIds[0];
+                const songMeta = data.entitiesByUniqueId[firstEntityKey];
+
+                if (songMeta) {
+                    document.getElementById('artist-name').value = songMeta.artistName || "";
+                    document.getElementById('track-title').value = songMeta.title || "";
+                    document.getElementById('cover-art').value = songMeta.thumbnailUrl || "";
+                }
+
+                // Populate dynamic platform links
+                const links = data.linksByPlatform;
+                document.getElementById('link-spotify').value = links.spotify ? links.spotify.url : "";
+                document.getElementById('link-apple').value = links.itunes ? links.itunes.url : "";
+                document.getElementById('link-youtube').value = links.youtube ? links.youtube.url : "";
+                document.getElementById('link-amazon').value = links.amazonMusic ? links.amazonMusic.url : "";
+
+                updatePreview();
+            } catch (error) {
+                alert("Failed to auto-fetch. Please verify the URL or input manually.");
+                console.error(error);
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        // Add user-defined platforms dynamically
+        function addCustomPlatform() {
+            const name = document.getElementById('cust-name').value.trim();
+            const url = document.getElementById('cust-url').value.trim();
+            const logo = document.getElementById('cust-logo').value.trim() || "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD_icon.svg";
+
+            if (!name || !url) {
+                alert("Please fill in both the Platform Name and Platform Link!");
+                return;
+            }
+
+            customPlatforms.push({ name, url, logo });
+
+            // Clear custom inputs
+            document.getElementById('cust-name').value = "";
+            document.getElementById('cust-url').value = "";
+            document.getElementById('cust-logo').value = "";
+
+            updatePreview();
+        }
+
+        // Render preview inside the smartphone mockup
         function updatePreview() {
-            // Text Inputs
             const artist = document.getElementById('artist-name').value || 'Velvet Solar System';
             const track = document.getElementById('track-title').value || 'Synthetic Dreams';
             const cover = document.getElementById('cover-art').value;
 
-            // Update Preview Text Elements
             document.getElementById('prev-artist').innerText = artist;
             document.getElementById('prev-track').innerText = track;
 
-            // Image Update
             const avatar = document.getElementById('prev-avatar');
-            if(cover && cover.trim() !== "") {
+            if (cover && cover.trim() !== "") {
                 avatar.style.backgroundImage = `url('${cover}')`;
             } else {
                 avatar.style.backgroundImage = 'none';
             }
 
-            // Button visibility configurations
-            toggleBtn('link-spotify', 'btn-spotify', 'Listen on Spotify');
-            toggleBtn('link-apple', 'btn-apple', 'Listen on Apple Music');
-            toggleBtn('link-youtube', 'btn-youtube', 'Watch on YouTube');
-            toggleBtn('link-amazon', 'btn-amazon', 'Listen on Amazon Music');
+            // Rebuild mockup links list dynamically
+            const listContainer = document.getElementById('prev-links');
+            listContainer.innerHTML = "";
+
+            // 1. Add Default platform buttons if their inputs are not empty
+            addPlatformButton(listContainer, 'link-spotify', 'Spotify', defaultLogos.spotify);
+            addPlatformButton(listContainer, 'link-apple', 'Apple Music', defaultLogos.itunes);
+            addPlatformButton(listContainer, 'link-youtube', 'YouTube', defaultLogos.youtube);
+            addPlatformButton(listContainer, 'link-amazon', 'Amazon Music', defaultLogos.amazonMusic);
+
+            // 2. Add Custom user-defined platform buttons
+            customPlatforms.forEach(platform => {
+                const linkElement = document.createElement('a');
+                linkElement.href = platform.url;
+                linkElement.target = "_blank";
+                linkElement.className = "mockup-btn";
+                linkElement.innerHTML = `
+                    <span>Listen on ${platform.name}</span>
+                    <img class="platform-logo" src="${platform.logo}" alt="${platform.name}">
+                `;
+                listContainer.appendChild(linkElement);
+            });
         }
 
-        function toggleBtn(inputId, btnId, defaultText) {
-            const val = document.getElementById(inputId).value;
-            const btn = document.getElementById(btnId);
-            if(val && val.trim() !== "") {
-                btn.href = val;
-                btn.style.display = 'block';
-            } else {
-                btn.style.display = 'block'; // Keep elements visible for mockup aesthetic, toggle links
+        function addPlatformButton(container, inputId, label, logoUrl) {
+            const url = document.getElementById(inputId).value.trim();
+            if (url) {
+                const linkElement = document.createElement('a');
+                linkElement.href = url;
+                linkElement.target = "_blank";
+                linkElement.className = "mockup-btn";
+                linkElement.innerHTML = `
+                    <span>Listen on ${label}</span>
+                    <img class="platform-logo" src="${logoUrl}" alt="${label}">
+                `;
+                container.appendChild(linkElement);
             }
         }
+
+        // Run initial preview on load
+        updatePreview();
     </script>
 </body>
 </html>
