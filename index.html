@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Official Profile | Heartscript Studios</title>
     <style>
-        /* Base Reset & Studio Theme */
+        /* Core Reset & Global Dark Theme Styling */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -16,253 +16,302 @@
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            padding-bottom: 80px;
+            padding-bottom: 100px;
         }
         a {
             text-decoration: none;
             color: inherit;
         }
 
-        /* Navigation Header */
+        /* Premium Top Header Navigation bar */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 4%;
+            padding: 25px 6%;
             background-color: #000000;
-            border-bottom: 1px solid #111111;
+            border-bottom: 1px solid #141414;
         }
         .logo {
             color: #a855f7;
-            font-weight: bold;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 35px;
         }
         nav ul li a {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #aaaaaa;
+            font-weight: 500;
             transition: color 0.2s ease;
         }
         nav ul li a:hover, nav ul li a.active {
             color: #06b6d4;
         }
 
-        /* Two-Column Layout Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 4%;
+        /* Widescreen Layout Grid Config */
+        .wrapper {
+            max-width: 1350px;
+            margin: 50px auto;
+            padding: 0 6%;
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 40px;
+            grid-template-columns: 1fr 350px;
+            gap: 60px;
         }
 
-        /* Left Main Content Column */
-        .main-content {
+        /* Left Main Content Layout Column */
+        .content-area {
             min-width: 0;
         }
-
-        /* Hero Text */
-        .hero-title {
-            font-size: 2.5rem;
+        .main-title {
+            font-size: 2.8rem;
             font-weight: 800;
             letter-spacing: -1px;
             margin-bottom: 5px;
             color: #ffffff;
         }
-        .hero-subtitle {
-            color: #666666;
-            font-size: 0.75rem;
+        .main-subtitle {
+            color: #555555;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+        .bio-lead {
+            color: #cccccc;
+            font-size: 1.05rem;
+            line-height: 1.75;
             margin-bottom: 30px;
         }
-
-        /* Table of Contents Box */
-        .toc-box {
-            background-color: #0c0c0c;
-            border: 1px solid #1a1a1a;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 40px;
+        .bio-lead a {
+            color: #06b6d4;
+            border-bottom: 1px dashed #06b6d4;
         }
-        .toc-title {
+
+        /* Quick Navigation Box Layout */
+        .navigation-box {
+            background-color: #090909;
+            border: 1px solid #1a1a1a;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 35px 0 45px 0;
+        }
+        .navigation-box-title {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666666;
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            color: #555555;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
-        .toc-list {
+        .navigation-links {
             list-style: none;
         }
-        .toc-list li {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+        .navigation-links li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
         }
-        .toc-list li a {
+        .navigation-links li:last-child {
+            margin-bottom: 0;
+        }
+        .navigation-links li a {
             color: #06b6d4;
             transition: opacity 0.2s;
         }
-        .toc-list li a:hover {
+        .navigation-links li a:hover {
             opacity: 0.8;
         }
 
-        /* Section Headings */
-        .section-header {
-            font-size: 1.2rem;
+        /* Document Section Headers with Border Divider lines */
+        .block-header {
+            font-size: 1.3rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #1c1c1c;
-            padding-bottom: 8px;
+            letter-spacing: 1.5px;
+            margin-top: 50px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid #161616;
+            padding-bottom: 10px;
             font-weight: 700;
         }
-        .purple-text { color: #a855f7; }
-        .cyan-text { color: #06b6d4; }
+        .purple-accent { color: #a855f7; }
+        .cyan-accent { color: #06b6d4; }
 
-        /* General Description Paragraphs */
-        .desc-text {
-            color: #cccccc;
+        /* Traditional Profile Body Paragraphs */
+        .body-paragraph {
+            color: #b5b5b5;
             font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.75;
+            margin-bottom: 25px;
         }
 
-        /* Discography Track Rows */
-        .track-row {
-            background-color: #0c0c0c;
-            border: 1px solid #1e1e1e;
-            padding: 20px 25px;
+        /* Discography Rows Architecture */
+        .media-row {
+            background-color: #080808;
+            border: 1px solid #181818;
+            padding: 24px 30px;
             border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 15px;
+            gap: 30px;
+            margin-bottom: 18px;
         }
-        .track-info h4 {
-            font-size: 1.1rem;
+        .media-details h4 {
+            font-size: 1.15rem;
             color: #a855f7;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-weight: 600;
         }
-        .track-info p {
-            color: #aaaaaa;
-            font-size: 0.9rem;
+        .media-details p {
+            color: #999999;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
-        .btn-track {
+        .media-action-btn {
             border: 1px solid #06b6d4;
             color: #06b6d4;
-            padding: 8px 16px;
+            padding: 9px 20px;
             border-radius: 4px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             white-space: nowrap;
             transition: background-color 0.2s, color 0.2s;
+            background: transparent;
+            cursor: pointer;
         }
-        .btn-track:hover {
+        .media-action-btn:hover {
             background-color: #06b6d4;
             color: #000000;
         }
 
-        /* Right Sidebar Column */
-        .sidebar {
+        /* Right Column Sidebar Panel Layout */
+        .sidebar-panel {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
         }
-        .sidebar-card {
-            background-color: #0c0c0c;
-            border: 1px solid #1a1a1a;
-            padding: 25px;
+        .profile-card {
+            background-color: #080808;
+            border: 1px solid #161616;
+            padding: 30px;
             border-radius: 6px;
         }
-        .sidebar-profile-title {
+        .profile-card-header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .sidebar-profile-title h3 {
-            font-size: 1.2rem;
+        .profile-card-header h3 {
+            font-size: 1.3rem;
             color: #ffffff;
+            font-weight: 700;
         }
-        .sidebar-profile-title span {
+        .profile-card-header span {
             color: #a855f7;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             display: block;
-            margin-top: 2px;
+            margin-top: 4px;
+            font-weight: 600;
         }
-        .profile-img-placeholder {
+        
+        /* The Graphic Logo Box inside Sidebar */
+        .avatar-box {
             width: 100%;
             aspect-ratio: 1;
-            background-color: #111111;
-            border: 1px solid #222222;
+            background-color: #0c0c0c;
+            border: 1px solid #1c1c1c;
             border-radius: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #444444;
-            font-size: 2rem;
         }
-        .meta-list {
-            list-style: none;
-            font-size: 0.85rem;
-            color: #aaaaaa;
-        }
-        .meta-list li {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed #1c1c1c;
-            padding-bottom: 6px;
-        }
-        .meta-list li span:first-child {
-            color: #666666;
-        }
-        .meta-list li span:last-child {
-            color: #ffffff;
-            font-weight: 500;
-        }
-        
-        /* Stats / Milestone Box */
-        .stats-box {
-            text-align: center;
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            background: rgba(6, 182, 212, 0.02);
-        }
-        .stats-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666666;
-            margin-bottom: 5px;
-        }
-        .stats-number {
-            font-size: 1.5rem;
+        .avatar-box span {
+            color: #a855f7;
             font-weight: 800;
-            color: #06b6d4;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 900px) {
-            .container {
+        /* Sidebar Meta Data Table Rows */
+        .metadata-table {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+        .metadata-table li {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #181818;
+            padding-bottom: 8px;
+        }
+        .metadata-table li:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .metadata-table li .label {
+            color: #555555;
+            font-weight: 600;
+        }
+        .metadata-table li .val {
+            color: #dddddd;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* Channel Milestone Reach Container */
+        .milestone-box {
+            background-color: #080808;
+            border: 1px solid #161616;
+            padding: 30px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .milestone-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #555555;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .milestone-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #06b6d4;
+            letter-spacing: -0.5px;
+        }
+        .milestone-subtext {
+            font-size: 0.75rem;
+            color: #555555;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Full Responsive Configurations */
+        @media (max-width: 992px) {
+            .wrapper {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
             header {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
                 text-align: center;
+            }
+            .main-title {
+                font-size: 2.2rem;
             }
         }
     </style>
@@ -283,21 +332,21 @@
     </header>
 
     <!-- Main Grid Container -->
-    <div class="container">
+    <div class="wrapper">
         
-        <!-- Left Column: Biography & Sections -->
-        <main class="main-content">
-            <h1 class="hero-title">Mohammad Shafiuddeen (Shafi)</h1>
-            <p class="hero-subtitle">Founder | Songwriter | Director | Artist</p>
+        <!-- Left Column: Biography Content Panels -->
+        <main class="content-area">
+            <h1 class="main-title">Mohammad Shafiuddeen (Shafi)</h1>
+            <p class="main-subtitle">Founder | Songwriter | Director | Artist</p>
 
-            <p class="desc-text">
-                Mohammad Shafiuddeen (born 1985), known professionally as Shafi, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the founder and director of Heartscript Studios, a creative hub specializing in dark pop, alt-pop, and atmospheric acoustic ballads. He manages complete video production timelines, combining original songwriting scripts with generative video frameworks to build detailed, multi-sensory cinematic worlds.
+            <p class="bio-lead">
+                Mohammad Shafiuddeen (born 1985), known professionally as Shafi, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the founder and director of <a href="portfolio.html">Heartscript Studios</a>, a decentralized creative hub specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Shafi orchestrates complete media production timelines, combining original lyric frameworks with modern video synthesis architectures to translate raw psychological themes directly into fully realized multi-sensory worlds.
             </p>
 
-            <!-- Table of Contents -->
-            <div class="toc-box">
-                <div class="toc-title">On This Page</div>
-                <ul class="toc-list">
+            <!-- Table of Contents Quick Nav -->
+            <div class="navigation-box">
+                <div class="navigation-box-title">Quick Navigation</div>
+                <ul class="navigation-links">
                     <li><a href="#early-life">1. Early Life & Emotional Genesis (2012)</a></li>
                     <li><a href="#founding">2. Founding of Heartscript Studios (2025)</a></li>
                     <li><a href="#philosophy">3. Creative Philosophy & Technical Workflow</a></li>
@@ -306,97 +355,97 @@
             </div>
 
             <!-- Section 1 -->
-            <h2 id="early-life" class="section-header purple-text">1. Early Life & Emotional Genesis (2012)</h2>
-            <p class="desc-text">
-                Shafi’s creative work began over a decade ago, driven by a deep personal interest in lyric writing as an authentic outlet to capture and process emotional experiences. What started as raw text concepts written down during moments of isolation grew into the foundational structure for Heartscript Studios. This creative background underpins his commitment to making music that centers completely around storytelling and vulnerable human dynamics.
+            <h2 id="early-life" class="block-header purple-accent">1. Early Life & Emotional Genesis (2012)</h2>
+            <p class="body-paragraph">
+                Shafi's relationship with music creation began over a decade ago, driven by a deep personal interest in lyric writing as an authentic internal outlet to capture and process emotional landscapes. What started as raw text concepts tracked down on paper during periods of isolation served as the formal framework for his current production structures. This background establishes his dedication to composing arrangements that value narrative intimacy and human storytelling above generic trends.
             </p>
 
             <!-- Section 2 -->
-            <h2 id="founding" class="section-header purple-text">2. Founding of Heartscript Studios (2025)</h2>
-            <p class="desc-text">
-                Formally established to bring these conceptual blueprints to life, Heartscript Studios serves as an independent creative house. By building specialized workflows that pair lyric composition with automated media synthesis tools, the studio translates song concepts into complete streaming assets. The studio framework functions as a modern hub managing end-to-end music orchestration alongside matching visual assets.
+            <h2 id="founding" class="block-header purple-accent">2. Founding of Heartscript Studios (2025)</h2>
+            <p class="body-paragraph">
+                Formally established to merge these conceptual scripts with active audio-visual delivery systems, Heartscript Studios serves as Shafi's primary independent release ecosystem. By creating specialized pipelines that map custom song layouts alongside automated media rendering technologies, the studio maintains an agile workspace capable of shifting musical files from raw draft structures into global public catalog entries smoothly.
             </p>
 
             <!-- Section 3 -->
-            <h2 id="philosophy" class="section-header cyan-text">3. Creative Philosophy & Technical Workflow</h2>
-            <p class="desc-text">
-                The core studio ethos focuses on translating pure internal states into precise creative outputs. The pipeline pairs traditional songwriting arrangements with advanced generative software configurations. By matching vocal structures with custom visual elements through tools like Google Veo and Suno, the studio builds distinct, moody environments that maintain a coherent artistic direction across all digital streaming directories.
+            <h2 id="philosophy" class="block-header cyan-accent">3. Creative Philosophy & Technical Workflow</h2>
+            <p class="body-paragraph">
+                The core studio methodology focuses on translating distinct internal emotional layers into rigorous production outputs. The workflow effectively fuses traditional song design principles with modern computational synthesis assets. By synchronizing specific vocal structures with custom visual worlds utilizing advanced tools like Google Veo and Suno, the project guarantees a precise, atmospheric cinematic presentation across all streaming media directories.
             </p>
 
             <!-- Section 4 -->
-            <h2 id="discography" class="section-header cyan-text">4. Discography & Featured Tracks</h2>
+            <h2 id="discography" class="block-header cyan-accent">4. Discography & Featured Tracks</h2>
             
-            <div class="track-row">
-                <div class="track-info">
+            <div class="media-row">
+                <div class="media-details">
                     <h4>Shikayaton Ka Safar</h4>
-                    <p>An acoustic pop ballad tracing emotional distance through delicate string arrangements and clean narrative lyric lines.</p>
+                    <p>An acoustic pop ballad tracking themes of internal dialogue and processing distance via warm, minimal string elements.</p>
                 </div>
-                <a href="#" class="btn-track">Listen Now</a>
+                <button class="media-action-btn">Listen Now</button>
             </div>
 
-            <div class="track-row">
-                <div class="track-info">
+            <div class="media-row">
+                <div class="media-details">
                     <h4>Blind To The Game</h4>
-                    <p>A moody alt-pop production exploring themes of isolation using deep synthesized ambient layers and textured background vocals.</p>
+                    <p>A moody alt-pop arrangement dealing with emotional isolation through detailed synth patches and complex vocal layers.</p>
                 </div>
-                <a href="#" class="btn-track">Listen Now</a>
+                <button class="media-action-btn">Listen Now</button>
             </div>
 
-            <div class="track-row">
-                <div class="track-info">
+            <div class="media-row">
+                <div class="media-details">
                     <h4>DEVOTION</h4>
-                    <p>An aggressive dark pop framework combining electronic drum rhythms with high-contrast vocal patterns.</p>
+                    <p>An uptempo dark pop track highlighting structured synthetic percussion pacing and intense vocal dynamics.</p>
                 </div>
-                <a href="#" class="btn-track">Listen Now</a>
+                <button class="media-action-btn">Listen Now</button>
             </div>
 
-            <div class="track-row">
-                <div class="track-info">
+            <div class="media-row">
+                <div class="media-details">
                     <h4>Gunaah</h4>
-                    <p>A slow-tempo cinematic composition tracking character vulnerability across atmospheric soundscapes.</p>
+                    <p>A down-tempo cinematic piece tracking structural character vulnerabilities against spacious audio backgrounds.</p>
                 </div>
-                <a href="#" class="btn-track">Listen Now</a>
+                <button class="media-action-btn">Listen Now</button>
             </div>
 
-            <div class="track-row">
-                <div class="track-info">
+            <div class="media-row">
+                <div class="media-details">
                     <h4>Humdard (Phonk Fusion Remix)</h4>
-                    <p>An experimental track fusing classical acoustic elements with heavy sub-bass rhythmic grids.</p>
+                    <p>An experimental framework fusing organic acoustic wood elements with aggressive sub-bass rhythm lines.</p>
                 </div>
-                <a href="#" class="btn-track">Listen Now</a>
+                <button class="media-action-btn">Listen Now</button>
             </div>
 
         </main>
 
-        <!-- Right Column: Sidebar Profiles -->
-        <aside class="sidebar">
+        <!-- Right Column: Sidebar Panels Section -->
+        <aside class="sidebar-panel">
             
-            <!-- Profile Info Card -->
-            <div class="sidebar-card">
-                <div class="sidebar-profile-title">
+            <!-- Artist Profile Metadata Block -->
+            <div class="profile-card">
+                <div class="profile-card-header">
                     <h3>Shafi</h3>
                     <span>Artist Profile</span>
                 </div>
                 
-                <!-- SVG / Styled Graphic Box matching your layout image -->
-                <div class="profile-img-placeholder">
-                    <span style="color: #a855f7; font-weight: bold; letter-spacing: 2px;">HS</span>
+                <!-- High-Impact Graphic Logo Box Container -->
+                <div class="avatar-box">
+                    <span>HS</span>
                 </div>
 
-                <ul class="meta-list">
-                    <li><span>Director</span> <span>Heartscript Studios</span></li>
-                    <li><span>Born</span> <span>1985 (Age 41)</span></li>
-                    <li><span>Based In</span> <span>Hyderabad, India</span></li>
-                    <li><span>Focus</span> <span>Dark Pop & Alt-Pop</span></li>
-                    <li><span>Distribution</span> <span>Spotify / YouTube</span></li>
+                <ul class="metadata-table">
+                    <li><span class="label">Director</span> <span class="val">Heartscript Studios</span></li>
+                    <li><span class="label">Born</span> <span class="val">1985 (Age 41)</span></li>
+                    <li><span class="label">Based In</span> <span class="val">Hyderabad, India</span></li>
+                    <li><span class="label">Focus</span> <span class="val">Dark Pop & Alt-Pop</span></li>
+                    <li><span class="label">Distribution</span> <span class="val">Spotify / YouTube</span></li>
                 </ul>
             </div>
 
-            <!-- Milestones Stats Card -->
-            <div class="sidebar-card stats-box">
-                <div class="stats-title">YouTube Reach</div>
-                <div class="stats-number">50,000+</div>
-                <div style="font-size: 0.7rem; color: #666; margin-top: 4px; uppercase; letter-spacing: 0.5px;">Channel Video Views</div>
+            <!-- Channel Stats Milestone Tracker Card -->
+            <div class="milestone-box">
+                <div class="milestone-label">YouTube Reach</div>
+                <div class="milestone-value">50,000+</div>
+                <div class="milestone-subtext">Channel Video Views</div>
             </div>
 
         </aside>
