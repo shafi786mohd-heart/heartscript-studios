@@ -1,8 +1,0 @@
-{
-  "name": "Heartscript Studios",
-  "description": "Premium music production house dashboard featuring dark pop, alt-pop, and atmospheric acoustic ballads.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
