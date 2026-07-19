@@ -71,13 +71,13 @@
     <header>
         <div class="logo">Heartscript Studios</div>
         <nav>
-            <ul>
-                <li><a href="index.php" class="active">Official Profile</a></li>
-                <li><a href="portfolio.php">Services & Music</a></li>
-                <li><a href="blog.php">Artist Blog</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
-        </nav>
+    <ul>
+        <li><a href="index.php">Official Profile</a></li>
+        <li><a href="portfolio.php">Services & Music</a></li>
+        <li><a href="blog.php">Artist Blog</a></li>
+        <li><a href="contact.php" class="active">Contact Us</a></li>
+    </ul>
+</nav>
     </header>
     <div class="wrapper">
         <main class="content-area">
