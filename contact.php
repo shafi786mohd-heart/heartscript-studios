@@ -14,7 +14,7 @@
     <!-- NAVIGATION BAR -->
     <nav class="border-b border-zinc-800 bg-zinc-900/90 backdrop-blur-md fixed w-full z-50 top-0 left-0">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold tracking-wider text-purple-500 glow-purple">HEARTSCRIPT STUDIOS</a>
+            <a href="index.php" class="text-xl font-bold tracking-wider text-purple-500 glow-purple">HEARTSCRIPT STUDIOS</a>
             <div class="space-x-6">
                 <a href="index.php" class="hover:text-purple-400 font-medium transition">Official Profile</a>
                 <a href="portfolio.php" class="hover:text-purple-400 font-medium transition">Services & Music</a>
