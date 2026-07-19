@@ -134,7 +134,7 @@
                 <h4>Blind To The Game (Official Release)</h4>
                 <p>A primary production exploration targeting the raw psychology of emotional isolation, balancing unique synth layers combined with urgent vocal frequencies to emphasize deep storytelling architecture.</p>
             </div>
-            <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="action-link">View Project Materials &rarr;</a>
+            <a href="https://youtu.be/jbFDop09as4?si=PqjoGkKYiiWOH4MR" target="_blank" class="action-link">View Project Materials &rarr;</a>
         </div>
 
         <div class="breakdown-row">
@@ -143,7 +143,7 @@
                 <h4>Hamdard (Dark Pop Fusion Remix)</h4>
                 <p>An experimental production scheme fusing organic acoustic string frames directly with intense aggressive sub-bass modulations, validation processing, and master routing capabilities.</p>
             </div>
-            <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="action-link">Review Sound Structure &rarr;</a>
+            <a href="https://youtu.be/4Mzou4mNc_A?si=q6ZFVtERJ1rzc-dI" target="_blank" class="action-link">Review Sound Structure &rarr;</a>
         </div>
 
     </div>
