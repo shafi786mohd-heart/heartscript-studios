@@ -84,7 +84,7 @@
             <h1 class="main-title">Mohammad Shafiuddeen (Shafi)</h1>
             <p class="main-subtitle">Founder | Songwriter | Director | Artist</p>
             <p class="bio-lead">
-                Mohammad Shafiuddeen (born 1985), known professionally as Shafi, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the founder and director of <a href="portfolio.html">Heartscript Studios</a>, a decentralized creative hub specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Shafi orchestrates complete media production timelines, combining original lyric frameworks with modern video synthesis architectures to translate raw psychological themes directly into fully realized multi-sensory worlds.
+                Mohammad Shafiuddeen (born 1985), known professionally as Shafi, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the founder and director of <a href="portfolio.php">Heartscript Studios</a>, a decentralized creative hub specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Shafi orchestrates complete media production timelines, combining original lyric frameworks with modern video synthesis architectures to translate raw psychological themes directly into fully realized multi-sensory worlds.
             </p>
             <div class="navigation-box">
                 <div class="navigation-box-title">System Directory</div>
