@@ -15,9 +15,9 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies & Compile React
+      - name: Clean and Compile React App
         run: |
-          rm -f package-lock.json
+          rm -rf node_modules package-lock.json
           npm install --include=optional
           npm run build
 
