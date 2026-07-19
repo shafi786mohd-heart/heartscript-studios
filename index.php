@@ -9,7 +9,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
     <style>
-        /* Core Reset & Global Dark Theme Styling */
+        /* Premium Studio Design Engine & Cyber Resets */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -194,7 +194,7 @@
             transform: translateX(4px);
         }
 
-        /* Section Headers */
+        /* Next-Level Section Headers */
         .block-header {
             font-size: 1.4rem;
             text-transform: uppercase;
@@ -257,7 +257,7 @@
             line-height: 1.6;
         }
         
-        /* FIXED: Action Links Styled as Premium Buttons */
+        /* Action Links Styled as Premium Buttons */
         .media-action-link {
             border: 1px solid rgba(6, 182, 212, 0.3);
             color: #06b6d4;
@@ -515,9 +515,9 @@
         <nav>
             <ul>
                 <li><a href="index.php" class="active">Official Profile</a></li>
-                <li><a href="portfolio.php">Services & Music</a></li>
-                <li><a href="blog.php">Artist Blog</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="portfolio.html">Services & Music</a></li>
+                <li><a href="blog.html">Artist Blog</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </nav>
     </header>
@@ -525,7 +525,7 @@
     <!-- Main Flexbox Wrapper Framework -->
     <div class="wrapper">
         
-        <!-- Left Column -->
+        <!-- Left Column: Primary Studio Narrative Panels -->
         <main class="content-area">
             <h1 class="main-title">Mohammad Shafiuddeen (Shafi)</h1>
             <p class="main-subtitle">Founder | Songwriter | Director | Artist</p>
@@ -534,7 +534,7 @@
                 Mohammad Shafiuddeen (born 1985), known professionally as Shafi, is an Indian independent sound designer, creative director, and writer based in Hyderabad, Telangana. He is the founder and director of <a href="portfolio.html">Heartscript Studios</a>, a decentralized creative hub specializing in dark pop, alt-pop, and atmospheric acoustic ballads. Shafi orchestrates complete media production timelines, combining original lyric frameworks with modern video synthesis architectures to translate raw psychological themes directly into fully realized multi-sensory worlds.
             </p>
 
-            <!-- Table of Contents Directory -->
+            <!-- Table of Contents Quick Navigation Dashboard -->
             <div class="navigation-box">
                 <div class="navigation-box-title">System Directory</div>
                 <ul class="navigation-links">
@@ -560,13 +560,12 @@
             <!-- Section 3 -->
             <h2 id="philosophy" class="block-header cyan-accent">3. Creative Philosophy & Technical Workflow</h2>
             <p class="body-paragraph">
-                The core studio methodology focuses on translating distinct internal emotional layers into rigorous production outputs. The workflow effectively fuses traditional song design principles with modern computational synthesis assets. By synchronizing specific vocal structures with custom visual worlds utilizing advanced tools like Google Veo and Suno, the project guarantees a precise, atmospheric cinematic presentation across all streaming media directories.
+                The core studio methodology focuses on translating distinct internal emotional layers into rigorous production outputs. The workflow effectively fuses traditional song design principles with modern computational synthesis assets. By synchronizing specific vocal structures with custom visual worlds utilizing advanced generative tools, the project guarantees a precise, atmospheric cinematic presentation across all streaming media directories.
             </p>
 
             <!-- Section 4 -->
             <h2 id="discography" class="block-header cyan-accent">4. Discography & Featured Tracks</h2>
             
-            <!-- FIXED LINK 1: Replace placeholder with exact track link if needed -->
             <div class="media-row">
                 <div class="media-details">
                     <h4>Shikayaton Ka Safar</h4>
@@ -575,7 +574,6 @@
                 <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="media-action-link">Watch Now</a>
             </div>
 
-            <!-- FIXED LINK 2 -->
             <div class="media-row">
                 <div class="media-details">
                     <h4>Blind To The Game</h4>
@@ -584,7 +582,6 @@
                 <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="media-action-link">Watch Now</a>
             </div>
 
-            <!-- FIXED LINK 3 -->
             <div class="media-row">
                 <div class="media-details">
                     <h4>DEVOTION</h4>
@@ -593,7 +590,6 @@
                 <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="media-action-link">Watch Now</a>
             </div>
 
-            <!-- FIXED LINK 4 -->
             <div class="media-row">
                 <div class="media-details">
                     <h4>Gunaah</h4>
@@ -602,7 +598,6 @@
                 <a href="https://www.youtube.com/@HeartscriptStudiosOfficial" target="_blank" class="media-action-link">Watch Now</a>
             </div>
 
-            <!-- FIXED LINK 5 -->
             <div class="media-row">
                 <div class="media-details">
                     <h4>Humdard (Phonk Fusion Remix)</h4>
@@ -618,10 +613,10 @@
 
         </main>
 
-        <!-- Right Side Sidebar Column -->
+        <!-- Right Side: Sidebar Status Panels -->
         <aside class="sidebar-panel">
             
-            <!-- Profile Metadata Card -->
+            <!-- Artist Profile Metadata Panel -->
             <div class="profile-card">
                 <div class="profile-card-header">
                     <h3>Shafi</h3>
@@ -642,7 +637,7 @@
                 </ul>
             </div>
 
-            <!-- Metrics Box -->
+            <!-- Triple Platform Streaming Metrics Display -->
             <div class="milestone-box">
                 <div class="milestone-label">Data Metrics</div>
                 
@@ -662,7 +657,7 @@
                 </div>
             </div>
 
-            <!-- Vertical Skyscraper Ad Wireframe -->
+            <!-- Sidebar Vertical Skyscraper Ad Wireframe -->
             <div class="sidebar-ad-box">
                 Advertisement Space (Vertical Skyscraper Unit)
             </div>
@@ -671,14 +666,14 @@
 
     </div>
 
-    <!-- Compliant Studio Footer -->
+    <!-- DYNAMIC DATED STUDIO FOOTER CONTAINER -->
     <footer>
         <div class="footer-container">
             <div class="footer-copyright">
-                &copy; 2026 <span class="footer-brand-name">Heartscript Studios</span>. All rights reserved.
+                &copy; <?php echo date('Y'); ?> <span class="footer-brand-name">Heartscript Studios</span>. All rights reserved.
             </div>
             <div class="footer-nav">
-                <a href="index.html">Official Profile</a>
+                <a href="index.php">Official Profile</a>
                 <a href="privacy.html">Privacy Policy</a>
             </div>
         </div>
@@ -686,4 +681,3 @@
 
 </body>
 </html>
-Change home page to PHP
