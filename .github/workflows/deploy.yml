@@ -17,7 +17,8 @@ jobs:
 
       - name: Install Dependencies & Compile React
         run: |
-          npm install
+          rm -f package-lock.json
+          npm install --include=optional
           npm run build
 
       - name: Sync Files to Hostinger via FTP
