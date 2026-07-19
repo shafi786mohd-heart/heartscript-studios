@@ -16,10 +16,10 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold tracking-wider text-purple-500 glow-purple">HEARTSCRIPT STUDIOS</a>
             <div class="space-x-6">
-                <a href="index.html" class="hover:text-purple-400 font-medium transition">Official Profile</a>
-                <a href="portfolio.html" class="hover:text-purple-400 font-medium transition">Services & Music</a>
-                <a href="blog.html" class="hover:text-purple-400 font-medium transition">Artist Blog</a>
-                <a href="contact.html" class="text-cyan-400 font-medium transition">Contact Us</a>
+                <a href="index.php" class="hover:text-purple-400 font-medium transition">Official Profile</a>
+                <a href="portfolio.php" class="hover:text-purple-400 font-medium transition">Services & Music</a>
+                <a href="blog.php" class="hover:text-purple-400 font-medium transition">Artist Blog</a>
+                <a href="contact.php" class="text-cyan-400 font-medium transition">Contact Us</a>
             </div>
         </div>
     </nav>
